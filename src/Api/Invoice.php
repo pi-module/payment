@@ -79,4 +79,24 @@ class Invoice extends AbstractApi
         }
         return $invoice;
     }
+
+    public function updateInvoice($id)
+    {
+        $invoice = '';
+        $row = Pi::model('invoice', $this->getModule())->find($id);
+        if (is_object($row)) {
+            // Do something
+            $row->save();
+            $invoice = $row->toArray();
+        }
+        return $invoice;
+    }
+
+    public function updateModuleInvoice($invoice)
+    {
+        return Pi::api($invoice['module'], $invoice['part'])->updatePayment(
+            $invoice['item'], 
+            $invoice['amount'], 
+            $invoice['adapter']);
+    }
 }	

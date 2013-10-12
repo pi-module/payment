@@ -1,0 +1,83 @@
+### Step 1
+On your module, on last level of order you should make invoice for user on payment module. for create invoice you can use module Api :
+
+```
+$invoice = Pi::api('payment', 'invoice')->createInvoice($module, $part, $item, $amount, $adapter, $description);
+```
+$invoice is array whit some parameters :
+* $invoice['status'] : 0 or 1 , if status is 1 , your invoice create successfully.
+* $invoice['message'] : if you want show message to your user
+* $invoice['invoice_url'] : invoice url for redirect user to pay invoice page
+
+And you should set some parameters for create invoice : 
+* $module : module name , for example shop
+* $part : part of module , for example Shopping Cart Or Basket on shop module on ordering
+* $item : part item, for example order id on shop module
+* $amount : order amount
+* $adapter : selected Gateway for py invoice by user or admin
+* $description : order information as json array 
+
+Example of order $description array :
+```
+use Zend\Json\Json;
+
+
+$description = array(
+    array(
+        'title' => 'Test shop product 1',
+        'price' => '340',
+        'description' => 'Test information about this product or service',
+    ),
+    array(
+        'title' => 'Test shop product 2',
+        'price' => '100',
+        'description' => 'Test information about this product or service',
+    ),
+);
+$description = json_encode($description);
+
+```
+
+After create invoice , redirect user to invoice_url for finish payment. 
+
+### Step 2
+At this level , after finish payment, order information should update by payment module. You should create Api on your module, and payment module update this Api. payment module use this code for update Api.
+```
+Pi::api($module, $part)->updatePayment($item, $amount, $adapter);
+```
+
+For example on shop module, we create Order Api. on file : usr/module/shop/src/Api/Order.php
+```
+<?php
+/**
+ * Pi Engine (http://pialog.org)
+ *
+ * @link            http://code.pialog.org for the Pi Engine source repository
+ * @copyright       Copyright (c) Pi Engine http://pialog.org
+ * @license         http://pialog.org/license.txt New BSD License
+ */
+
+namespace Module\Shop\Api;
+
+use Pi;
+use Pi\Application\AbstractApi;
+
+/**
+ * Order APIs
+ *
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+class Order extends AbstractApi
+{
+    public function updatePayment($item, $amount, $adapter)
+    {
+    	/*
+    	 *  Do something for update information and 
+    	 *  Set back url
+    	 */
+
+    	return $url; 
+    }
+}	
+```
+This Api update module tables and after that make Back url from payment module to your module. 

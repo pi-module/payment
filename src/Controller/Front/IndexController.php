@@ -58,16 +58,23 @@ class IndexController extends ActionController
     {
         $this->view()->setTemplate('empty');
 
-        echo '<pre>';
+        /* echo '<pre>';
         print_r($_POST);
         echo '</pre>';
 
         echo '<pre>';
         print_r($_GET);
-        echo '</pre>';
+        echo '</pre>'; */
+
+        // invoice id from session or url
+        $id = '';
+        $invoice = Pi::api('payment', 'invoice')->updateInvoice($id);
+        // Update module information
+        $url = Pi::api('payment', 'invoice')->updateModuleInvoice($invoice)
+        return $this->jump($url, 'Back to module');
     }
 
-    public function createAction()
+    /* public function createAction()
     {
         $this->view()->setTemplate('empty');
 
@@ -91,18 +98,13 @@ class IndexController extends ActionController
         print_r($invoice);
         echo '</pre>';
         
-    }
+    } */
 
     public function setPayment($invoice)
     {
         // Get gateway object
         $gateway = Pi::api('payment', 'gateway')->getGateway($invoice['adapter']);
         $gateway->setInvoice($invoice);
-
-        echo '<pre>';
-        print_r($gateway);
-        echo '</pre>';
-
         // Set form
         $form = new PayForm('pay', $gateway->gatewayPayForm);
         $form->setAttribute('action', $gateway->gatewayRedirectUrl);
