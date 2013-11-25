@@ -28,7 +28,7 @@ class Invoice extends AbstractApi
     public function createInvoice($module, $part, $item, $amount, $adapter, $description)
     {
     	$result = array();
-    	$uid = Pi::user()->getIdentity();
+    	$uid = Pi::user()->getId();
     	if ($uid) {
     		if (empty($module) || 
                 empty($part) || 
@@ -56,8 +56,11 @@ class Invoice extends AbstractApi
     			$row->save();
     			// return array
     			$result['status'] = $row->status;
-                $url = sprintf('%s/index/invoice/%s', $this->getModule(), $row->id);
-    			$result['invoice_url'] = Pi::url($url);
+    			$result['invoice_url'] = Pi::service('url')->assemble('payment', array(
+                    'module'        => $this->getModule(),
+                    'action'        => 'invoice',
+                    'id'            => $row->id,
+                ));
     			$result['message'] = __('Your invoice create successfully');
     		}
     	} else {

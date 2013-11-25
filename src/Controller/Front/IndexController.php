@@ -20,28 +20,29 @@ class IndexController extends ActionController
 {
     public function indexAction()
     {
-        // Check user is login
-        if (!Pi::service('user')->hasIdentity()) {
-            return $this->jumpToDenied();
-        }
+        // Check user is login or not
+        Pi::service('authentication')->requireLogin();
         // List of all user invoices
 
-        // set view
+        $test = Pi::service('url')->assemble('payment', array(
+                    'module'        => $this->getModule(),
+                    'action'        => 'result',
+                ));
+
+        // Set view
         $this->view()->setTemplate('empty');
+        $this->view()->assign('test', $test);
     }
 
     public function invoiceAction()
     {
-        // Check user is login
-        if (!Pi::service('user')->hasIdentity()) {
-            return $this->jumpToDenied();
-        }
+        // Check user is login or not
+        Pi::service('authentication')->requireLogin();
         // Get invoice
-        //$id = $this->params('id');
-        $id = 2;
+        $id = $this->params('id');
         $invoice = Pi::api('payment', 'invoice')->getInvoice($id);
         if (empty($invoice)) {
-            return $this->jumpToDenied();
+           $this->jump(array('', 'action' => 'index'), __('The invoice not found.'));
         }
         // Set Payment
         $form = '';
@@ -58,47 +59,21 @@ class IndexController extends ActionController
     {
         $this->view()->setTemplate('empty');
 
-        /* echo '<pre>';
+        echo '<pre>';
         print_r($_POST);
         echo '</pre>';
 
         echo '<pre>';
         print_r($_GET);
-        echo '</pre>'; */
+        echo '</pre>';
 
         // invoice id from session or url
-        $id = '';
-        $invoice = Pi::api('payment', 'invoice')->updateInvoice($id);
+        //$id = '';
+        //$invoice = Pi::api('payment', 'invoice')->updateInvoice($id);
         // Update module information
-        $url = Pi::api('payment', 'invoice')->updateModuleInvoice($invoice)
-        return $this->jump($url, 'Back to module');
+        //$url = Pi::api('payment', 'invoice')->updateModuleInvoice($invoice)
+        //return $this->jump($url, 'Back to module');
     }
-
-    /* public function createAction()
-    {
-        $this->view()->setTemplate('empty');
-
-        $description = array(
-            array(
-                'title' => 'Test shop product 1',
-                'price' => '340000',
-                'description' => 'weqwe qwe we awe qwe awdasd asd asd asd ',
-            ),
-            array(
-                'title' => 'Test shop product 2',
-                'price' => '100000',
-                'description' => 'weqadaqweqwe awdasd asd asd asd ',
-            ),
-        );
-        $description = json_encode($description);
-
-        $invoice = Pi::api('payment', 'invoice')->createInvoice('shop', 'product', '123', '100000', 'Mellat', $description);
-
-        echo '<pre>';
-        print_r($invoice);
-        echo '</pre>';
-        
-    } */
 
     public function setPayment($invoice)
     {

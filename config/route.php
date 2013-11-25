@@ -8,19 +8,20 @@
  */
 
 /**
- * Module meta
- *
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
 return array(
-    // payment route
+    // route name
     'payment'  => array(
         'name'      => 'payment',
         'type'      => 'Module\Payment\Route\Payment',
-        'priority'  => 5,
         'options'   => array(
-            'route'    => '/payment',
+            'route'     => '/payment',
+            'defaults'  => array(
+                'module'        => 'payment',
+                'controller'    => 'index',
+                'action'        => 'index'
+            )
         ),
-    ),
+    )
 );
-

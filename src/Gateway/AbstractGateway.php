@@ -167,7 +167,10 @@ abstract class AbstractGateway
 
     protected function setBackUrl()
     {
-        $this->gatewayBackUrl = Pi::url('payment/index/result');
+        $this->gatewayBackUrl = Pi::url(Pi::service('url')->assemble('payment', array(
+                    'module'        => 'payment',
+                    'action'        => 'result',
+                )));
     }
 
     public function setInvoice($invoice = array())
