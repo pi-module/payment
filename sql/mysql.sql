@@ -1,23 +1,18 @@
 CREATE TABLE `{invoice}` (
   `id` int(10) unsigned NOT NULL auto_increment,
-
   `module` varchar(64) NOT NULL,
   `part` varchar(64) NOT NULL,
   `item` int(10) unsigned NOT NULL,
   `amount` double(16,2) NOT NULL,
   `adapter` varchar(64) NOT NULL,
   `description` text,
-
   `uid` int(10) unsigned NOT NULL,
   `ip` char(15) NOT NULL,
-
   `status` tinyint(1) unsigned NOT NULL,
   `time_create` int(10) unsigned NOT NULL,
   `time_payment` int(10) unsigned NOT NULL,
   `time_cancel` int(10) unsigned NOT NULL,
-  
   `note` text,
-  
   PRIMARY KEY  (`id`)
 );
 
