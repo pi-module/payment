@@ -57,22 +57,23 @@ class IndexController extends ActionController
 
     public function resultAction()
     {
+        if ($this->request->isPost()) {
+            $post = $this->request->getPost();
+            // finish payment
+            $gateway = Pi::api('payment', 'gateway')->getGateway('Mellat');
+            $verify = $gateway->finishPayment($post);
+            if ($verify['status'] == 1) {
+                $url = Pi::api('payment', 'invoice')->updateModuleInvoice($verify['invoice']);
+                $this->jump($url, 'Back to module');
+            } else {
+
+            }
+        } else {
+
+        }
+        // Set view
         $this->view()->setTemplate('empty');
-
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($_GET);
-        echo '</pre>';
-
-        // invoice id from session or url
-        //$id = '';
-        //$invoice = Pi::api('payment', 'invoice')->updateInvoice($id);
-        // Update module information
-        //$url = Pi::api('payment', 'invoice')->updateModuleInvoice($invoice)
-        //return $this->jump($url, 'Back to module');
+        $this->view()->assign('test', array());
     }
 
     public function setPayment($invoice)

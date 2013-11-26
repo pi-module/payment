@@ -61,9 +61,7 @@ abstract class AbstractGateway
 
     abstract public function setRedirectUrl();
 
-    //abstract public function getCheckout();
-
-    //abstract public function getNotify();
+    abstract public function finishPayment($post = array());
 
     static public function getAllList()
     {

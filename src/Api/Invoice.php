@@ -50,7 +50,7 @@ class Invoice extends AbstractApi
                 $row->adapter = $adapter;
     			$row->description = $description;
     			$row->uid = $uid;
-    			$row->ip = getenv('REMOTE_ADDR');
+    			$row->ip = Pi::user()->getIp();
     			$row->status = 2;
     			$row->time_create = time();
     			$row->save();
@@ -88,15 +88,17 @@ class Invoice extends AbstractApi
         $invoice = '';
         $row = Pi::model('invoice', $this->getModule())->find($id);
         if (is_object($row)) {
-            // Do something
+            $row->status = 1;
+            $row->time_payment = time();
             $row->save();
             $invoice = $row->toArray();
         }
         return $invoice;
     }
 
-    public function updateModuleInvoice($invoice)
+    public function updateModuleInvoice($id)
     {
+        $invoice = $this->getInvoice($id);
         return Pi::api($invoice['module'], $invoice['part'])->updatePayment(
             $invoice['item'], 
             $invoice['amount'], 

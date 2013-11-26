@@ -11,7 +11,7 @@ namespace Module\Payment\Gateway\Mellat;
 
 use Pi;
 use Module\Payment\Gateway\AbstractGateway;
-use Zend\Soap\Client;
+
 /**
  * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
  */
@@ -109,28 +109,20 @@ class Gateway extends AbstractGateway
         $parameters['userName'] = $this->gatewayOption['username'];
         $parameters['userPassword'] = $this->gatewayOption['password'];
         $parameters['orderId'] = $this->gatewayInvoice['id'];
-        $parameters['amount'] = $this->gatewayInvoice['amount'];
+        $parameters['amount'] = intval($this->gatewayInvoice['amount']);
         $parameters['localDate'] = date('Ymd'); 
         $parameters['localTime'] = date('His');
         $parameters['additionalData'] = $this->gatewayOption['additionalData'];
         $parameters['callBackUrl'] = $this->gatewayBackUrl;
-        $parameters['payerId'] = '1';
-
-        $client = new Client($this->getDialogUrl());
-        $client->setSoapVersion(SOAP_1_1);
+        $parameters['payerId'] = 0;
+        // Set nusoap client
+        require_once Pi::path('vendor') . '/nusoap/nusoap.php';
+        $client = new \nusoap_client($this->getDialogUrl());
         $result = $client->call('bpPayRequest', $parameters, $this->getNamespaceUrl());
         $result = explode (',', $result);
         if ($result[0] == 0) {
             $this->gatewayPayInformation['RefId'] = $result[1];
         }
-
-        echo '<pre>';
-        print_r($parameters);
-        echo '</pre>';
-
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
     }
 
     public function setRedirectUrl()
@@ -139,13 +131,51 @@ class Gateway extends AbstractGateway
         $this->gatewayRedirectUrl = 'https://pgw.bpm.bankmellat.ir/pgwchannel/startpay.mellat';
     }
 
-    public function getCheckout()
+    public function finishPayment($post = array())
     {
-        return '';
+        $return = array();
+        $return['status'] = 0;
+        $return['invoice'] = $post['SaleOrderId'];
+        if ($post['ResCode'] == 0) {
+            if (isset($post['RefId'])) {
+                $return['status'] = 1;
+                // update invoice
+                $invoice = Pi::api('payment', 'invoice')->updateInvoice($post['SaleOrderId']);
+                // set log
+                $log = array();
+                $log['invoice'] = $post['SaleOrderId'];
+                $log['gateway'] = $this->gatewayAdapter;
+                $log['amount'] = $invoice['amount'];
+                $log['authority'] = $post['RefId'];
+                $log['status'] = $invoice['status'];
+                $log['value'] = json_encode($post);
+                Pi::api('payment', 'log')->setLot($log);
+            }
+        }
+        return $return;
     }
 
-    public function getNotify()
+    public function verifyPayment()
     {
-        return '';
+        $return = array();
+        $return['status'] = 0;
+        $return['invoice'] = $post['SaleOrderId'];
+        if ($post['ResCode'] == 0) {
+            if (isset($post['RefId'])) {
+                // Set parameters
+                $parameters = array();
+                $parameters['terminalId'] = $this->gatewayOption['pin'];
+                $parameters['userName'] = $this->gatewayOption['username'];
+                $parameters['userPassword'] = $this->gatewayOption['password'];
+                $parameters['orderId'] = $post['SaleOrderId'];
+                $parameters['SaleOrderId'] = $post['SaleOrderId'];
+                $parameters['saleReferenceId'] = $post['SaleReferenceId'];
+                // Set nusoap client
+                require_once Pi::path('vendor') . '/nusoap/nusoap.php';
+                $client = new \nusoap_client($this->getDialogUrl());
+                $result = $client->call('bpVerifyRequest', $parameters, $this->getNamespaceUrl());
+            }
+        }
+        return $return;
     }
 }
