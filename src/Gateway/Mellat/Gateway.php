@@ -129,11 +129,6 @@ class Gateway extends AbstractGateway
         $this->gatewayRedirectUrl = 'https://pgw.bpm.bankmellat.ir/pgwchannel/startpay.mellat';
     }
 
-    public function payPayment()
-    {
-
-    }
-
     public function verifyPayment($value)
     {
         // Set parameters

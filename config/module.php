@@ -31,6 +31,7 @@ return array(
     // Resource
     'resource' => array(
         'database'      => 'database.php',
+        'config'        => 'config.php',
         'navigation'    => 'navigation.php',
         'route'         => 'route.php',
     ),
