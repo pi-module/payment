@@ -28,7 +28,5 @@
 			<?php } ?>
 		</div>
 	</div>
-	<?php if (!empty($form)) {
-		include $this->templateComponent('form');
-    } ?>
+	<div><a class="btn btn-primary" title="<?php _e('Pay'); ?>" href="<?php echo $this->escape($invoice['pay']); ?>"><?php _e('Pay'); ?></a></div>
 </div>

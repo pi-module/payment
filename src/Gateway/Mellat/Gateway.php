@@ -115,10 +115,8 @@ class Gateway extends AbstractGateway
         $parameters['additionalData'] = $this->gatewayOption['additionalData'];
         $parameters['callBackUrl'] = $this->gatewayBackUrl;
         $parameters['payerId'] = 0;
-        // Set nusoap client
-        require_once Pi::path('vendor') . '/nusoap/nusoap.php';
-        $client = new \nusoap_client($this->getDialogUrl());
-        $result = $client->call('bpPayRequest', $parameters, $this->getNamespaceUrl());
+        // Check bank
+        $result = $this->call('bpPayRequest', $parameters);
         $result = explode (',', $result);
         if ($result[0] == 0) {
             $this->gatewayPayInformation['RefId'] = $result[1];
@@ -131,51 +129,63 @@ class Gateway extends AbstractGateway
         $this->gatewayRedirectUrl = 'https://pgw.bpm.bankmellat.ir/pgwchannel/startpay.mellat';
     }
 
-    public function finishPayment($post = array())
+    public function payPayment()
     {
-        $return = array();
-        $return['status'] = 0;
-        $return['invoice'] = $post['SaleOrderId'];
-        if ($post['ResCode'] == 0) {
-            if (isset($post['RefId'])) {
-                $return['status'] = 1;
-                // update invoice
-                $invoice = Pi::api('payment', 'invoice')->updateInvoice($post['SaleOrderId']);
-                // set log
-                $log = array();
-                $log['invoice'] = $post['SaleOrderId'];
-                $log['gateway'] = $this->gatewayAdapter;
-                $log['amount'] = $invoice['amount'];
-                $log['authority'] = $post['RefId'];
-                $log['status'] = $invoice['status'];
-                $log['value'] = json_encode($post);
-                Pi::api('payment', 'log')->setLot($log);
-            }
-        }
-        return $return;
+
     }
 
-    public function verifyPayment()
+    public function verifyPayment($value)
     {
-        $return = array();
-        $return['status'] = 0;
-        $return['invoice'] = $post['SaleOrderId'];
-        if ($post['ResCode'] == 0) {
-            if (isset($post['RefId'])) {
-                // Set parameters
-                $parameters = array();
-                $parameters['terminalId'] = $this->gatewayOption['pin'];
-                $parameters['userName'] = $this->gatewayOption['username'];
-                $parameters['userPassword'] = $this->gatewayOption['password'];
-                $parameters['orderId'] = $post['SaleOrderId'];
-                $parameters['SaleOrderId'] = $post['SaleOrderId'];
-                $parameters['saleReferenceId'] = $post['SaleReferenceId'];
-                // Set nusoap client
-                require_once Pi::path('vendor') . '/nusoap/nusoap.php';
-                $client = new \nusoap_client($this->getDialogUrl());
-                $result = $client->call('bpVerifyRequest', $parameters, $this->getNamespaceUrl());
-            }
+        // Set parameters
+        $parameters = array();
+        $parameters['terminalId'] = $this->gatewayOption['pin'];
+        $parameters['userName'] = $this->gatewayOption['username'];
+        $parameters['userPassword'] = $this->gatewayOption['password'];
+        $parameters['orderId'] = $value['SaleOrderId'];
+        $parameters['saleOrderId'] = $value['SaleOrderId'];
+        $parameters['saleReferenceId'] = $value['SaleReferenceId'];
+        // Check bank
+        $call = $this->call('bpVerifyRequest', $parameters);
+        // set log
+        $log = array();
+        $log['gateway'] = $this->gatewayAdapter;
+        $log['invoice'] = $value['SaleOrderId'];
+        $log['authority'] = $value['RefId'];
+        $log['value'] = json_encode($value);
+        // Set result
+        $result = array();
+        if ($call == 0) {
+            $result['status'] = 1;
+        } else {
+            $result['status'] = 0;
         }
-        return $return;
+        $result['adapter'] = $this->gatewayAdapter;
+        $result['invoice'] = $value['SaleOrderId'];
+        $result['log'] = $log;
+        return $result;
+    }
+
+    public function finishPayment($value)
+    {
+        // update invoice
+        $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['invoice']);
+        // Set log
+        $log = $value['log'];
+        $log['amount'] = $invoice['amount'];
+        $log['status'] = $invoice['status'];
+        Pi::api('payment', 'log')->setLot($log);
+        // Set result
+        $result = array();
+        $result['status'] = 1;
+        return $result;
+    }
+
+    public function call($api, $parameters)
+    {
+        // Set nusoap client
+        require_once Pi::path('vendor') . '/nusoap/nusoap.php';
+        // Set client
+        $client = new \nusoap_client($this->getDialogUrl());
+        return $client->call($api, $parameters, $this->getNamespaceUrl());
     }
 }

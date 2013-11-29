@@ -41,19 +41,45 @@ class IndexController extends ActionController
         // Get invoice
         $id = $this->params('id');
         $invoice = Pi::api('payment', 'invoice')->getInvoice($id);
+        // Check invoice
         if (empty($invoice)) {
            $this->jump(array('', 'action' => 'index'), __('The invoice not found.'));
         }
-        // Set Payment
-        $form = '';
-        if ($invoice['status'] == 2) {
-            $form = $this->setPayment($invoice);
+        // Check invoice is for this user
+        if ($invoice['uid'] != Pi::user()->getId()) {
+            $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
         }
         // set view
         $this->view()->setTemplate('invoice');
-        $this->view()->assign('form', $form);
         $this->view()->assign('invoice', $invoice);
-    }    
+    }
+
+    public function payAction()
+    {
+        // Check user is login or not
+        Pi::service('authentication')->requireLogin();
+        // Get invoice
+        $id = $this->params('id');
+        $invoice = Pi::api('payment', 'invoice')->getInvoice($id);
+        // Check invoice
+        if (empty($invoice)) {
+           $this->jump(array('', 'action' => 'index'), __('The invoice not found.'));
+        }
+        // Check invoice not payd
+        if ($invoice['status'] != 2) {
+            $this->jump(array('', 'action' => 'index'), __('The invoice payd.'));
+        }
+        // Check invoice is for this user
+        if ($invoice['uid'] != Pi::user()->getId()) {
+            $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
+        }
+        // Set form
+        $form = $this->setPayment($invoice);
+        // Set view
+        $this->view()->setTemplate('pay');
+        $this->view()->assign('invoice', $invoice);
+        $this->view()->assign('form', $form);
+    }  
 
     public function resultAction()
     {
@@ -61,10 +87,15 @@ class IndexController extends ActionController
             $post = $this->request->getPost();
             // finish payment
             $gateway = Pi::api('payment', 'gateway')->getGateway('Mellat');
-            $verify = $gateway->finishPayment($post);
+            $verify = $gateway->verifyPayment($post);
             if ($verify['status'] == 1) {
-                $url = Pi::api('payment', 'invoice')->updateModuleInvoice($verify['invoice']);
-                $this->jump($url, 'Back to module');
+                $finish = $gateway->finishPayment($verify);
+                if ($finish['status'] == 1) {
+                    $url = Pi::api('payment', 'invoice')->updateModuleInvoice($finish['invoice']);
+                    $this->jump($url, 'Back to module');
+                } else {
+
+                }
             } else {
 
             }

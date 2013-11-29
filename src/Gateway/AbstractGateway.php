@@ -61,7 +61,11 @@ abstract class AbstractGateway
 
     abstract public function setRedirectUrl();
 
-    abstract public function finishPayment($post = array());
+    abstract public function payPayment();
+
+    abstract public function verifyPayment($value);
+
+    abstract public function finishPayment($value);
 
     static public function getAllList()
     {
