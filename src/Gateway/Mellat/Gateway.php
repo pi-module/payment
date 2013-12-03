@@ -141,12 +141,17 @@ class Gateway extends AbstractGateway
         $parameters['saleReferenceId'] = $value['SaleReferenceId'];
         // Check bank
         $call = $this->call('bpVerifyRequest', $parameters);
+        // update invoice
+        $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['SaleOrderId']);
         // set log
         $log = array();
         $log['gateway'] = $this->gatewayAdapter;
         $log['invoice'] = $value['SaleOrderId'];
         $log['authority'] = $value['RefId'];
         $log['value'] = json_encode($value);
+        $log['amount'] = $invoice['amount'];
+        $log['status'] = $invoice['status'];
+        Pi::api('payment', 'log')->setLot($log);
         // Set result
         $result = array();
         if ($call == 0) {
@@ -156,22 +161,6 @@ class Gateway extends AbstractGateway
         }
         $result['adapter'] = $this->gatewayAdapter;
         $result['invoice'] = $value['SaleOrderId'];
-        $result['log'] = $log;
-        return $result;
-    }
-
-    public function finishPayment($value)
-    {
-        // update invoice
-        $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['invoice']);
-        // Set log
-        $log = $value['log'];
-        $log['amount'] = $invoice['amount'];
-        $log['status'] = $invoice['status'];
-        Pi::api('payment', 'log')->setLot($log);
-        // Set result
-        $result = array();
-        $result['status'] = 1;
         return $result;
     }
 

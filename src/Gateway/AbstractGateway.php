@@ -63,8 +63,6 @@ abstract class AbstractGateway
 
     abstract public function verifyPayment($value);
 
-    abstract public function finishPayment($value);
-
     static public function getAllList()
     {
         $list = array();

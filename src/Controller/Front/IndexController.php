@@ -89,13 +89,8 @@ class IndexController extends ActionController
             $gateway = Pi::api('payment', 'gateway')->getGateway('Mellat');
             $verify = $gateway->verifyPayment($post);
             if ($verify['status'] == 1) {
-                $finish = $gateway->finishPayment($verify);
-                if ($finish['status'] == 1) {
-                    $url = Pi::api('payment', 'invoice')->updateModuleInvoice($finish['invoice']);
-                    $this->jump($url, 'Back to module');
-                } else {
-
-                }
+                $url = Pi::api('payment', 'invoice')->updateModuleInvoice($verify['invoice']);
+                $this->jump($url, 'Back to module');
             } else {
 
             }

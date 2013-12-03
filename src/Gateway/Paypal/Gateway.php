@@ -129,10 +129,4 @@ class Gateway extends AbstractGateway
         $result = array();
         return $result;
     }
-
-    public function finishPayment($value)
-    {
-        $result = array();
-        return $result;
-    }
 }
