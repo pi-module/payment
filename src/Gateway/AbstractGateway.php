@@ -108,6 +108,19 @@ abstract class AbstractGateway
         return $list;
     }
 
+    static public function getActiveName()
+    {
+        $where = array('status' => 1);
+        // Get list of story
+        $select = Pi::model('gateway', 'payment')->select()->where($where);
+        $rowset = Pi::model('gateway', 'payment')->selectWith($select);
+        // Make list
+        foreach ($rowset as $row) {
+            $list[$row->path] = $row->path;
+        }
+        return $list;
+    }
+
     static public function getGateway($adapter = '')
     {
         if (!empty($adapter)) {
@@ -118,6 +131,15 @@ abstract class AbstractGateway
                     return $gateway;
                 }    
             }
+        } 
+        return false;
+    }
+
+    static public function getGatewayInfo($adapter = '')
+    {
+        if (!empty($adapter)) {
+            $gateway = Pi::model('gateway', 'payment')->find($adapter, 'path')->toArray();
+            return $gateway;
         } 
         return false;
     }

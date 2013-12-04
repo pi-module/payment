@@ -7,17 +7,24 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Api;
 
 use Pi;
 use Pi\Application\AbstractApi;
 use Module\Payment\Gateway\AbstractGateway;
 
-/**
- * Payment Gateway APIs
- *
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+/*
+ * Pi::api('payment', 'gateway')->getAllGatewayList();
+ * Pi::api('payment', 'gateway')->getActiveGatewayList();
+ * Pi::api('payment', 'gateway')->getActiveGatewayName();
+ * Pi::api('payment', 'gateway')->getGateway($adapter);
+ * Pi::api('payment', 'gateway')->getGatewayInfo($adapter);
  */
+
 class Gateway extends AbstractApi
 {
     public function getAllGatewayList()
@@ -27,11 +34,21 @@ class Gateway extends AbstractApi
 
     public function getActiveGatewayList()
     {
-    	return AbstractGateway::getActiveList();
+        return AbstractGateway::getActiveList();
+    }
+
+    public function getActiveGatewayName()
+    {
+        return AbstractGateway::getActiveName();
     }
 
     public function getGateway($adapter = '')
     {
         return AbstractGateway::getGateway($adapter);
+    }
+
+    public function getGatewayInfo($adapter = '')
+    {
+        return AbstractGateway::getGatewayInfo($adapter);
     }	
 }	
