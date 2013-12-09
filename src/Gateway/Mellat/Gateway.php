@@ -167,7 +167,7 @@ class Gateway extends AbstractGateway
     public function call($api, $parameters)
     {
         // Set nusoap client
-        require_once Pi::path('vendor') . '/nusoap/nusoap.php';
+        require_once Pi::path('usr') . '/module/payment/src/Gateway/Mellat/nusoap.php';
         // Set client
         $client = new \nusoap_client($this->getDialogUrl());
         return $client->call($api, $parameters, $this->getNamespaceUrl());
