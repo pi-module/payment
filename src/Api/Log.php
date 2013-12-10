@@ -7,15 +7,20 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Api;
 
 use Pi;
 use Pi\Application\AbstractApi;
 use Zend\Json\Json;
 
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+/*
+ * Pi::api('payment', 'log')->setLot($log);
  */
+
 class Log extends AbstractApi
 {
     /**

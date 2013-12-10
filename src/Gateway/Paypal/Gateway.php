@@ -7,14 +7,16 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Gateway\Paypal;
 
 use Pi;
 use Module\Payment\Gateway\AbstractGateway;
 use Zend\Soap\Client;
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
- */
+
 class Gateway extends AbstractGateway
 {
     public function setAdapter()

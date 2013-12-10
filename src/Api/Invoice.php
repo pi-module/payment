@@ -7,17 +7,22 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
 namespace Module\Payment\Api;
 
 use Pi;
 use Pi\Application\AbstractApi;
 use Zend\Json\Json;
 
-/**
- * Payment Invoice APIs
- *
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+/*
+ * Pi::api('payment', 'invoice')->createInvoice($module, $part, $item, $amount, $adapter, $description);
+ * Pi::api('payment', 'invoice')->getInvoice($id);
+ * Pi::api('payment', 'invoice')->updateInvoice($id);
+ * Pi::api('payment', 'invoice')->updateModuleInvoice($id);
  */
+
 class Invoice extends AbstractApi
 {
     /**
@@ -73,7 +78,7 @@ class Invoice extends AbstractApi
 
     public function getInvoice($id)
     {
-        $invoice = '';
+        $invoice = array();
         $row = Pi::model('invoice', $this->getModule())->find($id);
         if (is_object($row)) {
             $invoice = $row->toArray();
@@ -90,7 +95,7 @@ class Invoice extends AbstractApi
 
     public function updateInvoice($id)
     {
-        $invoice = '';
+        $invoice = array();
         $row = Pi::model('invoice', $this->getModule())->find($id);
         if (is_object($row)) {
             $row->status = 1;

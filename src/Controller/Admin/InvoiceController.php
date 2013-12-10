@@ -7,6 +7,10 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Controller\Admin;
 
 use Pi;
@@ -14,9 +18,6 @@ use Pi\Mvc\Controller\ActionController;
 use Pi\Paginator\Paginator;
 use Zend\Json\Json;
 
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
- */
 class InvoiceController extends ActionController
 {
     public function indexAction()

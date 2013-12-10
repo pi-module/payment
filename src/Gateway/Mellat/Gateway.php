@@ -7,14 +7,16 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Gateway\Mellat;
 
 use Pi;
 use Module\Payment\Gateway\AbstractGateway;
+use Zend\Json\Json;
 
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
- */
 class Gateway extends AbstractGateway
 {
     public function setAdapter()
@@ -85,13 +87,6 @@ class Gateway extends AbstractGateway
         return $this;
     }
 
-    public function getFormatAmount($amount)
-    {
-        $amount = number_format($amount, 2, '.', '');
-        $amount = intval($amount);
-        return $amount;
-    }
-
     public function getDialogUrl()
     {
         return 'https://pgwsf.bpm.bankmellat.ir/pgwchannel/services/pgw?wsdl';
@@ -139,23 +134,28 @@ class Gateway extends AbstractGateway
         $parameters['orderId'] = $value['SaleOrderId'];
         $parameters['saleOrderId'] = $value['SaleOrderId'];
         $parameters['saleReferenceId'] = $value['SaleReferenceId'];
-        // Check bank
-        $call = $this->call('bpVerifyRequest', $parameters);
-        // update invoice
-        $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['SaleOrderId']);
-        // set log
-        $log = array();
-        $log['gateway'] = $this->gatewayAdapter;
-        $log['invoice'] = $value['SaleOrderId'];
-        $log['authority'] = $value['RefId'];
-        $log['value'] = json_encode($value);
-        $log['amount'] = $invoice['amount'];
-        $log['status'] = $invoice['status'];
-        Pi::api('payment', 'log')->setLot($log);
-        // Set result
-        $result = array();
-        if ($call == 0) {
-            $result['status'] = 1;
+        // Check 
+        if ($_SESSION['payment']['id'] == $value['SaleOrderId']) {
+            // Check bank
+            $call = $this->call('bpVerifyRequest', $parameters);
+            // update invoice
+            $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['SaleOrderId']);
+            // set log
+            $log = array();
+            $log['gateway'] = $this->gatewayAdapter;
+            $log['invoice'] = $value['SaleOrderId'];
+            $log['authority'] = $value['RefId'];
+            $log['value'] = Json::encode($value);
+            $log['amount'] = $invoice['amount'];
+            $log['status'] = $invoice['status'];
+            Pi::api('payment', 'log')->setLot($log);
+            // Set result
+            $result = array();
+            if ($call == 0) {
+                $result['status'] = 1;
+            } else {
+                $result['status'] = 0;
+            }
         } else {
             $result['status'] = 0;
         }
@@ -167,7 +167,7 @@ class Gateway extends AbstractGateway
     public function call($api, $parameters)
     {
         // Set nusoap client
-        require_once Pi::path('usr') . '/module/payment/src/Gateway/Mellat/nusoap.php';
+        require_once Pi::path('module') . '/payment/src/Gateway/Mellat/nusoap.php';
         // Set client
         $client = new \nusoap_client($this->getDialogUrl());
         return $client->call($api, $parameters, $this->getNamespaceUrl());

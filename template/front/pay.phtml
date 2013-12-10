@@ -1,5 +1,7 @@
+<?php $this->css($this->assetModule('css/front.css')); ?>
 <div class="payment">
-	<?php if (!empty($form)) {
-		include $this->templateComponent('form');
-    } ?>
+	<?php if (!empty($form)) { ?>
+		<?php include $this->templateComponent('form'); ?>
+		<script>document.pay.submit();</script>
+    <?php } ?>
 </div>

@@ -7,6 +7,10 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Controller\Admin;
 
 use Pi;
@@ -15,12 +19,11 @@ use Module\Payment\Form\GatewayForm;
 use Module\Payment\Form\GatewayFilter;
 use Zend\Json\Json;
 
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
- */
 class GatewayController extends ActionController
 {
-    protected $gatewayColumns = array('id', 'title', 'path', 'description', 'image', 'status', 'type', 'option');
+    protected $gatewayColumns = array(
+        'id', 'title', 'path', 'description', 'image', 'status', 'type', 'option'
+    );
     
     public function indexAction()
     {

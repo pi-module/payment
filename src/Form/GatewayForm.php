@@ -6,14 +6,16 @@
  * @copyright       Copyright (c) Pi Engine http://pialog.org
  * @license         http://pialog.org/license.txt New BSD License
  */
+
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Form;
 
 use Pi;
 use Pi\Form\Form as BaseForm;
 
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
- */
 class GatewayForm extends BaseForm
 {
     public function __construct($name = null, $field)

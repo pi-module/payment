@@ -6,14 +6,16 @@
  * @copyright       Copyright (c) Pi Engine http://pialog.org
  * @license         http://pialog.org/license.txt New BSD License
  */
+
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Form;
 
 use Pi;
 use Pi\Form\Form as BaseForm;
 
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
- */
 class PayForm extends BaseForm
 {
     public function __construct($name = null, $field)
@@ -21,14 +23,6 @@ class PayForm extends BaseForm
         $this->field = $field;
         parent::__construct($name);
     }
-
-    /* public function getInputFilter()
-    {
-        if (!$this->filter) {
-            $this->filter = new PayFilter;
-        }
-        return $this->filter;
-    } */
 
     public function init()
     {
@@ -56,12 +50,12 @@ class PayForm extends BaseForm
             }
         }
         // Save
-        $this->add(array(
+        /* $this->add(array(
             'name' => 'submit',
             'type' => 'submit',
             'attributes' => array(
                 'value' => __('Pay'),
             )
-        ));
+        )); */
     }
 }	

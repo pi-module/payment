@@ -7,14 +7,15 @@
  * @license         http://pialog.org/license.txt New BSD License
  */
 
+/**
+ * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
+ */
+
 namespace Module\Payment\Gateway;
 
 use Pi;
 use Zend\Json\Json;
 
-/**
- * @author Hossein Azizabadi <azizabadi@faragostaresh.com>
- */
 abstract class AbstractGateway
 {
     public $gatewayAdapter = '';
