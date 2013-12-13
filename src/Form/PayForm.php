@@ -24,6 +24,14 @@ class PayForm extends BaseForm
         parent::__construct($name);
     }
 
+    /* public function getInputFilter()
+    {
+        if (!$this->filter) {
+            $this->filter = new PayFilter($this->field);
+        }
+        return $this->filter;
+    } */
+
     public function init()
     {
         // Set extra field

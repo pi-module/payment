@@ -84,13 +84,41 @@ class IndexController extends ActionController
             $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
         }
         // Set session
-        $_SESSION['payment'] = array(
-            'id' => $invoice['id'],
-            'adapter' => $invoice['adapter'],
-            'time' => time(),
-        );
+        if (isset($_SESSION['payment']) && !empty($_SESSION['payment'])) {
+            $time = time() - 1800;
+            if ($time > $_SESSION['payment']['time']) {
+                unset($_SESSION['payment']);
+            } else {
+                $this->jump(array('', 'action' => 'index'), __('Another payment at process by you, Please finish that payment first or try after 30 minutes'));
+            }
+        }
+        $_SESSION['payment'] = array();
+        $_SESSION['payment']['id'] = $invoice['id'];
+        $_SESSION['payment']['adapter'] = $invoice['adapter'];
+        $_SESSION['payment']['time'] = time();
+        // Get gateway object
+        $gateway = Pi::api('payment', 'gateway')->getGateway($invoice['adapter']);
+        $gateway->setInvoice($invoice);
+        // Check error
+        if ($gateway->gatewayError) {
+            $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
+        }
         // Set form
-        $form = $this->setPayment($invoice);
+        $form = new PayForm('pay', $gateway->gatewayPayForm);
+        $form->setAttribute('action', $gateway->gatewayRedirectUrl);
+        // Set form values
+        if (!empty($gateway->gatewayPayInformation)) {
+            foreach ($gateway->gatewayPayInformation as $key => $value) {
+                if (!empty($value)) {
+                    $values[$key] = $value;
+                } else {
+                    $this->jump(array('', 'action' => 'index'), sprintf(__('Error to get %s.'), $value)); 
+                }
+            }
+            $form->setData($values);
+        } else {
+            $this->jump(array('', 'action' => 'index'), __('Error to get information.')); 
+        }
         // Set view
         $this->view()->setLayout('layout-content');
         $this->view()->setTemplate('pay');
@@ -111,9 +139,15 @@ class IndexController extends ActionController
         // Get post
         if ($this->request->isPost()) {
             $post = $this->request->getPost();
-            // finish payment
+            // Get gateway
             $gateway = Pi::api('payment', 'gateway')->getGateway($session['adapter']);
+            // verify payment
             $verify = $gateway->verifyPayment($post);
+            // Check error
+            if ($gateway->gatewayError) {
+                $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
+            }
+            // 
             if ($verify['status'] == 1) {
                 // Update module order / invoice and get back url
                 $url = Pi::api('payment', 'invoice')->updateModuleInvoice($verify['invoice']);
@@ -128,23 +162,5 @@ class IndexController extends ActionController
         // Set view
         $this->view()->setTemplate('result');
         $this->view()->assign('message', $message);
-    }
-
-    public function setPayment($invoice)
-    {
-        // Get gateway object
-        $gateway = Pi::api('payment', 'gateway')->getGateway($invoice['adapter']);
-        $gateway->setInvoice($invoice);
-        // Set form
-        $form = new PayForm('pay', $gateway->gatewayPayForm);
-        $form->setAttribute('action', $gateway->gatewayRedirectUrl);
-        // Set form values
-        if (!empty($gateway->gatewayPayInformation)) {
-            foreach ($gateway->gatewayPayInformation as $key => $value) {
-                 $values[$key] = $value;
-            }
-            $form->setData($values);
-        }
-        return $form;
     }
 }	
