@@ -70,7 +70,7 @@ class IndexController extends ActionController
         Pi::service('authentication')->requireLogin();
         // Get invoice
         $id = $this->params('id');
-        $invoice = Pi::api('payment', 'invoice')->getInvoice($id);
+        $invoice = Pi::api('payment', 'invoice')->getInvoiceRandomId($id);
         // Check invoice
         if (empty($invoice)) {
            $this->jump(array('', 'action' => 'index'), __('The invoice not found.'));
@@ -94,6 +94,7 @@ class IndexController extends ActionController
         }
         $_SESSION['payment'] = array();
         $_SESSION['payment']['id'] = $invoice['id'];
+        $_SESSION['payment']['random_id'] = $invoice['random_id'];
         $_SESSION['payment']['adapter'] = $invoice['adapter'];
         $_SESSION['payment']['time'] = time();
         // Get gateway object

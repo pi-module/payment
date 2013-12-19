@@ -18,7 +18,7 @@
 		} elseif($invoice['status'] == 2) {
 			$labelIdClass = 'label-warning';	
 		} elseif($invoice['status'] == 3) {
-			$labelIdClass = 'label-important';	
+			$labelIdClass = 'label-danger';	
 		}
 		?>
 		<tr>
@@ -29,8 +29,8 @@
 			<td><?php echo $this->escape($invoice['time_create_view']); ?></td>
 			<td><?php echo $this->escape($invoice['time_payment_view']); ?></td>
 			<td>
-				<a class="btn" title="<?php _e('Edit'); ?>" href="<?php echo $this->url('', array('action' => 'update', 'id' => $invoice['id'])); ?>"><i class="icon-edit"></i> <?php _e('Edit'); ?></a>
-				<a class="btn" title="<?php _e('View'); ?>" href="<?php echo $this->url('', array('action' => 'view', 'id' => $invoice['id'])); ?>"><i class="icon-edit"></i> <?php _e('View'); ?></a>
+				<a class="btn btn-primary" title="<?php _e('Edit'); ?>" href="<?php echo $this->url('', array('action' => 'update', 'id' => $invoice['id'])); ?>"><i class="fa fa-edit"></i> <?php _e('Edit'); ?></a>
+				<a class="btn btn-primary" title="<?php _e('View'); ?>" href="<?php echo $this->url('', array('action' => 'view', 'id' => $invoice['id'])); ?>"><i class="fa fa-edit"></i> <?php _e('View'); ?></a>
 			</td>
 		</tr>
 		<?php } ?>
@@ -39,6 +39,6 @@
 	<p>
 		<span class="label label-success"><?php _e('Paid'); ?></span>
 		<span class="label label-warning"><?php _e('Unpaid'); ?></span>
-		<span class="label label-important"><?php _e('Canceled'); ?></span>
+		<span class="label label-danger"><?php _e('Canceled'); ?></span>
 	</p>
 </div>

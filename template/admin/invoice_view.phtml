@@ -3,13 +3,13 @@
 	<h3><?php echo sprintf(__('Invoice %s'), $this->escape($invoice['id'])); ?></h3>
 	<div class="well">
 		<div class="clearfix">
-			<div class="span8">
+			<div class="col-md-8">
 				<p><strong><?php _e('Status'); ?></strong> : <?php if ($invoice['status'] == 1) { ?>
 					<span class="label label-success"><?php _e('Paid'); ?><span>
 				<?php } elseif ($invoice['status'] == 2) { ?>
 					<span class="label label-warning"><?php _e('Unpaid'); ?><span>
 				<?php } else { ?>
-					<span class="label label-important"><?php _e('Canceled'); ?><span>
+					<span class="label label-danger"><?php _e('Canceled'); ?><span>
 				<?php } ?>
 				<p><strong><?php _e('Module'); ?></strong> : <span><?php echo $this->escape($invoice['module']); ?> / <?php echo $this->escape($invoice['part']); ?></span></p>
 				<p><strong><?php _e('Order'); ?></strong> : <span><?php echo $this->escape($invoice['item']); ?> </span></p>
@@ -17,7 +17,7 @@
 				<p><strong><?php _e('Amount'); ?></strong> : <span><?php echo $this->escape($invoice['amount']); ?> </span></p>
 				<p><strong><?php _e('Create'); ?></strong> : <span><?php echo $this->escape($invoice['create']); ?> </span></p>
 			</div>
-			<div class="span4"></div>
+			<div class="col-md-4"></div>
 		</div>
 		<div class="clearfix">
 			<?php foreach ($invoice['description'] as $description) { ?>

@@ -103,7 +103,7 @@ class Gateway extends AbstractGateway
         $parameters['terminalId'] = $this->gatewayOption['pin'];
         $parameters['userName'] = $this->gatewayOption['username'];
         $parameters['userPassword'] = $this->gatewayOption['password'];
-        $parameters['orderId'] = $this->gatewayInvoice['id'];
+        $parameters['orderId'] = $this->gatewayInvoice['random_id'];
         $parameters['amount'] = intval($this->gatewayInvoice['amount']);
         $parameters['localDate'] = date('Ymd'); 
         $parameters['localTime'] = date('His');
@@ -137,7 +137,7 @@ class Gateway extends AbstractGateway
         $parameters['saleOrderId'] = $value['SaleOrderId'];
         $parameters['saleReferenceId'] = $value['SaleReferenceId'];
         // Check 
-        if ($_SESSION['payment']['id'] == $value['SaleOrderId']) {
+        if ($_SESSION['payment']['random_id'] == $value['SaleOrderId']) {
             // Check bank
             $call = $this->call('bpVerifyRequest', $parameters);
             // update invoice
@@ -145,9 +145,9 @@ class Gateway extends AbstractGateway
             // set log
             $log = array();
             $log['gateway'] = $this->gatewayAdapter;
-            $log['invoice'] = $value['SaleOrderId'];
             $log['authority'] = $value['RefId'];
             $log['value'] = Json::encode($value);
+            $log['invoice'] = $invoice['id'];
             $log['amount'] = $invoice['amount'];
             $log['status'] = $invoice['status'];
             Pi::api('payment', 'log')->setLot($log);
@@ -163,7 +163,7 @@ class Gateway extends AbstractGateway
             $result['status'] = 0;
         }
         $result['adapter'] = $this->gatewayAdapter;
-        $result['invoice'] = $value['SaleOrderId'];
+        $result['invoice'] = $invoice['id'];
         return $result;
     }
 

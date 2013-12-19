@@ -18,7 +18,7 @@
 		} elseif($log['status'] == 2) {
 			$labelIdClass = 'label-warning';	
 		} elseif($log['status'] == 3) {
-			$labelIdClass = 'label-important';	
+			$labelIdClass = 'label-danger';	
 		}
 		?>
 		<tr>
@@ -36,6 +36,6 @@
 	<p>
 		<span class="label label-success"><?php _e('Paid'); ?></span>
 		<span class="label label-warning"><?php _e('Unpaid'); ?></span>
-		<span class="label label-important"><?php _e('Canceled'); ?></span>
+		<span class="label label-danger"><?php _e('Canceled'); ?></span>
 	</p>
 </div>

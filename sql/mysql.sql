@@ -1,5 +1,6 @@
 CREATE TABLE `{invoice}` (
   `id` int(10) unsigned NOT NULL auto_increment,
+  `random_id` int(10) unsigned NOT NULL,
   `module` varchar(64) NOT NULL,
   `part` varchar(64) NOT NULL,
   `item` int(10) unsigned NOT NULL,

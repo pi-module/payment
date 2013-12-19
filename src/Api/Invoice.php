@@ -15,12 +15,14 @@ namespace Module\Payment\Api;
 use Pi;
 use Pi\Application\AbstractApi;
 use Zend\Json\Json;
+use Zend\Math\Rand;
 
 /*
  * Pi::api('payment', 'invoice')->createInvoice($module, $part, $item, $amount, $adapter, $description);
  * Pi::api('payment', 'invoice')->getInvoice($id);
  * Pi::api('payment', 'invoice')->updateInvoice($id);
  * Pi::api('payment', 'invoice')->updateModuleInvoice($id);
+ * Pi::api('payment', 'invoice')->getInvoiceRandomId($id);
  */
 
 class Invoice extends AbstractApi
@@ -93,10 +95,30 @@ class Invoice extends AbstractApi
         return $invoice;
     }
 
+    public function getInvoiceRandomId($id)
+    {
+        $rand = Rand::getInteger(10, 99);
+        $invoice = array();
+        $row = Pi::model('invoice', $this->getModule())->find($id);
+        if (is_object($row)) {
+            $row->random_id = sprintf('%s%s', $row->id, $rand);
+            $row->save();
+            $invoice = $row->toArray();
+            $invoice['description'] = (array) Json::decode($invoice['description']);
+            $invoice['create'] = _date($invoice['time_create']);
+            $invoice['pay'] = Pi::service('url')->assemble('payment', array(
+                'module'        => $this->getModule(),
+                'action'        => 'pay',
+                'id'            => $invoice['id'],
+            ));
+        }
+        return $invoice;
+    }
+
     public function updateInvoice($id)
     {
         $invoice = array();
-        $row = Pi::model('invoice', $this->getModule())->find($id);
+        $row = Pi::model('invoice', $this->getModule())->find($id, 'random_id');
         if (is_object($row)) {
             $row->status = 1;
             $row->time_payment = time();
