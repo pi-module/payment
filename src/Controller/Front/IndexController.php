@@ -83,20 +83,14 @@ class IndexController extends ActionController
         if ($invoice['uid'] != Pi::user()->getId()) {
             $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
         }
-        // Set session
-        if (isset($_SESSION['payment']) && !empty($_SESSION['payment'])) {
-            $time = time() - 1800;
-            if ($time > $_SESSION['payment']['time']) {
-                unset($_SESSION['payment']);
-            } else {
-                $this->jump(array('', 'action' => 'index'), __('Another payment at process by you, Please finish that payment first or try after 30 minutes'));
-            }
+        // Check running pay processing
+        $processing = Pi::api('payment', 'processing')->checkProcessing();
+        if (!$processing) {
+            $message = __('Another payment at process by you, Please finish that payment first or try after 30 minutes');
+            $this->jump(array('', 'action' => 'index'), $message);
         }
-        $_SESSION['payment'] = array();
-        $_SESSION['payment']['id'] = $invoice['id'];
-        $_SESSION['payment']['random_id'] = $invoice['random_id'];
-        $_SESSION['payment']['adapter'] = $invoice['adapter'];
-        $_SESSION['payment']['time'] = time();
+        // Set pay processing
+        Pi::api('payment', 'processing')->setProcessing($invoice);
         // Get gateway object
         $gateway = Pi::api('payment', 'gateway')->getGateway($invoice['adapter']);
         $gateway->setInvoice($invoice);
@@ -131,29 +125,38 @@ class IndexController extends ActionController
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
-        // Check and Get session
-        if (!isset($_SESSION['payment']) || empty($_SESSION['payment'])) {
-            $this->jump(array('', 'action' => 'index'), __('Your seeion not set'));
+        // Get processing
+        $processing = Pi::api('payment', 'processing')->getProcessing();
+        // Check processing
+        if (!$processing) {
+            $message = __('Your running pay processing not set');
+            $this->jump(array('', 'action' => 'index'), $message);
         }
-        $session = $_SESSION['payment'];
-        unset($_SESSION['payment']);
+        // Check ip
+        if ($processing['ip'] != Pi::user()->getIp()) {
+            $message = __('Your IP address changed and processing not valid');
+            $this->jump(array('', 'action' => 'index'), $message);
+        }
         // Get post
         if ($this->request->isPost()) {
             $post = $this->request->getPost();
             // Get gateway
-            $gateway = Pi::api('payment', 'gateway')->getGateway($session['adapter']);
+            $gateway = Pi::api('payment', 'gateway')->getGateway($processing['adapter']);
             // verify payment
-            $verify = $gateway->verifyPayment($post);
+            $verify = $gateway->verifyPayment($post, $processing);
             // Check error
             if ($gateway->gatewayError) {
                 $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
             }
-            // 
+            // Check status
             if ($verify['status'] == 1) {
                 // Update module order / invoice and get back url
                 $url = Pi::api('payment', 'invoice')->updateModuleInvoice($verify['invoice']);
+                // Remove processing
+                Pi::api('payment', 'processing')->removeProcessing();
                 // jump to module
-                $this->jump($url, 'Your payment were successfully. Back to module');
+                $message = __('Your payment were successfully. Back to module');
+                $this->jump($url, $message);
             } else {
                 $message = __('Your payment wont successfully.');
             }

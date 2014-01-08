@@ -65,12 +65,12 @@ class Gateway extends AbstractGateway
                 'label' => __('Password'),
                 'type' => 'text',
             );
-        // form password
-        $form['additionalData'] = array(
+        // form additional Data
+        /* $form['additionalData'] = array(
                 'name' => 'additionalData',
                 'label' => __('Additional Data'),
                 'type' => 'text',
-            );
+            ); */
         $this->gatewaySettingForm = $form;
         return $this;
     }
@@ -126,7 +126,7 @@ class Gateway extends AbstractGateway
         $this->gatewayRedirectUrl = 'https://pgw.bpm.bankmellat.ir/pgwchannel/startpay.mellat';
     }
 
-    public function verifyPayment($value)
+    public function verifyPayment($value, $processing)
     {
         // Set parameters
         $parameters = array();
@@ -137,24 +137,24 @@ class Gateway extends AbstractGateway
         $parameters['saleOrderId'] = $value['SaleOrderId'];
         $parameters['saleReferenceId'] = $value['SaleReferenceId'];
         // Check 
-        if ($_SESSION['payment']['random_id'] == $value['SaleOrderId']) {
+        if ($processing['random_id'] == $value['SaleOrderId']) {
             // Check bank
             $call = $this->call('bpVerifyRequest', $parameters);
-            // update invoice
-            $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['SaleOrderId']);
-            // set log
-            $log = array();
-            $log['gateway'] = $this->gatewayAdapter;
-            $log['authority'] = $value['RefId'];
-            $log['value'] = Json::encode($value);
-            $log['invoice'] = $invoice['id'];
-            $log['amount'] = $invoice['amount'];
-            $log['status'] = $invoice['status'];
-            Pi::api('payment', 'log')->setLot($log);
             // Set result
             $result = array();
             if ($call == 0) {
                 $result['status'] = 1;
+                // update invoice
+                $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['SaleOrderId']);
+                // set log
+                $log = array();
+                $log['gateway'] = $this->gatewayAdapter;
+                $log['authority'] = $value['RefId'];
+                $log['value'] = Json::encode($value);
+                $log['invoice'] = $invoice['id'];
+                $log['amount'] = $invoice['amount'];
+                $log['status'] = $invoice['status'];
+                Pi::api('payment', 'log')->setLot($log);
             } else {
                 $this->setPaymentError($call);
                 $result['status'] = 0;

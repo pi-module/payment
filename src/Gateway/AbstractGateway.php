@@ -64,7 +64,7 @@ abstract class AbstractGateway
 
     abstract public function setRedirectUrl();
 
-    abstract public function verifyPayment($value);
+    abstract public function verifyPayment($value, $processing);
 
     static public function getAllList()
     {
