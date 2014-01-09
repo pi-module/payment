@@ -20,6 +20,7 @@ return array(
         'logo'          => 'image/logo.png',
         'readme'        => 'docs/readme.txt',
         'demo'          => 'http://pialog',
+        'icon'          => 'fa fa-money',
     ),
     // Author information
     'author'    => array(

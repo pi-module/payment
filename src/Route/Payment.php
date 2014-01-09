@@ -46,7 +46,7 @@ class Payment extends Standard
         // Set matches
         $matches = array_merge($this->defaults, $matches);
         if (isset($parts[0]) && in_array($parts[0], $this->actionList)) {
-            $matches['action'] = urldecode($parts[0]);
+            $matches['action'] = $this->decode($parts[0]);
             if (isset($parts[1]) && is_numeric($parts[1])) {
                 $matches['id'] = intval($parts[1]);
             }

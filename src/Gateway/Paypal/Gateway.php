@@ -126,7 +126,7 @@ class Gateway extends AbstractGateway
         return $parameters;
     }
 
-    public function verifyPayment($value)
+    public function verifyPayment($value, $processing)
     {
         $result = array();
         return $result;

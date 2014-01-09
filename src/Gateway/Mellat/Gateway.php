@@ -145,7 +145,7 @@ class Gateway extends AbstractGateway
             if ($call == 0) {
                 $result['status'] = 1;
                 // update invoice
-                $invoice = Pi::api('payment', 'invoice')->updateInvoice($value['SaleOrderId']);
+                $invoice = Pi::api('invoice', 'payment')->updateInvoice($value['SaleOrderId']);
                 // set log
                 $log = array();
                 $log['gateway'] = $this->gatewayAdapter;
@@ -154,7 +154,7 @@ class Gateway extends AbstractGateway
                 $log['invoice'] = $invoice['id'];
                 $log['amount'] = $invoice['amount'];
                 $log['status'] = $invoice['status'];
-                Pi::api('payment', 'log')->setLot($log);
+                Pi::api('log', 'payment')->setLot($log);
             } else {
                 $this->setPaymentError($call);
                 $result['status'] = 0;

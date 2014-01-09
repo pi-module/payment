@@ -27,7 +27,7 @@ class GatewayController extends ActionController
     
     public function indexAction()
     {
-    	$list = Pi::api('payment', 'gateway')->getAllGatewayList();
+    	$list = Pi::api('gateway', 'payment')->getAllGatewayList();
     	$this->view()->assign('list', $list);
     	$this->view()->setTemplate('gateway_index');
     }	
@@ -35,7 +35,7 @@ class GatewayController extends ActionController
     public function updateAction()
     {
         $adapter = $this->params('path');
-        $gateway = Pi::api('payment', 'gateway')->getGateway($adapter);
+        $gateway = Pi::api('gateway', 'payment')->getGateway($adapter);
         // Set form
         $form = new GatewayForm('gateway', $gateway->gatewaySettingForm);
         if ($this->request->isPost()) {

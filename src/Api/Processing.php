@@ -18,10 +18,10 @@ use Pi\Application\AbstractApi;
 use Zend\Json\Json;
 
 /*
- * Pi::api('payment', 'processing')->setProcessing($invoice);
- * Pi::api('payment', 'processing')->getProcessing();
- * Pi::api('payment', 'processing')->checkProcessing();
- * Pi::api('payment', 'processing')->removeProcessing();
+ * Pi::api('processing', 'payment')->setProcessing($invoice);
+ * Pi::api('processing', 'payment')->getProcessing();
+ * Pi::api('processing', 'payment')->checkProcessing();
+ * Pi::api('processing', 'payment')->removeProcessing();
  */
 
 class Processing extends AbstractApi

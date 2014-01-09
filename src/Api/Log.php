@@ -18,7 +18,7 @@ use Pi\Application\AbstractApi;
 use Zend\Json\Json;
 
 /*
- * Pi::api('payment', 'log')->setLot($log);
+ * Pi::api('log', 'payment')->setLot($log);
  */
 
 class Log extends AbstractApi

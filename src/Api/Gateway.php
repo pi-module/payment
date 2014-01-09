@@ -18,11 +18,11 @@ use Pi\Application\AbstractApi;
 use Module\Payment\Gateway\AbstractGateway;
 
 /*
- * Pi::api('payment', 'gateway')->getAllGatewayList();
- * Pi::api('payment', 'gateway')->getActiveGatewayList();
- * Pi::api('payment', 'gateway')->getActiveGatewayName();
- * Pi::api('payment', 'gateway')->getGateway($adapter);
- * Pi::api('payment', 'gateway')->getGatewayInfo($adapter);
+ * Pi::api('gateway', 'payment')->getAllGatewayList();
+ * Pi::api('gateway', 'payment')->getActiveGatewayList();
+ * Pi::api('gateway', 'payment')->getActiveGatewayName();
+ * Pi::api('gateway', 'payment')->getGateway($adapter);
+ * Pi::api('gateway', 'payment')->getGatewayInfo($adapter);
  */
 
 class Gateway extends AbstractApi

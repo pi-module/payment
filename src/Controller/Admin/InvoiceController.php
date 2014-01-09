@@ -66,7 +66,7 @@ class InvoiceController extends ActionController
     {
         // Get invoice
         $id = $this->params('id');
-        $invoice = Pi::api('payment', 'invoice')->getInvoice($id);
+        $invoice = Pi::api('invoice', 'payment')->getInvoice($id);
         // Check invoice
         if (empty($invoice)) {
            $this->jump(array('', 'action' => 'index'), __('The invoice not found.'));

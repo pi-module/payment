@@ -18,12 +18,12 @@ use Zend\Json\Json;
 use Zend\Math\Rand;
 
 /*
- * Pi::api('payment', 'invoice')->createInvoice($module, $part, $item, $amount, $adapter, $description);
- * Pi::api('payment', 'invoice')->getInvoice($id);
- * Pi::api('payment', 'invoice')->getInvoiceFromItem($item);
- * Pi::api('payment', 'invoice')->updateInvoice($id);
- * Pi::api('payment', 'invoice')->updateModuleInvoice($id);
- * Pi::api('payment', 'invoice')->getInvoiceRandomId($id);
+ * Pi::api('invoice', 'payment')->createInvoice($module, $part, $item, $amount, $adapter, $description);
+ * Pi::api('invoice', 'payment')->getInvoice($id);
+ * Pi::api('invoice', 'payment')->getInvoiceFromItem($item);
+ * Pi::api('invoice', 'payment')->updateInvoice($id);
+ * Pi::api('invoice', 'payment')->updateModuleInvoice($id);
+ * Pi::api('invoice', 'payment')->getInvoiceRandomId($id);
  */
 
 class Invoice extends AbstractApi
@@ -154,7 +154,7 @@ class Invoice extends AbstractApi
     public function updateModuleInvoice($id)
     {
         $invoice = $this->getInvoice($id);
-        return Pi::api($invoice['module'], $invoice['part'])->updatePayment(
+        return Pi::api($invoice['part'], $invoice['module'])->updatePayment(
             $invoice['item'], 
             $invoice['amount'], 
             $invoice['adapter']);
