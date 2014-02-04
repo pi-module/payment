@@ -31,7 +31,7 @@ class Gateway extends AbstractGateway
         $gateway['path'] = 'Mellat';
         $gateway['type'] = 'online';
         $gateway['version'] = '1.0';
-        $gateway['description'] = __('Test test test test test test');
+        $gateway['description'] = '';
         $gateway['author'] = 'Hossein Azizabadi <azizabadi@faragostaresh.com>';
         $gateway['credits'] = '@voltan';
         $gateway['releaseDate'] = 1380802565;
