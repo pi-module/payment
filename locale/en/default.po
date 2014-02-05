@@ -1,0 +1,330 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Pi payment module\n"
+"POT-Creation-Date: 2014-02-05 16:01+0330\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: Pi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: /var/www/html/local/pi/pi-develop/usr/module/payment\n"
+"X-Poedit-SearchPath-0: /var/www/html/local/pi/pi-develop/usr/module/payment/"
+"src\n"
+"X-Poedit-SearchPath-1: /var/www/html/local/pi/pi-develop/usr/module/payment/"
+"template\n"
+"X-Poedit-SearchPath-2: /var/www/html/local/pi/pi-develop/usr/module/payment/"
+"config\n"
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Paypal/Gateway.php:30
+msgid "Paypal"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Paypal/Gateway.php:58
+msgid "Email"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Paypal/Gateway.php:64
+msgid "Test"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Paypal/Gateway.php:70
+msgid "Money"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Mellat/Gateway.php:30
+msgid "Bank Mellat (Iran)"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Mellat/Gateway.php:53
+msgid "Pin"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Mellat/Gateway.php:59
+msgid "Username"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Mellat/Gateway.php:65
+msgid "Password"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Api/Invoice.php:50
+msgid "Please send all informations for create invoice"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Api/Invoice.php:72
+msgid "Your invoice create successfully"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Api/Invoice.php:77
+msgid "Please login for create invoice"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Form/GatewayForm.php:65
+msgid "Submit"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Admin/InvoiceController.php:41
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:40
+msgid "Not yet"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Admin/InvoiceController.php:72
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:56
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:76
+msgid "The invoice not found."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Admin/GatewayController.php:71
+msgid "Gateway data saved successfully."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Admin/GatewayController.php:75
+msgid "Invalid data, please check and re-submit."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Admin/GatewayController.php:87
+msgid "Install gateway"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:60
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:84
+msgid "This is not your invoice."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:80
+msgid "The invoice payd."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:89
+msgid ""
+"Another payment at process by you, Please finish that payment first or try "
+"after 30 minutes"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:110
+#, php-format
+msgid "Error to get %s."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:115
+msgid "Error to get information."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:132
+msgid "Your running pay processing not set"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:137
+msgid "Your IP address changed and processing not valid"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:158
+msgid "Your payment were successfully. Back to module"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:161
+msgid "Your payment wont successfully."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Controller/Front/IndexController.php:164
+msgid "Did not set any request"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/config/navigation.php:19
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:7
+msgid "Invoice"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/config/navigation.php:25
+msgid "Logs"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/config/navigation.php:31
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:16
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:16
+msgid "Gateway"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/config/module.php:16
+msgid "Payment"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/config/module.php:17
+msgid "Payment gateway"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/config/config.php:17
+msgid "Admin"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/config/config.php:25
+msgid "Perpage"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:3
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:3
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:3
+msgid "List of Invoices"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:6
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:6
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:6
+msgid "ID"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:7
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:15
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:15
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:7
+msgid "Order"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:8
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:17
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:9
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:17
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:8
+msgid "Amount"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:9
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:10
+msgid "User"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:10
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:11
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:9
+msgid "Time Create"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:11
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:10
+msgid "Time pay"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:12
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:11
+msgid "Action"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:32
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:30
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:36
+msgid "Edit"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:33
+msgid "View"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:40
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:8
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:37
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:8
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:36
+msgid "Paid"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:41
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:10
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:38
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:10
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:37
+msgid "Unpaid"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_index.phtml:42
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:12
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:39
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:12
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:38
+msgid "Canceled"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:3
+msgid "List of all available gateways"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:10
+msgid "Description"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:11
+msgid "Version"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:12
+msgid "Author"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:13
+msgid "Credits"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:14
+msgid "Release Date"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:31
+msgid "Inactive"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:32
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:38
+msgid "UnInstall"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:37
+msgid "Active"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/gateway_index.phtml:43
+msgid "Install"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:3
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:3
+#, php-format
+msgid "Invoice %s"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:7
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:7
+msgid "Status"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:14
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:14
+msgid "Module"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/invoice_view.phtml:18
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:18
+msgid "Create"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:8
+msgid "Adapter"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/admin/log_index.phtml:12
+msgid "Ip"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/result.phtml:4
+msgid "Error"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/invoice.phtml:32
+msgid "Pay"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-develop/usr/module/payment/template/front/list.phtml:30
+msgid "View / Pay"
+msgstr ""
