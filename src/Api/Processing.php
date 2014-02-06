@@ -69,5 +69,9 @@ class Processing extends AbstractApi
     }
 
     public function removeProcessing()
-    {}
+    {
+        $uid = Pi::user()->getId();
+        $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+        $row->delete();
+    }
 }	

@@ -96,6 +96,8 @@ class IndexController extends ActionController
         $gateway->setInvoice($invoice);
         // Check error
         if ($gateway->gatewayError) {
+            // Remove processing
+            Pi::api('processing', 'payment')->removeProcessing();
             $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
         }
         // Set form
@@ -107,11 +109,15 @@ class IndexController extends ActionController
                 if (!empty($value)) {
                     $values[$key] = $value;
                 } else {
+                    // Get gateway object
+                    $gateway = Pi::api('gateway', 'payment')->getGateway($invoice['adapter']);
                     $this->jump(array('', 'action' => 'index'), sprintf(__('Error to get %s.'), $value)); 
                 }
             }
             $form->setData($values);
         } else {
+            // Get gateway object
+            $gateway = Pi::api('gateway', 'payment')->getGateway($invoice['adapter']);
             $this->jump(array('', 'action' => 'index'), __('Error to get information.')); 
         }
         // Set view
@@ -146,7 +152,10 @@ class IndexController extends ActionController
             $verify = $gateway->verifyPayment($post, $processing);
             // Check error
             if ($gateway->gatewayError) {
-                $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
+                // Remove processing
+                Pi::api('processing', 'payment')->removeProcessing();
+                // jump
+                $this->jump(array('', 'action' => 'index'), $gateway->gatewayError . 'ddd');
             }
             // Check status
             if ($verify['status'] == 1) {
@@ -158,9 +167,13 @@ class IndexController extends ActionController
                 $message = __('Your payment were successfully. Back to module');
                 $this->jump($url, $message);
             } else {
+                // Remove processing
+                Pi::api('processing', 'payment')->removeProcessing();
                 $message = __('Your payment wont successfully.');
             }
         } else {
+            // Remove processing
+            Pi::api('processing', 'payment')->removeProcessing();
             $message = __('Did not set any request');
         }
         // Set view
