@@ -14,7 +14,7 @@
 namespace Module\Payment\Api;
 
 use Pi;
-use Pi\Application\AbstractApi;
+use Pi\Application\Api\AbstractApi;
 use Module\Payment\Gateway\AbstractGateway;
 
 /*

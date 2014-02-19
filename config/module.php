@@ -12,7 +12,7 @@
  */
 return array(
     // Module meta
-    'meta'  => array(
+    'meta'         => array(
         'title'         => __('Payment'),
         'description'   => __('Payment gateway'),
         'version'       => '1',
@@ -20,14 +20,14 @@ return array(
         'logo'          => 'image/logo.png',
         'readme'        => 'docs/readme.txt',
         'demo'          => 'http://pialog',
-        'icon'          => 'fa fa-money',
+        'icon'          => 'fa-money',
     ),
     // Author information
-    'author'    => array(
-        'dev'       => 'Hossein Azizabadi',
-        'email'     => 'azizabadi@faragostaresh.com',
-        'architect' => '@voltan',
-        'design'    => '@voltan'
+    'author'        => array(
+        'Name'          => 'Hossein Azizabadi',
+        'email'         => 'azizabadi@faragostaresh.com',
+        'website'       => 'http://www.xoopsengine.org',
+        'credits'       => 'Pi Engine Team'
     ),
     // Resource
     'resource' => array(

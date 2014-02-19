@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2014-02-06 11:00+0330\n"
+"POT-Creation-Date: 2014-02-19 10:57+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -29,7 +29,7 @@ msgstr "ایمیل"
 
 #: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Paypal/Gateway.php:64
 msgid "Test"
-msgstr ""
+msgstr "تست"
 
 #: /var/www/html/local/pi/pi-develop/usr/module/payment/src/Gateway/Paypal/Gateway.php:70
 msgid "Money"
