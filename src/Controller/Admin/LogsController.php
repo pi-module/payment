@@ -20,7 +20,6 @@ use Zend\Json\Json;
 
 class LogsController extends ActionController
 {
-
     public function indexAction()
     {
         // Get page

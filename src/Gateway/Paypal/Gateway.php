@@ -55,19 +55,19 @@ class Gateway extends AbstractGateway
         // paypal_email
         $form['paypal_email'] = array(
                 'name' => 'paypal_email',
-                'label' => __('Email'),
+                'label' => __('email'),
                 'type' => 'text',
             );
         // paypal_test
         $form['paypal_test'] = array(
                 'name' => 'paypal_test',
-                'label' => __('Test'),
+                'label' => __('test'),
                 'type' => 'text',
             );
         // form paypal_money
         $form['paypal_money'] = array(
                 'name' => 'paypal_money',
-                'label' => __('Money'),
+                'label' => __('money'),
                 'type' => 'text',
             );
         $this->gatewaySettingForm = $form;

@@ -18,7 +18,7 @@
 				<?php if(isset($item['option']) && !empty($item['option'])) { ?>
 				<ul class="list-unstyled">
 				<?php foreach($item['option'] as $key => $value) { ?>
-					<li><strong><?php echo $key; ?></strong> : <?php echo $value; ?></li>
+					<li><strong><?php _e($key); ?></strong> : <?php echo $value; ?></li>
 				<?php } ?>
 				</ul>
 				<?php } ?>

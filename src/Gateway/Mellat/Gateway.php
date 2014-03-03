@@ -45,32 +45,27 @@ class Gateway extends AbstractGateway
         // form path
         $form['path'] = array(
                 'name' => 'path',
+                'label' => __('path'),
                 'type' => 'hidden',
             );
         // form pin
         $form['pin'] = array(
                 'name' => 'pin',
-                'label' => __('Pin'),
+                'label' => __('pin'),
                 'type' => 'text',
             );
         // form username
         $form['username'] = array(
                 'name' => 'username',
-                'label' => __('Username'),
+                'label' => __('username'),
                 'type' => 'text',
             );
         // form password
         $form['password'] = array(
                 'name' => 'password',
-                'label' => __('Password'),
+                'label' => __('password'),
                 'type' => 'text',
             );
-        // form additional Data
-        /* $form['additionalData'] = array(
-                'name' => 'additionalData',
-                'label' => __('Additional Data'),
-                'type' => 'text',
-            ); */
         $this->gatewaySettingForm = $form;
         return $this;
     }
@@ -89,7 +84,7 @@ class Gateway extends AbstractGateway
 
     public function getDialogUrl()
     {
-        return 'https://pgwsf.bpm.bankmellat.ir/pgwchannel/services/pgw?wsdl';
+        return 'https://bpm.shaparak.ir/pgwchannel/services/pgw?wsdl';
     }
 
     public function getNamespaceUrl()
@@ -117,17 +112,29 @@ class Gateway extends AbstractGateway
             $this->gatewayPayInformation['RefId'] = $result[1];
         } else {
             $this->setPaymentError($result[0]);
+            // set log
+            $log = array();
+            $log['gateway'] = $this->gatewayAdapter;
+            $log['authority'] = $result[0];
+            $log['value'] = Json::encode($this->gatewayInvoice);
+            $log['invoice'] = $this->gatewayInvoice['id'];
+            $log['amount'] = intval($this->gatewayInvoice['amount']);
+            $log['status'] = 0;
+            $log['message'] = $this->gatewayError;
+            Pi::api('log', 'payment')->setLot($log);
         }
     }
 
     public function setRedirectUrl()
     {
         $this->getAuthority();
-        $this->gatewayRedirectUrl = 'https://pgw.bpm.bankmellat.ir/pgwchannel/startpay.mellat';
+        $this->gatewayRedirectUrl = 'https://bpm.shaparak.ir/pgwchannel/startpay.mellat';
     }
 
     public function verifyPayment($value, $processing)
     {
+        // Set result
+        $result = array();
         // Set parameters
         $parameters = array();
         $parameters['terminalId'] = $this->gatewayOption['pin'];
@@ -140,28 +147,32 @@ class Gateway extends AbstractGateway
         if ($processing['random_id'] == $value['SaleOrderId']) {
             // Check bank
             $call = $this->call('bpVerifyRequest', $parameters);
-            // Set result
-            $result = array();
             if ($call == 0) {
-                $result['status'] = 1;
-                // update invoice
                 $invoice = Pi::api('invoice', 'payment')->updateInvoice($value['SaleOrderId']);
-                // set log
-                $log = array();
-                $log['gateway'] = $this->gatewayAdapter;
-                $log['authority'] = $value['RefId'];
-                $log['value'] = Json::encode($value);
-                $log['invoice'] = $invoice['id'];
-                $log['amount'] = $invoice['amount'];
-                $log['status'] = $invoice['status'];
-                Pi::api('log', 'payment')->setLot($log);
+                $result['status'] = 1;
+                $message = __('Your payment were successfully.');;
             } else {
                 $this->setPaymentError($call);
+                $invoice = Pi::api('invoice', 'payment')->getInvoice($value['SaleOrderId']);
                 $result['status'] = 0;
+                $message = $this->gatewayError;
             }
         } else {
+            $invoice = Pi::api('invoice', 'payment')->getInvoice($value['SaleOrderId']);
             $result['status'] = 0;
+            $message = __('Your order id not true.');
         }
+        // Set log
+        $log = array();
+        $log['gateway'] = $this->gatewayAdapter;
+        $log['authority'] = $value['RefId'];
+        $log['value'] = Json::encode($value);
+        $log['invoice'] = $invoice['id'];
+        $log['amount'] = $invoice['amount'];
+        $log['status'] = $result['status'];
+        $log['message'] = $message;
+        Pi::api('log', 'payment')->setLot($log);
+        // Set result
         $result['adapter'] = $this->gatewayAdapter;
         $result['invoice'] = $invoice['id'];
         return $result;
@@ -180,187 +191,187 @@ class Gateway extends AbstractGateway
     {
         switch ($id) {
             case '':
-                $error = 'سرور بانک دچار مشکل می باشد.';
+                $error = __('Bank Mellat error 0');
                 break;
                 
             case '41':
-                $error = 'شماره درخواست تکراری است.';
+                $error = __('Bank Mellat error 41');
                 break;
                 
             case '43':
-                $error = 'عملیات قبلا انجام شده است.';
+                $error = __('Bank Mellat error 43');
                 break;
                 
             case '17':
-                $error = 'لغو عملیات پرداخت توسط کاربر صورت گرفته است.';
+                $error = __('Bank Mellat error 17');
                 break;
                 
             case '415':
-                $error = 'زمان شما برای انجام عملیات پرداخت به پایان رسیده است.';
+                $error = __('Bank Mellat error 415');
                 break;
                 
             case '417':
-                $error = 'شناسه پرداخت کننده نامعتبر است.';
+                $error = __('Bank Mellat error 417');
                 break;
                 
             case '11':
-                $error = 'شماره كارت نامعتبر است.';
+                $error = __('Bank Mellat error 11');
                 break;
                 
             case '12':
-                $error = 'موجودي كافي نيست.';
+                $error = __('Bank Mellat error 12');
                 break;
                 
             case '13':
-                $error = 'رمز نادرست است.';
+                $error = __('Bank Mellat error 13');
                 break;
                 
             case '14':
-                $error = 'تعداد دفعات وارد كردن رمز بيش از حد مجاز است.';
+                $error = __('Bank Mellat error 14');
                 break;
                 
             case '15':
-                $error = 'كارت نامعتبر است.';
+                $error = __('Bank Mellat error 15');
                 break;
                 
             case '16':
-                $error = 'دفعات برداشت وجه بيش از حد مجاز است.';
+                $error = __('Bank Mellat error 16');
                 break;
                 
             case '18':
-                $error = 'تاريخ انقضاي كارت گذشته است.';
+                $error = __('Bank Mellat error 18');
                 break;
                 
             case '19':
-                $error = 'مبلغ برداشت وجه بيش از حد مجاز است.';
+                $error = __('Bank Mellat error 19');
                 break;
                 
             case '111':
-                $error = 'صادر كننده كارت نامعتبر است.';
+                $error = __('Bank Mellat error 111');
                 break;
                 
             case '112':
-                $error = 'خطاي سوييچ صادر كننده كارت.';
+                $error = __('Bank Mellat error 112');
                 break;
                 
             case '113':
-                $error = 'پاسخي از صادر كننده كارت دريافت نشد.';
+                $error = __('Bank Mellat error 113');
                 break;
                 
             case '114':
-                $error = 'دارنده كارت مجاز به انجام اين تراكنش نيست.';
+                $error = __('Bank Mellat error 114');
                 break;
                 
             case '21':
-                $error = 'پذيرنده نامعتبر است.';
+                $error = __('Bank Mellat error 21');
                 break;
                 
             case '23':
-                $error = 'خطاي امنيتي رخ داده است.';
+                $error = __('Bank Mellat error 23');
                 break;
                 
             case '24':
-                $error = 'اطلاعات كاربري پذيرنده نامعتبر است.';
+                $error = __('Bank Mellat error 24');
                 break;
                 
             case '25':
-                $error = 'مبلغ نامعتبر است.';
+                $error = __('Bank Mellat error 25');
                 break;
                 
             case '31':
-                $error = 'پاسخ نامعتبر است.';
+                $error = __('Bank Mellat error 31');
                 break;
                 
             case '32':
-                $error = 'فرمت اطلاعات وارد شده صحيح نمي باشد.';
+                $error = __('Bank Mellat error 32');
                 break;
                 
             case '33':
-                $error = 'حساب نامعتبر است.';
+                $error = __('Bank Mellat error 33');
                 break;
                 
             case '34':
-                $error = 'خطاي سيستمي.';
+                $error = __('Bank Mellat error 34');
                 break;
                 
             case '35':
-                $error = 'تاريخ نامعتبر است.';
+                $error = __('Bank Mellat error 35');
                 break;
                 
             case '42':
-                $error = 'خریدی با این شماره درخواست یافت نشد.';
+                $error = __('Bank Mellat error 42');
                 break;
                 
             case '44':
-                $error = 'کسر پول از حساب مشتری صورت نگرفته است.';
+                $error = __('Bank Mellat error 44');
                 break;
                 
             case '45':
-                $error = 'واریز پول قبلا انجام شده است.';
+                $error = __('Bank Mellat error 45');
                 break;
                 
             case '46':
-                $error = 'واریز پول به حساب پذیرنده انجام نشده است.';
+                $error = __('Bank Mellat error 46');
                 break;
                 
             case '47':
-                $error = 'واریز پول به حساب پذیرنده انجام نشده است.';
+                $error = __('Bank Mellat error 47');
                 break;
                 
             case '48':
-                $error = 'پول مشتری به حساب او بازگشت داده شده است.';
+                $error = __('Bank Mellat error 48');
                 break;
                 
             case '49':
-                $error = 'تراکنش استرداد وجه دلخواه یافت نشد.';
+                $error = __('Bank Mellat error 49');
                 break;
                 
             case '412':
-                $error = 'شناسه قبض نادرست است.';
+                $error = __('Bank Mellat error 412');
                 break;
                 
             case '413':
-                $error = 'شناسه پرداخت نادرست است.';
+                $error = __('Bank Mellat error 413');
                 break;
                 
             case '414':
-                $error = 'سازمان صادر كننده قبض نامعتبر است.';
+                $error = __('Bank Mellat error 414');
                 break;
                 
             case '416':
-                $error = 'در ثبت اطلاعات پرداخت شما در بانک ملت خطایی رخ داده است.';
+                $error = __('Bank Mellat error 416');
                 break;
                 
             case '418':
-                $error = 'در تعریف اطلاعات شما نزد بانک ملت خطایی پدید آمده است.';
+                $error = __('Bank Mellat error 418');
                 break;
                 
             case '419':
-                $error = 'تعداد دفعات ورود اطلاعات از حد مجاز گذشته است.';
+                $error = __('Bank Mellat error 419');
                 break;
                 
             case '421':
-                $error = 'IP نامعتبر است.';
+                $error = __('Bank Mellat error 421');
                 break;
                 
             case '51':
-                $error = 'تراکنش تکراری است.';
+                $error = __('Bank Mellat error 51');
                 break;
                 
             case '54':
-                $error = 'تراکنش مرجع موجود نیست.';
+                $error = __('Bank Mellat error 54');
                 break;
                 
             case '55':
-                $error = 'تراکنش نامعتبر است.';
+                $error = __('Bank Mellat error 55');
                 break;
                 
             case '61':
-                $error = 'خطا در واریز وجه.';
+                $error = __('Bank Mellat error 61');
                 break;
 
             default:
-                $error = sprintf('شماره خطای اعلام شده توسط بانک: %s', $id); 
+                $error = sprintf(__('Bank Mellat error %s'), $id); 
                 break;
         }
         // Set error

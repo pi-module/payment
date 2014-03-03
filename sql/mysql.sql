@@ -32,7 +32,7 @@ CREATE TABLE `{gateway}` (
 CREATE TABLE `{log}` (
     `id` int(10) unsigned NOT NULL auto_increment,
     `invoice` int(10) unsigned NOT NULL,
-    `gateway` int(10) unsigned NOT NULL,
+    `gateway` varchar(64) NOT NULL,
     `time_create` int(10) unsigned NOT NULL,
     `uid` int(10) unsigned NOT NULL,
     `amount` double(16,2) NOT NULL,
@@ -40,6 +40,7 @@ CREATE TABLE `{log}` (
     `status` tinyint(1) unsigned NOT NULL,
     `ip` char(15) NOT NULL,
     `value` text,
+    `message` varchar(255) NOT NULL,
     PRIMARY KEY  (`id`)
 );
 

@@ -41,6 +41,7 @@ class Log extends AbstractApi
         $row->ip = Pi::user()->getIp();
         $row->status = $log['status'];
         $row->value = $log['value'];
+        $row->message = $log['message'];
         $row->save();
     }
 }	
