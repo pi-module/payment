@@ -16,19 +16,19 @@
 return array(
     'admin' => array(
         'invoice' => array(
-            'label' => __('Invoice'),
+            'label' => _a('Invoice'),
             'route' => 'admin',
             'controller' => 'invoice',
             'action' => 'index',
         ),
         'logs' => array(
-            'label' => __('Logs'),
+            'label' => _a('Logs'),
             'route' => 'admin',
             'controller' => 'logs',
             'action' => 'index',
         ),
         'gateway' => array(
-            'label' => __('Gateway'),
+            'label' => _a('Gateway'),
             'route' => 'admin',
             'controller' => 'gateway',
             'action' => 'index',

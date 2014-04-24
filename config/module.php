@@ -13,8 +13,8 @@
 return array(
     // Module meta
     'meta'         => array(
-        'title'         => __('Payment'),
-        'description'   => __('Payment gateway'),
+        'title'         => _a('Payment'),
+        'description'   => _a('Payment gateway'),
         'version'       => '1',
         'license'       => 'New BSD',
         'logo'          => 'image/logo.png',

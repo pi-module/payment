@@ -14,7 +14,7 @@
 return array(
     'category' => array(
         array(
-            'title' => __('Admin'),
+            'title' => _a('Admin'),
             'name' => 'admin'
         ),
     ),
@@ -22,7 +22,7 @@ return array(
     	// Admin
         'admin_perpage' => array(
             'category' => 'admin',
-            'title' => __('Perpage'),
+            'title' => _a('Perpage'),
             'description' => '',
             'edit' => 'text',
             'filter' => 'number_int',
