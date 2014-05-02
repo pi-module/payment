@@ -39,6 +39,7 @@ class InvoiceController extends ActionController
             $list[$row->id]['user'] = Pi::user()->get($list[$row->id]['uid'], array('id', 'identity', 'name', 'email'));
             $list[$row->id]['time_create_view'] = _date($list[$row->id]['time_create']);
             $list[$row->id]['time_payment_view'] = ($list[$row->id]['time_payment']) ? _date($list[$row->id]['time_payment']) : __('Not yet');
+            $list[$row->id]['amount_view'] = _currency($list[$row->id]['amount']);
         }
         // Set paginator
         $count = array('count' => new \Zend\Db\Sql\Predicate\Expression('count(*)'));

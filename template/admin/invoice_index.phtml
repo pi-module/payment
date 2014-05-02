@@ -24,7 +24,7 @@
 		<tr>
 			<td><span class="label <?php echo $labelIdClass; ?>"><?php echo $this->escape($invoice['id']); ?></span></td>
 			<td><?php echo $this->escape($invoice['item']); ?> - <?php echo $this->escape($invoice['module']); ?> - <?php echo $this->escape($invoice['part']); ?> </td>
-			<td><?php echo $this->escape($invoice['amount']); ?> ( <?php echo $this->escape($invoice['adapter']); ?> )</td>
+			<td><?php echo $this->escape($invoice['amount_view']); ?> ( <?php echo $this->escape($invoice['adapter']); ?> )</td>
 			<td><?php echo $this->escape($invoice['user']['identity']); ?></td>
 			<td><?php echo $this->escape($invoice['time_create_view']); ?></td>
 			<td><?php echo $this->escape($invoice['time_payment_view']); ?></td>

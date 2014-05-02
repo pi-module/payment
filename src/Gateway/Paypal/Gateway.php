@@ -18,7 +18,7 @@ use Module\Payment\Gateway\AbstractGateway;
 use Zend\Soap\Client;
 
 class Gateway extends AbstractGateway
-{
+{  
     public function setAdapter()
     {
         $this->gatewayAdapter = 'Paypal';

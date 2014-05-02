@@ -86,7 +86,9 @@ class Invoice extends AbstractApi
         if (is_object($row)) {
             $invoice = $row->toArray();
             $invoice['description'] = (array) Json::decode($invoice['description']);
-            $invoice['create'] = _date($invoice['time_create']);
+            $invoice['time_create_view'] = _date($invoice['time_create']);
+            $invoice['amount_view'] = _currency($invoice['amount']);
+            $invoice['item_view'] = _number($invoice['item']);
             $invoice['pay'] = Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
                 'action'        => 'pay',
