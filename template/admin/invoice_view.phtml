@@ -12,8 +12,8 @@
 		<p><strong><?php _e('Module'); ?></strong> : <span><?php echo $this->escape($invoice['module']); ?> / <?php echo $this->escape($invoice['part']); ?></span></p>
 		<p><strong><?php _e('Order'); ?></strong> : <span><?php echo $this->escape($invoice['item']); ?> </span></p>
 		<p><strong><?php _e('Gateway'); ?></strong> : <span><?php echo $this->escape($invoice['adapter']); ?> </span></p>
-		<p><strong><?php _e('Amount'); ?></strong> : <span><?php echo $this->escape($invoice['amount']); ?> </span></p>
-		<p><strong><?php _e('Create'); ?></strong> : <span><?php echo $this->escape($invoice['create']); ?> </span></p>
+		<p><strong><?php _e('Amount'); ?></strong> : <span><?php echo $this->escape($invoice['amount_view']); ?> </span></p>
+		<p><strong><?php _e('Create'); ?></strong> : <span><?php echo $this->escape($invoice['time_create_view']); ?> </span></p>
 	</div>
 	<div class="clearfix">
 		<?php foreach ($invoice['description'] as $description) { ?>
@@ -21,6 +21,22 @@
 			<?php foreach ($description as $key => $value) { ?>
 			<p><strong><?php echo $key; ?></strong> : <span><?php echo $value; ?></span></p>
 			<?php } ?>
+        </div>
+		<?php } ?>
+	</div>
+	<div class="clearfix">
+		<?php foreach ($invoice['log'] as $log) { ?>
+		<div class="well">
+			<p><strong><?php _e('Id'); ?></strong> : <?php echo $this->escape($log['id']); ?></p>
+			<p><strong><?php _e('Invoice'); ?></strong> : <?php echo $this->escape($log['invoice']); ?></p>
+			<p><strong><?php _e('Gateway'); ?></strong> : <?php echo $this->escape($log['gateway']); ?></p>
+			<p><strong><?php _e('Create'); ?></strong> : <?php echo $this->escape($log['time_create_view']); ?></p>
+			<p><strong><?php _e('User'); ?></strong> : <?php echo $this->escape($log['uid']); ?></p>
+			<p><strong><?php _e('Amount'); ?></strong> : <?php echo $this->escape($log['amount_view']); ?></p>
+			<p><strong><?php _e('Authority'); ?></strong> : <?php echo $this->escape($log['authority']); ?></p>
+			<p><strong><?php _e('Status'); ?></strong> : <?php echo $this->escape($log['status']); ?></p>
+			<p><strong><?php _e('Ip'); ?></strong> : <?php echo $this->escape($log['ip']); ?></p>
+			<pre><?php print_r($log['value']); ?></pre>
         </div>
 		<?php } ?>
 	</div>
