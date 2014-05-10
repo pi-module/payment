@@ -16,6 +16,7 @@ namespace Module\Payment\Controller\Front;
 use Pi;
 use Pi\Mvc\Controller\ActionController;
 use Module\Payment\Form\PayForm;
+use Module\Payment\Form\RemoveForm;
 use Zend\Json\Json;
 
 class IndexController extends ActionController
@@ -87,8 +88,10 @@ class IndexController extends ActionController
         // Check running pay processing
         $processing = Pi::api('processing', 'payment')->checkProcessing();
         if (!$processing) {
-            $message = __('Another payment at process by you, Please finish that payment first or try after 30 minutes');
-            $this->jump(array('', 'action' => 'index'), $message);
+            return $this->redirect()->toRoute('', array(
+                'controller' => 'index',
+                'action'     => 'remove',
+            ));
         }
         // Set pay processing
         Pi::api('processing', 'payment')->setProcessing($invoice);
@@ -132,21 +135,21 @@ class IndexController extends ActionController
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
-        // Get processing
-        $processing = Pi::api('processing', 'payment')->getProcessing();
-        // Check processing
-        if (!$processing) {
-            $message = __('Your running pay processing not set');
-            $this->jump(array('', 'action' => 'index'), $message);
-        }
-        // Check ip
-        if ($processing['ip'] != Pi::user()->getIp()) {
-            $message = __('Your IP address changed and processing not valid');
-            $this->jump(array('', 'action' => 'index'), $message);
-        }
         // Get post
         if ($this->request->isPost()) {
             $post = $this->request->getPost();
+            // Get processing
+            $processing = Pi::api('processing', 'payment')->getProcessing();
+            // Check processing
+            if (!$processing) {
+                $message = __('Your running pay processing not set');
+                $this->jump(array('', 'action' => 'index'), $message);
+            }
+            // Check ip
+            if ($processing['ip'] != Pi::user()->getIp()) {
+                $message = __('Your IP address changed and processing not valid');
+                $this->jump(array('', 'action' => 'index'), $message);
+            }
             // Get gateway
             $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
             // verify payment
@@ -156,7 +159,7 @@ class IndexController extends ActionController
                 // Remove processing
                 Pi::api('processing', 'payment')->removeProcessing();
                 // jump
-                $this->jump(array('', 'action' => 'index'), $gateway->gatewayError . 'ddd');
+                $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
             }
             // Check status
             if ($verify['status'] == 1) {
@@ -180,5 +183,34 @@ class IndexController extends ActionController
         // Set view
         $this->view()->setTemplate('result');
         $this->view()->assign('message', $message);
+    }
+
+    public function removeAction()
+    {
+        // Get post
+        if ($this->request->isPost()) {
+            $data = $this->request->getPost()->toArray();
+            if (isset($data['id']) && !empty($data['id'])) {
+                Pi::api('processing', 'payment')->removeProcessing();
+                $message = __('Your old payment process remove, please try new payment ation');
+            } else {
+                $message = __('Payment is clean');
+            }
+            $this->jump(array('', 'action' => 'index'), $message);
+        } else {
+            $processing = Pi::api('processing', 'payment')->getProcessing();
+            if (isset($processing['id']) && !empty($processing['id'])) {
+                $values['id'] = $processing['id'];
+            } else {
+                $message = __('Payment is clean');
+                $this->jump(array('', 'action' => 'index'), $message);
+            }
+            // Set form
+            $form = new RemoveForm('Remove');
+            $form->setData($values);
+            // Set view
+            $this->view()->setTemplate('remove');
+            $this->view()->assign('form', $form);
+        }    
     }
 }	

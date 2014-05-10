@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2014-04-24 15:57+0330\n"
+"POT-Creation-Date: 2014-05-10 19:49+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -57,9 +57,8 @@ msgid "Your payment were successfully."
 msgstr "پرداخت شما موفقیت آمیز بود."
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:163
-#, fuzzy
 msgid "Your order id not true."
-msgstr "شناسه سفارش شما صحیح نیست."
+msgstr "شماره سفارش شما صحیح نیست."
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:194
 msgid "Bank Mellat error 0"
@@ -262,14 +261,38 @@ msgstr "لطفا برای ایجاد فاکتور به سایت وارد شوی�
 msgid "Submit"
 msgstr "ارسال"
 
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:39
+msgid "Attention"
+msgstr "توجه"
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:43
+msgid ""
+"You have another open payment process, if have have another page for online "
+"payment, please fish for courent payment and after that start new one. But "
+"is you cancel your old payment or it have any other problem and you want "
+"close all old proess and start new one, Please conferm this meaasage and "
+"select other payment"
+msgstr ""
+"شما یک پرداخت فعال دیگر دارید، اگر یک صفحه وب دیگر برای پرداخت باز کرده اید "
+"و مشغول پرداخت یک فاکتور دیگر هستید ، لطفا ابتدا آن فاکتور را پرداخت "
+"نمایید ، سپس یک درخواست پرداخت جدید به سیستم بدهید. در غیر این صورت اگر "
+"اشتباهی روی داده یا پرداخت قبلی شما به هر دلیلی کنسل شده است و میخواید یک "
+"پرداخت جدید انجام دهید ، لطفا با تایید این متن و فشردن دکمه تایید ، تمام "
+"تراکنش های معلق در سیستم رو حذف کنید تا بتوانید پرداخت جدید داشته باشید. در "
+"غیر این صورت حداقل ۱۵ دقیقه صبر کرده و مججد تلاش کنید."
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:52
+msgid "Conferm"
+msgstr "تایید"
+
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:41
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:40
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:41
 msgid "Not yet"
 msgstr "هنوز پرداخت نشده"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:72
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:56
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:76
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:73
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:58
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:78
 msgid "The invoice not found."
 msgstr "فاکتور یافت نشد"
 
@@ -285,52 +308,53 @@ msgstr "اطلاعات اشتباه است، لطفا اطلاعات وارده 
 msgid "Install gateway"
 msgstr "نصب دروازه پرداخت"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:60
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:84
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:62
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:86
 msgid "This is not your invoice."
 msgstr "این فاکتور متعلق به شما نیست"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:80
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:82
 msgid "The invoice payd."
 msgstr "فاکتور پرداخت شد"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:89
-msgid ""
-"Another payment at process by you, Please finish that payment first or try "
-"after 30 minutes"
-msgstr ""
-"یک پرداخت دیگر توسط حساب کاربری شما در حال انجام است. لطفا ابتدا ان پرداخت "
-"را تکمیل کنید و یا ۳۰ دقیقه صبر کنید"
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:114
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:118
 #, php-format
 msgid "Error to get %s."
 msgstr "خطا در گرفتن %s"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:121
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:125
 msgid "Error to get information."
 msgstr "خطا در گرفتن اطلاعات"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:138
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:145
 msgid "Your running pay processing not set"
 msgstr "پروسه پرداخت در حال اجرای شما تنظیم نشده است"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:143
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:150
 msgid "Your IP address changed and processing not valid"
 msgstr ""
 "آدرس آی پی شما در هنگام پرداخت تغییر کرده است و این روند خرید صحیح نیست"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:167
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:171
 msgid "Your payment were successfully. Back to module"
 msgstr "پرداخت شما با موفقیت به انجام رسید. به صفحه اتمام خرید منتقل می شوید"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:172
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:176
 msgid "Your payment wont successfully."
 msgstr "پرداخت شما موفقیت آمیز نبود"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:177
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:181
 msgid "Did not set any request"
 msgstr "هیچ درخواستی ذخیره نشده است"
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:195
+msgid "Your old payment process remove, please try new payment ation"
+msgstr "پرداخت قبلی شما از سیستم حذف شد، لطفا یک تراکش جدید انجام دهید"
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:197
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:205
+msgid "Payment is clean"
+msgstr "دروازه پرداخت پاک است"
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:3
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:3
@@ -505,14 +529,18 @@ msgstr "پرداخت"
 msgid "View / Pay"
 msgstr "مشاهده / پرداخت"
 
+#~ msgid ""
+#~ "Another payment at process by you, Please finish that payment first or "
+#~ "try after 30 minutes"
+#~ msgstr ""
+#~ "یک پرداخت دیگر توسط حساب کاربری شما در حال انجام است. لطفا ابتدا ان "
+#~ "پرداخت را تکمیل کنید و یا ۳۰ دقیقه صبر کنید"
+
 #~ msgid "Logs"
 #~ msgstr "گزارش ها"
 
 #~ msgid "Payment"
 #~ msgstr "پرداخت"
-
-#~ msgid "Payment gateway"
-#~ msgstr "دروازه پرداخت"
 
 #~ msgid "Admin"
 #~ msgstr "مدیریت"

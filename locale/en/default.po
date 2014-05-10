@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2014-04-24 15:58+0330\n"
+"POT-Creation-Date: 2014-05-10 19:49+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -261,14 +261,31 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:39
+msgid "Attention"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:43
+msgid ""
+"You have another open payment process, if have have another page for online "
+"payment, please fish for courent payment and after that start new one. But "
+"is you cancel your old payment or it have any other problem and you want "
+"close all old proess and start new one, Please conferm this meaasage and "
+"select other payment"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:52
+msgid "Conferm"
+msgstr ""
+
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:41
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:40
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:41
 msgid "Not yet"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:72
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:56
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:76
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:73
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:58
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:78
 msgid "The invoice not found."
 msgstr ""
 
@@ -284,48 +301,51 @@ msgstr ""
 msgid "Install gateway"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:60
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:84
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:62
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:86
 msgid "This is not your invoice."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:80
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:82
 msgid "The invoice payd."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:89
-msgid ""
-"Another payment at process by you, Please finish that payment first or try "
-"after 30 minutes"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:114
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:118
 #, php-format
 msgid "Error to get %s."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:121
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:125
 msgid "Error to get information."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:138
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:145
 msgid "Your running pay processing not set"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:143
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:150
 msgid "Your IP address changed and processing not valid"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:167
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:171
 msgid "Your payment were successfully. Back to module"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:172
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:176
 msgid "Your payment wont successfully."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:177
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:181
 msgid "Did not set any request"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:195
+msgid "Your old payment process remove, please try new payment ation"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:197
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:205
+msgid "Payment is clean"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:3

@@ -56,7 +56,7 @@ class Processing extends AbstractApi
     	$uid = Pi::user()->getId();
     	$row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
     	if (is_object($row)) {
-    		$time = time() - 1800;
+    		$time = time() - 900;
     		if ($time > $row->time_create) {
     			$this->removeProcessing();
                 return true;
