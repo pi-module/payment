@@ -102,7 +102,7 @@ class IndexController extends ActionController
         if ($gateway->gatewayError) {
             // Remove processing
             Pi::api('processing', 'payment')->removeProcessing();
-            $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
+            $this->jump(array('', 'action' => 'result'), $gateway->gatewayError);
         }
         // Set form
         $form = new PayForm('pay', $gateway->gatewayPayForm);
@@ -115,14 +115,14 @@ class IndexController extends ActionController
                 } else {
                     // Get gateway object
                     $gateway = Pi::api('gateway', 'payment')->getGateway($invoice['adapter']);
-                    $this->jump(array('', 'action' => 'index'), sprintf(__('Error to get %s.'), $value)); 
+                    $this->jump(array('', 'action' => 'result'), sprintf(__('Error to get %s.'), $value)); 
                 }
             }
             $form->setData($values);
         } else {
             // Get gateway object
             $gateway = Pi::api('gateway', 'payment')->getGateway($invoice['adapter']);
-            $this->jump(array('', 'action' => 'index'), __('Error to get information.')); 
+            $this->jump(array('', 'action' => 'result'), __('Error to get information.')); 
         }
         // Set view
         $this->view()->setLayout('layout-content');
