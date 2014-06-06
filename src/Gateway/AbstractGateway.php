@@ -147,6 +147,18 @@ abstract class AbstractGateway
         return false;
     }
 
+    static public function getGatewayMessage($adapter, $log)
+    {
+        if (!empty($adapter)) {
+            $class = sprintf('Module\Payment\Gateway\%s\Gateway', $adapter);
+            if (class_exists($class)) {
+                $message = $class::setMessage($log);
+                return $message;  
+            }
+        } 
+        return false;
+    }
+
     protected function canonize()
     {
         $canonize = array();

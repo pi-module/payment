@@ -20,10 +20,10 @@ use Zend\Math\Rand;
 /*
  * Pi::api('invoice', 'payment')->createInvoice($module, $part, $item, $amount, $adapter, $description);
  * Pi::api('invoice', 'payment')->getInvoice($id);
- * Pi::api('invoice', 'payment')->getInvoiceFromItem($item);
+ * Pi::api('invoice', 'payment')->getInvoiceFromItem($module, $part, $item);
+ * Pi::api('invoice', 'payment')->getInvoiceRandomId($id);
  * Pi::api('invoice', 'payment')->updateInvoice($id);
  * Pi::api('invoice', 'payment')->updateModuleInvoice($id);
- * Pi::api('invoice', 'payment')->getInvoiceRandomId($id);
  */
 
 class Invoice extends AbstractApi
@@ -98,28 +98,6 @@ class Invoice extends AbstractApi
         return $invoice;
     }
 
-    public function getInvoiceFromItem($item)
-    {
-        $invoice = array();
-        $row = Pi::model('invoice', $this->getModule())->find($item, 'item');
-        if (is_object($row)) {
-            $invoice = $row->toArray();
-            $invoice['description'] = (array) Json::decode($invoice['description']);
-            $invoice['create'] = _date($invoice['time_create']);
-            $invoice['invoice_url'] = Pi::service('url')->assemble('payment', array(
-                    'module'        => $this->getModule(),
-                    'action'        => 'invoice',
-                    'id'            => $row->id,
-                ));
-            $invoice['pay_url'] = Pi::service('url')->assemble('payment', array(
-                'module'        => $this->getModule(),
-                'action'        => 'pay',
-                'id'            => $invoice['id'],
-            ));
-        }
-        return $invoice;
-    }
-
     public function getInvoiceRandomId($id)
     {
         $rand = Rand::getInteger(10, 99);
@@ -136,6 +114,32 @@ class Invoice extends AbstractApi
                 'action'        => 'pay',
                 'id'            => $invoice['id'],
             ));
+        }
+        return $invoice;
+    }
+
+    public function getInvoiceFromItem($module, $part, $item)
+    {
+        $invoice = array();
+
+        $where = array('module' => $module, 'part' => $part, 'item' => $item);
+        $select = Pi::model('invoice', $this->getModule())->select()->where($where)->limit(1);
+        $rowset = Pi::model('invoice', $this->getModule())->selectWith($select)->current();
+        if (is_object($rowset)) {
+            $invoice = $rowset->toArray();
+            $invoice['description'] = Json::decode($invoice['description'], true);
+            $invoice['create'] = _date($invoice['time_create']);
+            $invoice['invoice_url'] = Pi::service('url')->assemble('payment', array(
+                    'module'        => $this->getModule(),
+                    'action'        => 'invoice',
+                    'id'            => $rowset->id,
+                ));
+            $invoice['pay_url'] = Pi::service('url')->assemble('payment', array(
+                'module'        => $this->getModule(),
+                'action'        => 'pay',
+                'id'            => $invoice['id'],
+            ));
+            $invoice['log'] = Pi::api('log', 'payment')->getTrueLog($invoice['id']);
         }
         return $invoice;
     }

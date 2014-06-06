@@ -23,6 +23,7 @@ use Module\Payment\Gateway\AbstractGateway;
  * Pi::api('gateway', 'payment')->getActiveGatewayName();
  * Pi::api('gateway', 'payment')->getGateway($adapter);
  * Pi::api('gateway', 'payment')->getGatewayInfo($adapter);
+ * Pi::api('gateway', 'payment')->getGatewayMessage($adapter, $log);
  */
 
 class Gateway extends AbstractApi
@@ -50,5 +51,10 @@ class Gateway extends AbstractApi
     public function getGatewayInfo($adapter = '')
     {
         return AbstractGateway::getGatewayInfo($adapter);
-    }	
+    }
+
+    public function getGatewayMessage($adapter = '', $log = array())
+    {
+        return AbstractGateway::getGatewayMessage($adapter, $log);
+    }
 }	

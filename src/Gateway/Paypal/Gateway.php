@@ -131,4 +131,7 @@ class Gateway extends AbstractGateway
         $result = array();
         return $result;
     }
+
+    public function setMessage($log)
+    {}
 }

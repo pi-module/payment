@@ -75,7 +75,7 @@ class InvoiceController extends ActionController
         $invoice['time_create_view'] = _date($invoice['time_create']);
         $invoice['time_payment_view'] = ($invoice['time_payment']) ? _date($invoice['time_payment']) : __('Not yet');
         $invoice['amount_view'] = _currency($invoice['amount']);
-        $invoice['log'] = Pi::api('log', 'payment')->getLot($invoice['id']);
+        $invoice['log'] = Pi::api('log', 'payment')->getLog($invoice['id']);
         // Set view
         $this->view()->setTemplate('invoice_view');
         $this->view()->assign('invoice', $invoice);

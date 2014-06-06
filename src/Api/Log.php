@@ -18,8 +18,9 @@ use Pi\Application\Api\AbstractApi;
 use Zend\Json\Json;
 
 /*
- * Pi::api('log', 'payment')->setLot($log);
- * Pi::api('log', 'payment')->getLot($invoice);
+ * Pi::api('log', 'payment')->setLog($log);
+ * Pi::api('log', 'payment')->getLog($invoice);
+ * Pi::api('log', 'payment')->getTrueLog($invoice);
  */
 
 class Log extends AbstractApi
@@ -29,7 +30,7 @@ class Log extends AbstractApi
      *
      * @return array
      */
-    public function setLot($log)
+    public function setLog($log)
     {
         // create log
         $row = Pi::model('log', $this->getModule())->createRow();
@@ -46,7 +47,7 @@ class Log extends AbstractApi
         $row->save();
     }
 
-    public function getLot($invoice)
+    public function getLog($invoice)
     {
         // set info
         $list = array();
@@ -63,5 +64,24 @@ class Log extends AbstractApi
         }
         // return
         return $list;
+    }
+
+    public function getTrueLog($invoice)
+    {
+        // set info
+        $log = array();
+        $where = array('invoice' => $invoice, 'status' => 1);
+        // Get all logs
+        $select = Pi::model('log', $this->getModule())->select()->where($where)->limit(1);
+        $rowset = Pi::model('log', $this->getModule())->selectWith($select)->current();
+        if (is_object($rowset)) {
+            $log = $rowset->toArray();
+            $log['value'] = Json::decode($log['value'], true);
+            $log['time_create_view'] = _date($log['time_create']);
+            $log['amount_view'] = _currency($log['amount']);
+            $log['gatewayMessage'] = Pi::api('gateway', 'payment')->getGatewayMessage($log['gateway'], $log['value']);
+        }
+        // return
+        return $log;
     }
 }	

@@ -121,7 +121,7 @@ class Gateway extends AbstractGateway
             $log['amount'] = intval($this->gatewayInvoice['amount']);
             $log['status'] = 0;
             $log['message'] = $this->gatewayError;
-            Pi::api('log', 'payment')->setLot($log);
+            Pi::api('log', 'payment')->setLog($log);
         }
     }
 
@@ -150,7 +150,7 @@ class Gateway extends AbstractGateway
             if ($call == 0) {
                 $invoice = Pi::api('invoice', 'payment')->updateInvoice($value['SaleOrderId']);
                 $result['status'] = 1;
-                $message = __('Your payment were successfully.');;
+                $message = __('Your payment were successfully.');
             } else {
                 $this->setPaymentError($call);
                 $invoice = Pi::api('invoice', 'payment')->getInvoice($value['SaleOrderId']);
@@ -171,11 +171,17 @@ class Gateway extends AbstractGateway
         $log['amount'] = $invoice['amount'];
         $log['status'] = $result['status'];
         $log['message'] = $message;
-        Pi::api('log', 'payment')->setLot($log);
+        Pi::api('log', 'payment')->setLog($log);
         // Set result
         $result['adapter'] = $this->gatewayAdapter;
         $result['invoice'] = $invoice['id'];
         return $result;
+    }
+
+    public function setMessage($log)
+    {
+        $message = sprintf(__('Your track code is : %s'), $log['SaleReferenceId']);
+        return $message;
     }
 
     public function call($api, $parameters)
