@@ -144,34 +144,39 @@ class Gateway extends AbstractGateway
         $parameters['saleOrderId'] = $value['SaleOrderId'];
         $parameters['saleReferenceId'] = $value['SaleReferenceId'];
         // Check 
-        if ($processing['random_id'] == $value['SaleOrderId']) {
+        if ($processing['random_id'] == $value['SaleOrderId'] && $value['ResCode'] == 0) {
             // Check bank
             $call = $this->call('bpVerifyRequest', $parameters);
             if ($call == 0) {
                 $invoice = Pi::api('invoice', 'payment')->updateInvoice($value['SaleOrderId']);
                 $result['status'] = 1;
                 $message = __('Your payment were successfully.');
+                // Set log
+                $log = array();
+                $log['gateway'] = $this->gatewayAdapter;
+                $log['authority'] = $value['RefId'];
+                $log['value'] = Json::encode($value);
+                $log['invoice'] = $invoice['id'];
+                $log['amount'] = $invoice['amount'];
+                $log['status'] = $result['status'];
+                $log['message'] = $message;
+                Pi::api('log', 'payment')->setLog($log);
             } else {
                 $this->setPaymentError($call);
                 $invoice = Pi::api('invoice', 'payment')->getInvoice($value['SaleOrderId']);
                 $result['status'] = 0;
                 $message = $this->gatewayError;
             }
+        } elseif ($value['ResCode'] > 0) {
+            $this->setPaymentError($value['ResCode']);
+            $invoice = Pi::api('invoice', 'payment')->getInvoice($value['SaleOrderId']);
+            $result['status'] = 0;
+            $message = $this->gatewayError;
         } else {
             $invoice = Pi::api('invoice', 'payment')->getInvoice($value['SaleOrderId']);
             $result['status'] = 0;
             $message = __('Your order id not true.');
         }
-        // Set log
-        $log = array();
-        $log['gateway'] = $this->gatewayAdapter;
-        $log['authority'] = $value['RefId'];
-        $log['value'] = Json::encode($value);
-        $log['invoice'] = $invoice['id'];
-        $log['amount'] = $invoice['amount'];
-        $log['status'] = $result['status'];
-        $log['message'] = $message;
-        Pi::api('log', 'payment')->setLog($log);
         // Set result
         $result['adapter'] = $this->gatewayAdapter;
         $result['invoice'] = $invoice['id'];
