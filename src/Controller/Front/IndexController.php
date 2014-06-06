@@ -152,11 +152,6 @@ class IndexController extends ActionController
             }
             // Get gateway
             $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
-
-            echo '<pre>';
-            print_r($post);
-            echo '</pre>';
-
             // verify payment
             $verify = $gateway->verifyPayment($post, $processing);
             // Check error

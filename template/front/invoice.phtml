@@ -27,5 +27,9 @@
     	</div>
 		<?php } ?>
 	</div>
-	<div class="clearfix"><a class="btn btn-primary" title="<?php _e('Pay'); ?>" href="<?php echo $this->escape($invoice['pay']); ?>"><?php _e('Pay'); ?></a></div>
+	<?php if ($invoice['status'] == 2) {  ?>
+	<div class="clearfix">
+		<a class="btn btn-primary" title="<?php _e('Pay'); ?>" href="<?php echo $this->escape($invoice['pay']); ?>"><?php _e('Pay'); ?></a>
+	</div>
+	<?php } ?>
 </div>
