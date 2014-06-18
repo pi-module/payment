@@ -41,7 +41,7 @@ return array(
             'filter' => 'string',
         ),
         'payment_shownotpay' => array(
-            'category' => 'view',
+            'category' => 'payment',
             'title' => _a('Show not pay payments'),
             'description' => '',
             'edit' => 'checkbox',

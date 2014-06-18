@@ -25,10 +25,11 @@ class IndexController extends ActionController
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
+        // Get module 
+        $module = $this->params('module');
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Get info
-        $module = $this->params('module');
         $list = array();
         $order = array('id DESC', 'time_create DESC');
         $where = array('uid' => Pi::user()->getId());
@@ -140,6 +141,8 @@ class IndexController extends ActionController
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
+        // Get module 
+        $module = $this->params('module');
         // Get config
         $config = Pi::service('registry')->config->read($module);
         // Get post
