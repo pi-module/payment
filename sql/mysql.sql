@@ -14,7 +14,18 @@ CREATE TABLE `{invoice}` (
     `time_payment` int(10) unsigned NOT NULL,
     `time_cancel` int(10) unsigned NOT NULL,
     `note` text,
-    PRIMARY KEY  (`id`)
+    PRIMARY KEY  (`id`),
+    UNIQUE KEY `random_id` (`random_id`),
+    KEY `module` (`module`),
+    KEY `part` (`part`),
+    KEY `item` (`item`),
+    KEY `amount` (`amount`),
+    KEY `adapter` (`adapter`),
+    KEY `uid` (`uid`),
+    KEY `status` (`status`),
+    KEY `uid_status` (`uid`, `status`),
+    KEY `time_create` (`time_create`),
+    KEY `id_time_create` (`id`, `time_create`)
 );
 
 CREATE TABLE `{gateway}` (
@@ -26,7 +37,8 @@ CREATE TABLE `{gateway}` (
     `status` tinyint(1) unsigned NOT NULL,
     `type` enum('online','offline') NOT NULL,
     `option` text,
-    PRIMARY KEY  (`id`)
+    PRIMARY KEY  (`id`),
+    KEY `status` (`status`)
 );
 
 CREATE TABLE `{log}` (
@@ -41,7 +53,9 @@ CREATE TABLE `{log}` (
     `ip` char(15) NOT NULL,
     `value` text,
     `message` varchar(255) NOT NULL,
-    PRIMARY KEY  (`id`)
+    PRIMARY KEY  (`id`),
+    KEY `uid` (`uid`),
+    KEY `ip` (`ip`)
 );
 
 CREATE TABLE `{processing}` (
@@ -52,5 +66,7 @@ CREATE TABLE `{processing}` (
     `random_id` int(10) unsigned NOT NULL,
     `adapter` varchar(64) NOT NULL,
     `time_create` int(10) unsigned NOT NULL,
-    PRIMARY KEY  (`id`)
+    PRIMARY KEY  (`id`),
+    KEY `uid` (`uid`),
+    KEY `ip` (`ip`)
 );

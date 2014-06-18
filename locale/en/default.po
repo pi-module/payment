@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2014-06-06 17:09+0330\n"
+"POT-Creation-Date: 2014-06-18 11:20+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -285,13 +285,13 @@ msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:41
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:76
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:41
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:46
 msgid "Not yet"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:73
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:58
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:78
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:63
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:83
 msgid "The invoice not found."
 msgstr ""
 
@@ -307,50 +307,50 @@ msgstr ""
 msgid "Install gateway"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:62
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:86
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:67
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:91
 msgid "This is not your invoice."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:82
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:87
 msgid "The invoice payd."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:118
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:123
 #, php-format
 msgid "Error to get %s."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:125
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:130
 msgid "Error to get information."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:145
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:152
 msgid "Your running pay processing not set"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:150
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:157
 msgid "Your IP address changed and processing not valid"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:176
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:184
 msgid "Your payment were successfully. Back to module"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:181
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:189
 msgid "Your payment wont successfully."
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:186
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:194
 msgid "Did not set any request"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:200
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:208
 msgid "Your old payment process remove, please try new payment ation"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:202
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:210
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:218
 msgid "Payment is clean"
 msgstr ""
 
@@ -531,7 +531,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:30
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:32
 msgid "Pay"
 msgstr ""
 

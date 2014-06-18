@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2014-06-06 16:40+0330\n"
+"POT-Creation-Date: 2014-06-18 11:20+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -29,6 +29,7 @@ msgid "Gateway"
 msgstr "دروازه"
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/config/module.php:16
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/config/config.php:21
 msgid "Payment"
 msgstr "پرداخت"
 
@@ -40,9 +41,23 @@ msgstr "دروازه پرداخت"
 msgid "Admin"
 msgstr "مدیریت"
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/config/config.php:25
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/config/config.php:29
 msgid "Perpage"
 msgstr "تعداد در هر صفحه"
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/config/config.php:38
+msgid "Payment gateway error url"
+msgstr "لینک برگشت در خطای دروازه پرداخت"
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/config/config.php:39
+msgid "Set back url when gateway have error, set empty for default url"
+msgstr ""
+"تنظیم لینک برگشت وقتی که خطایی در روند پرداخت روی داده باشد، برای استفاده از "
+"آدرس پیش فرض این گزینه را خالی رها کنید."
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/config/config.php:45
+msgid "Show not pay payments"
+msgstr "نمایش فاکتور های پرداخت نشده به کاربر"
 
 #~ msgid "Paypal"
 #~ msgstr "پی پال"

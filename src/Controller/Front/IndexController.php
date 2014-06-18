@@ -25,11 +25,16 @@ class IndexController extends ActionController
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
         // Get info
         $module = $this->params('module');
         $list = array();
         $order = array('id DESC', 'time_create DESC');
         $where = array('uid' => Pi::user()->getId());
+        if (!$config['payment_shownotpay']) {
+            $where['status'] = 1;
+        }
         $select = $this->getModel('invoice')->select()->where($where)->order($order);
         $rowset = $this->getModel('invoice')->selectWith($select);
         // Make list
@@ -135,6 +140,8 @@ class IndexController extends ActionController
     {
         // Check user is login or not
         Pi::service('authentication')->requireLogin();
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
         // Get post
         if ($this->request->isPost()) {
             $post = $this->request->getPost();
@@ -158,8 +165,14 @@ class IndexController extends ActionController
             if ($gateway->gatewayError) {
                 // Remove processing
                 Pi::api('processing', 'payment')->removeProcessing();
+                // Url
+                if (!empty($config['payment_gateway_error_url'])) {
+                    $url = $config['payment_gateway_error_url'];
+                } else {
+                    $url = $this->url(array('', 'action' => 'index'));
+                }
                 // jump
-                $this->jump(array('', 'action' => 'index'), $gateway->gatewayError);
+                $this->jump($url, $gateway->gatewayError);
             }
             // Check status
             if ($verify['status'] == 1) {

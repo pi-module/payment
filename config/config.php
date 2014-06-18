@@ -17,6 +17,10 @@ return array(
             'title' => _a('Admin'),
             'name' => 'admin'
         ),
+        array(
+            'title' => _a('Payment'),
+            'name' => 'payment'
+        ),
     ),
     'item' => array(
     	// Admin
@@ -27,6 +31,22 @@ return array(
             'edit' => 'text',
             'filter' => 'number_int',
             'value' => 50
+        ),
+        // Payment
+        'payment_gateway_error_url' => array(
+            'category' => 'payment',
+            'title' => _a('Payment gateway error url'),
+            'description' => _a('Set back url when gateway have error, set empty for default url'),
+            'edit' => 'text',
+            'filter' => 'string',
+        ),
+        'payment_shownotpay' => array(
+            'category' => 'view',
+            'title' => _a('Show not pay payments'),
+            'description' => '',
+            'edit' => 'checkbox',
+            'filter' => 'number_int',
+            'value' => 1
         ),
     ),
 );
