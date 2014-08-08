@@ -22,7 +22,7 @@ use Pi\Application\Api\AbstractApi;
 
 class User extends AbstractApi
 {
-	public function getPaymentHistory($user = '')
+	public function getPaymentHistory($user = '', $module = '')
 	{
 		// Get user id if not set
 		if (empty($user)) {
@@ -40,8 +40,13 @@ class User extends AbstractApi
         $list = array();
         $order = array('id DESC', 'time_create DESC');
         $where = array('uid' => $user);
-        if (!$config['payment_shownotpay']) {
+        //
+        /* if (!$config['payment_shownotpay']) {
             $where['status'] = 1;
+        } */
+        // 
+        if (!empty($module)) {
+        	$where['module'] = $module;
         }
         $select = Pi::model('invoice', $this->getModule())->select()->where($where)->order($order);
         $rowset = Pi::model('invoice', $this->getModule())->selectWith($select);
