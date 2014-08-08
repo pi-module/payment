@@ -51,6 +51,7 @@ class Invoice extends AbstractApi
     		} else {
     			// create invoice
     			$row = Pi::model('invoice', $this->getModule())->createRow();
+                $row->random_id = time();
     			$row->module = $module;
     			$row->part = $part;
     			$row->item = $item;
