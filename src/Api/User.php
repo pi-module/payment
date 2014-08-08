@@ -56,7 +56,7 @@ class User extends AbstractApi
             $list[$row->id]['invoiceUrl'] = Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
                 'controller'    => 'index',
-                'action'        => 'invoice'
+                'action'        => 'invoice',
                 'id'            => $row->id,
             ));
         }
