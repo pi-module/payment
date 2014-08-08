@@ -15,6 +15,7 @@ namespace Module\Payment\Api;
 
 use Pi;
 use Pi\Application\Api\AbstractApi;
+use Zend\Json\Json;
 
 /*
  * Pi::api('user', 'payment')->getPaymentHistory($user);
