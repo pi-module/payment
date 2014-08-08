@@ -57,7 +57,7 @@ class User extends AbstractApi
             $list[$row->id]['description'] = Json::decode($list[$row->id]['description']);
             $list[$row->id]['user'] = $userInfo;
             $list[$row->id]['time_create_view'] = _date($list[$row->id]['time_create']);
-            $list[$row->id]['time_payment_view'] = ($list[$row->id]['time_payment']) ? _date($list[$row->id]['time_payment']) : __('Not yet');
+            $list[$row->id]['time_payment_view'] = ($list[$row->id]['time_payment']) ? _date($list[$row->id]['time_payment']) : '';
             $list[$row->id]['amount_view'] = _currency($list[$row->id]['amount']);
             $list[$row->id]['invoiceUrl'] = Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
