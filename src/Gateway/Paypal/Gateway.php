@@ -187,7 +187,7 @@ class Gateway extends AbstractGateway
         $this->gatewayPayInformation['cancel_return'] = $this->gatewayCancelUrl;
         $this->gatewayPayInformation['custom'] = $this->gatewayOption['custom'];
 
-        $this->gatewayPayInformation['amount_1'] = intval($this->gatewayInvoice['amount']);
+        $this->gatewayPayInformation['amount'] = intval($this->gatewayInvoice['amount']);
     }
 
     public function setRedirectUrl()

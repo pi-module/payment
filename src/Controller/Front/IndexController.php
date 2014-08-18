@@ -116,12 +116,12 @@ class IndexController extends ActionController
         // Set form values
         if (!empty($gateway->gatewayPayInformation)) {
             foreach ($gateway->gatewayPayInformation as $key => $value) {
-                if (!empty($value)) {
+                if ($value || $value == 0) {
                     $values[$key] = $value;
                 } else {
                     // Get gateway object
                     $gateway = Pi::api('gateway', 'payment')->getGateway($invoice['adapter']);
-                    $this->jump(array('', 'action' => 'result'), sprintf(__('Error to get %s.'), $value)); 
+                    $this->jump(array('', 'action' => 'result'), sprintf(__('Error to get %s.'), $key)); 
                 }
             }
             $form->setData($values);
@@ -149,8 +149,8 @@ class IndexController extends ActionController
         $request = '';
         if ($this->request->isPost()) {
             $request = $this->request->getPost();
-        } else if ($this->request->isGet()) {
-            $request = $this->request->getGet();
+        //} elseif ($this->request->isGet()) {
+        //    $request = $this->request->getGet();
         }    
         // Check request
         if (!empty($request)) {
