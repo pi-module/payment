@@ -198,6 +198,12 @@ class Gateway extends AbstractGateway
     
     public function verifyPayment($request, $processing)
     {
+        // Some good example for verify
+        // https://developer.paypal.com/docs/classic/ipn/ht_ipn/
+        // https://stackoverflow.com/questions/4848227/validate-that-ipn-call-is-from-paypal
+        // http://www.emanueleferonato.com/2011/09/28/using-php-with-paypals-ipn-instant-paypal-notification-to-automate-your-digital-delivery/
+        // https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNIntro/
+
         // Get user id
         $user = $processing['uid'];
         // Get unique transaction id.
@@ -228,7 +234,7 @@ class Gateway extends AbstractGateway
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         // Close connection
         curl_close($ch);
-        
+
         // Check
         if($status == 200 AND strpos($response, 'SUCCESS') === 0) {
             $invoice = Pi::api('invoice', 'payment')->updateInvoice($processing['invoice']);
