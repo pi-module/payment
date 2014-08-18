@@ -96,7 +96,7 @@ abstract class AbstractGateway
         // Make list
         foreach ($rowset as $row) {
             $item[$row->id] = $row->toArray();
-            $item[$row->id]['option'] = (array) Json::decode($item[$row->id]['option']);
+            $item[$row->id]['option'] = Json::decode($item[$row->id]['option'], true);
             $dir = sprintf(Pi::path('usr/module/payment/src/Gateway/%s'), $item[$row->id]['path']);
             if (is_dir($dir)) {
                 $class = sprintf('Module\Payment\Gateway\%s\Gateway', $item[$row->id]['path']);
@@ -186,7 +186,7 @@ abstract class AbstractGateway
     protected function setOption()
     {
         if (is_array($this->gatewayRow) && isset($this->gatewayRow['option'])) {
-            $this->gatewayOption =  (array) Json::decode($this->gatewayRow['option']);
+            $this->gatewayOption =  Json::decode($this->gatewayRow['option'], true);
         }
         return $this; 
     }
@@ -208,11 +208,20 @@ abstract class AbstractGateway
                 )));
     }
 
+    protected function setCancelUrl()
+    {
+        $this->gatewayCancelUrl = Pi::url(Pi::service('url')->assemble('payment', array(
+                    'module'        => 'payment',
+                    'action'        => 'cancel',
+                )));
+    }
+
     public function setInvoice($invoice = array())
     {
         if (is_array($invoice) && !empty($invoice)) {
             $this->gatewayInvoice = $invoice;
             $this->setBackUrl();
+            $this->setCancelUrl();
             $this->setRedirectUrl();
         }
         return $this;

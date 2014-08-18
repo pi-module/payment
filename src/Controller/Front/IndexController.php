@@ -145,9 +145,15 @@ class IndexController extends ActionController
         $module = $this->params('module');
         // Get config
         $config = Pi::service('registry')->config->read($module);
-        // Get post
+        // Get request
+        $request = '';
         if ($this->request->isPost()) {
-            $post = $this->request->getPost();
+            $request = $this->request->getPost();
+        } else if ($this->request->isGet()) {
+            $request = $this->request->getGet();
+        }    
+        // Check request
+        if (!empty($request)) {
             // Get processing
             $processing = Pi::api('processing', 'payment')->getProcessing();
             // Check processing
@@ -163,7 +169,7 @@ class IndexController extends ActionController
             // Get gateway
             $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
             // verify payment
-            $verify = $gateway->verifyPayment($post, $processing);
+            $verify = $gateway->verifyPayment($request, $processing);
             // Check error
             if ($gateway->gatewayError) {
                 // Remove processing

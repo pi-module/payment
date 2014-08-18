@@ -15,7 +15,7 @@ return array(
     'meta'         => array(
         'title'         => _a('Payment'),
         'description'   => _a('Payment gateway'),
-        'version'       => '1.1.2',
+        'version'       => '1.2.0',
         'license'       => 'New BSD',
         'logo'          => 'image/logo.png',
         'readme'        => 'docs/readme.txt',
