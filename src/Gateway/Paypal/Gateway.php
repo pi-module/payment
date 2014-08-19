@@ -155,9 +155,31 @@ class Gateway extends AbstractGateway
                 'name' => 'custom',
                 'type' => 'hidden',
             );
+        // form charset
+        $form['charset'] = array(
+                'name' => 'charset',
+                'type' => 'hidden',
+            );
+
+
         // form amount
         $form['amount'] = array(
                 'name' => 'amount',
+                'type' => 'hidden',
+            );
+        // form item_name
+        $form['item_number'] = array(
+                'name' => 'item_name',
+                'type' => 'hidden',
+            );
+        // form item_number
+        $form['item_number'] = array(
+                'name' => 'item_number',
+                'type' => 'hidden',
+            );
+        // form invoice
+        $form['invoice'] = array(
+                'name' => 'invoice',
                 'type' => 'hidden',
             );
         $this->gatewayPayForm = $form;
@@ -186,8 +208,12 @@ class Gateway extends AbstractGateway
         $this->gatewayPayInformation['cbt'] = __('Back to website');
         $this->gatewayPayInformation['cancel_return'] = $this->gatewayCancelUrl;
         $this->gatewayPayInformation['custom'] = $this->gatewayOption['custom'];
+        $this->gatewayPayInformation['charset'] = 'utf-8';
 
         $this->gatewayPayInformation['amount'] = intval($this->gatewayInvoice['amount']);
+        $this->gatewayPayInformation['item_name'] = 'test name';
+        $this->gatewayPayInformation['item_number'] = 1;
+        $this->gatewayPayInformation['invoice'] = intval($this->gatewayInvoice['random_id']);
     }
 
     public function setRedirectUrl()
