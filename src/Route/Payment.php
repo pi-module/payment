@@ -28,7 +28,7 @@ class Payment extends Standard
     );
 
     protected $actionList = array(
-        'index', 'invoice', 'result', 'pay', 'remove'
+        'index', 'invoice', 'result', 'pay', 'remove', 'cancel'
     );
 
     /**

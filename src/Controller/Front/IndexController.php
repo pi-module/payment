@@ -235,4 +235,7 @@ class IndexController extends ActionController
             $this->view()->assign('form', $form);
         }    
     }
+
+    public function cancelAction()
+    {}
 }

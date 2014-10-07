@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pi payment module\n"
-"POT-Creation-Date: 2014-06-18 11:20+0330\n"
+"POT-Creation-Date: 2014-10-07 16:03+0330\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: Pi\n"
@@ -16,28 +16,84 @@ msgstr ""
 "X-Poedit-SearchPath-0: /var/www/html/local/pi/pi-release-2.4.0/usr/module/"
 "payment\n"
 
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Api/Invoice.php:50
+msgid "Please send all informations for create invoice"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Api/Invoice.php:73
+msgid "Your invoice create successfully"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Api/Invoice.php:78
+msgid "Please login for create invoice"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:39
+msgid "Attention"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:43
+msgid ""
+"You have another open payment process, if have have another page for online "
+"payment, please fish for courent payment and after that start new one. But "
+"is you cancel your old payment or it have any other problem and you want "
+"close all old proess and start new one, Please conferm this meaasage and "
+"select other payment"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:52
+msgid "Conferm"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/GatewayForm.php:65
+msgid "Submit"
+msgstr ""
+
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:30
 msgid "Paypal"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:58
-msgid "email"
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:48
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:48
+msgid "path"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:64
-msgid "test"
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:54
+msgid "Paypal email address"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:70
-msgid "money"
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:60
+msgid "Paypal currency"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:66
+msgid "Paypal currency symbol"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:72
+msgid "Location code (ex GB)"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:78
+msgid "Custom attribute"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:215
+msgid "Back to website"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:321
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:153
+msgid "Your payment were successfully."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Paypal/Gateway.php:339
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/result.phtml:4
+msgid "Error"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:30
 msgid "Bank Mellat (Iran)"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:48
-msgid "path"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:54
@@ -50,10 +106,6 @@ msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:66
 msgid "password"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:153
-msgid "Your payment were successfully."
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Gateway/Mellat/Gateway.php:178
@@ -250,49 +302,63 @@ msgstr ""
 msgid "Bank Mellat error %s"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Api/Invoice.php:50
-msgid "Please send all informations for create invoice"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Api/Invoice.php:72
-msgid "Your invoice create successfully"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Api/Invoice.php:77
-msgid "Please login for create invoice"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/GatewayForm.php:65
-msgid "Submit"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:39
-msgid "Attention"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:43
-msgid ""
-"You have another open payment process, if have have another page for online "
-"payment, please fish for courent payment and after that start new one. But "
-"is you cancel your old payment or it have any other problem and you want "
-"close all old proess and start new one, Please conferm this meaasage and "
-"select other payment"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Form/RemoveForm.php:52
-msgid "Conferm"
-msgstr ""
-
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:47
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:41
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:76
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:46
 msgid "Not yet"
 msgstr ""
 
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:64
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:84
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/InvoiceController.php:73
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:63
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:83
 msgid "The invoice not found."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:68
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:92
+msgid "This is not your invoice."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:88
+msgid "The invoice payd."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:124
+#, php-format
+msgid "Error to get %s."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:131
+msgid "Error to get information."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:161
+msgid "Your running pay processing not set"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:166
+msgid "Your IP address changed and processing not valid"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:193
+msgid "Your payment were successfully. Back to module"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:198
+msgid "Your payment wont successfully."
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:203
+msgid "Did not set any request"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:217
+msgid "Your old payment process remove, please try new payment ation"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:219
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:227
+msgid "Payment is clean"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Admin/GatewayController.php:71
@@ -307,100 +373,121 @@ msgstr ""
 msgid "Install gateway"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:67
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:91
-msgid "This is not your invoice."
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:3
+msgid "Your invoices list"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:87
-msgid "The invoice payd."
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:123
-#, php-format
-msgid "Error to get %s."
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:130
-msgid "Error to get information."
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:152
-msgid "Your running pay processing not set"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:157
-msgid "Your IP address changed and processing not valid"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:184
-msgid "Your payment were successfully. Back to module"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:189
-msgid "Your payment wont successfully."
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:194
-msgid "Did not set any request"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:208
-msgid "Your old payment process remove, please try new payment ation"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:210
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/src/Controller/Front/IndexController.php:218
-msgid "Payment is clean"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:3
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:3
-msgid "List of Invoices"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:6
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:6
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:6
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:6
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:6
 msgid "ID"
 msgstr ""
 
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:7
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:13
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:7
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:13
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:13
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:7
 msgid "Order"
 msgstr ""
 
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:8
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:15
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:9
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:8
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:15
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:35
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:9
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:15
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:8
 msgid "Amount"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:9
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:34
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:10
-msgid "User"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:10
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:11
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:9
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:11
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:10
 msgid "Time Create"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:11
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:10
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:11
 msgid "Time pay"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:12
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:11
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:12
 msgid "Action"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:30
+msgid "View / Pay"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:36
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:7
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:37
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:40
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:6
+msgid "Paid"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:37
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:9
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:38
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:41
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:8
+msgid "Unpaid"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:38
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:11
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:39
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:42
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:10
+msgid "Canceled"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:6
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:5
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:37
+msgid "Status"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:14
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:14
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:32
+msgid "Gateway"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:16
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:16
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:33
+msgid "Create"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:32
+msgid "Pay"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:3
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:3
+msgid "List of Invoices"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:7
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:31
+msgid "Invoice"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:8
+msgid "Adapter"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:10
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:9
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:34
+msgid "User"
+msgstr ""
+
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:12
+#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:38
+msgid "Ip"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:32
@@ -411,30 +498,6 @@ msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:33
 msgid "View"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:40
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:6
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:37
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:7
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:36
-msgid "Paid"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:41
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:8
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:38
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:9
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:37
-msgid "Unpaid"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_index.phtml:42
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:10
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:39
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:11
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:38
-msgid "Canceled"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/gateway_index.phtml:3
@@ -483,62 +546,14 @@ msgstr ""
 msgid "Invoice %s"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:5
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:37
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:6
-msgid "Status"
-msgstr ""
-
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:12
 msgid "Module"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:14
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:32
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:14
-msgid "Gateway"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:16
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:33
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:16
-msgid "Create"
 msgstr ""
 
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:30
 msgid "Id"
 msgstr ""
 
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:31
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:7
-msgid "Invoice"
-msgstr ""
-
 #: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:36
 msgid "Authority"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/invoice_view.phtml:38
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:12
-msgid "Ip"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/admin/log_index.phtml:8
-msgid "Adapter"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/result.phtml:4
-msgid "Error"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/invoice.phtml:32
-msgid "Pay"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:3
-msgid "Your invoices list"
-msgstr ""
-
-#: /var/www/html/local/pi/pi-release-2.4.0/usr/module/payment/template/front/list.phtml:30
-msgid "View / Pay"
 msgstr ""
