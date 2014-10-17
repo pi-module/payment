@@ -37,23 +37,31 @@ class GatewayForm extends BaseForm
         // Set extra field
         if (!empty($this->field)) {
             foreach ($this->field as $field) {
-            	if ($field['type'] != 'hidden') {
-                	$this->add(array(
-                    	'name' => $field['name'],
-                    	'options' => array(
-                        	'label' => $field['label'],
-                    	),
-                    	'attributes' => array(
-                        	'type' => $field['type'],
-                    	)
-                	));
-            	} else {
-        			$this->add(array(
-            			'name' => $field['name'],
-            			'attributes' => array(
-                			'type' => 'hidden',
-            			),
-        			));
+            	if ($field['type'] == 'hidden') {
+                    $this->add(array(
+                        'name' => $field['name'],
+                        'attributes' => array(
+                            'type' => 'hidden',
+                        ),
+                    ));
+            	} elseif ($field['type'] == 'checkbox') {
+                    $this->add(array(
+                        'name' => $field['name'],
+                        'type' => 'checkbox',
+                        'options' => array(
+                            'label' => $field['label'],
+                        ),
+                    ));
+                } else {    
+                    $this->add(array(
+                        'name' => $field['name'],
+                        'options' => array(
+                            'label' => $field['label'],
+                        ),
+                        'attributes' => array(
+                            'type' => $field['type'],
+                        ),
+                    ));
             	}
             }
         }
