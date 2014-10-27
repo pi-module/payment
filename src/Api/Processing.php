@@ -19,9 +19,9 @@ use Zend\Json\Json;
 
 /*
  * Pi::api('processing', 'payment')->setProcessing($invoice);
- * Pi::api('processing', 'payment')->getProcessing();
+ * Pi::api('processing', 'payment')->getProcessing($random_id);
  * Pi::api('processing', 'payment')->checkProcessing();
- * Pi::api('processing', 'payment')->removeProcessing();
+ * Pi::api('processing', 'payment')->removeProcessing($invoice);
  */
 
 class Processing extends AbstractApi
@@ -39,10 +39,16 @@ class Processing extends AbstractApi
         $row->save();
     }
 
-    public function getProcessing()
+    public function getProcessing($random_id = '')
     {
-    	$uid = Pi::user()->getId();
-    	$row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+        // get
+        if (!empty($invoice)) {
+            $row = Pi::model('processing', $this->getModule())->find($random_id, 'random_id');
+        } else {
+            $uid = Pi::user()->getId();
+            $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+        }
+  	    // check
     	if (is_object($row)) {
     		$row = $row->toArray();
             return $row;
@@ -68,10 +74,16 @@ class Processing extends AbstractApi
     	}
     }
 
-    public function removeProcessing()
+    public function removeProcessing($random_id = '')
     {
-        $uid = Pi::user()->getId();
-        $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+        // get
+        if (!empty($invoice)) {
+            $row = Pi::model('processing', $this->getModule())->find($random_id, 'random_id');
+        } else {
+            $uid = Pi::user()->getId();
+            $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+        }
+        // delete
         if (!empty($row)) {
             $row->delete();
         }

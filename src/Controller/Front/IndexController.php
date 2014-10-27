@@ -149,8 +149,6 @@ class IndexController extends ActionController
         $request = '';
         if ($this->request->isPost()) {
             $request = $this->request->getPost();
-        //} elseif ($this->request->isGet()) {
-        //    $request = $this->request->getGet();
         }    
         // Check request
         if (!empty($request)) {
@@ -207,6 +205,48 @@ class IndexController extends ActionController
         $this->view()->assign('message', $message);
     }
 
+    public function notifyAction()
+    {
+        // Get module 
+        $module = $this->params('module');
+        // Get config
+        $config = Pi::service('registry')->config->read($module);
+        // Get request
+        $request = '';
+        if ($this->request->isPost()) {
+            $request = $this->request->getPost();
+        }
+        // Check request
+        if (!empty($request)) {
+            // Get processing
+            $processing = Pi::api('processing', 'payment')->getProcessing($request['invoice']);
+            // Check processing
+            if ($processing) {
+                // Get gateway
+                $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
+                $verify = $gateway->verifyPayment($request, $processing);
+                // Check error
+                if ($gateway->gatewayError) {
+                    // Remove processing
+                    Pi::api('processing', 'payment')->removeProcessing($request['invoice']);
+                    return false;
+                } else {
+                    if ($verify['status'] == 1) {
+                        Pi::api('invoice', 'payment')->updateModuleInvoice($verify['invoice']);
+                        Pi::api('processing', 'payment')->removeProcessing($request['invoice']);
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     public function removeAction()
     {
         // Get post
@@ -237,5 +277,28 @@ class IndexController extends ActionController
     }
 
     public function cancelAction()
-    {}
+    {
+        // Set return
+        $return = array(
+            'website' => Pi::url(),
+            'module' => $this->params('module'),
+            'message' => 'finish',
+        );
+        // Set view
+        $this->view()->setTemplate(false)->setLayout('layout-content');
+        return Json::encode($return);
+    }
+
+    public function finishAction()
+    {
+        // Set return
+        $return = array(
+            'website' => Pi::url(),
+            'module' => $this->params('module'),
+            'message' => 'finish',
+        );
+        // Set view
+        $this->view()->setTemplate(false)->setLayout('layout-content');
+        return Json::encode($return);
+    }
 }

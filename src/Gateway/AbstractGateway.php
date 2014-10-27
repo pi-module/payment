@@ -216,12 +216,30 @@ abstract class AbstractGateway
                 )));
     }
 
+    protected function setFinishUrl()
+    {
+        $this->gatewayFinishUrl = Pi::url(Pi::service('url')->assemble('payment', array(
+                    'module'        => 'payment',
+                    'action'        => 'finish',
+                )));
+    }
+
+    protected function setNotifyUrl()
+    {
+        $this->gatewayNotifyUrl = Pi::url(Pi::service('url')->assemble('payment', array(
+                    'module'        => 'payment',
+                    'action'        => 'notify',
+                )));
+    }
+
     public function setInvoice($invoice = array())
     {
         if (is_array($invoice) && !empty($invoice)) {
             $this->gatewayInvoice = $invoice;
             $this->setBackUrl();
             $this->setCancelUrl();
+            $this->setFinishUrl();
+            $this->setNotifyUrl();
             $this->setRedirectUrl();
         }
         return $this;
