@@ -81,8 +81,27 @@ class Gateway extends AbstractGateway
         // test_mode
         $form['test_mode'] = array(
             'name'   => 'test_mode',
-            'label'  => __('Test mode'),
+            'label'  => __('Test mode by sandbox'),
             'type'   => 'checkbox',
+        );
+
+        // Username
+        $form['username'] = array(
+            'name'   => 'username',
+            'label'  => __('Username for sandbox'),
+            'type'   => 'text',
+        );
+        // password
+        $form['password'] = array(
+            'name'   => 'password',
+            'label'  => __('Password for sandbox'),
+            'type'   => 'text',
+        );
+        // signature
+        $form['signature'] = array(
+            'name'   => 'signature',
+            'label'  => __('Signature for sandbox'),
+            'type'   => 'text',
         );
         $this->gatewaySettingForm = $form;
         return $this;
@@ -191,6 +210,24 @@ class Gateway extends AbstractGateway
             'name'   => 'email',
             'type'   => 'hidden',
         );
+        // Set for test mode
+        if ($this->gatewayOption['test_mode']) {
+            // username
+            $form['username'] = array(
+                'name'   => 'username',
+                'type'   => 'hidden',
+            );
+            // password
+            $form['password'] = array(
+                'name'   => 'password',
+                'type'   => 'hidden',
+            );
+            // signature
+            $form['signature'] = array(
+                'name'   => 'signature',
+                'type'   => 'hidden',
+            );
+        }
         /*
         // form no_note
         $form['no_note'] = array(
@@ -278,6 +315,12 @@ class Gateway extends AbstractGateway
         $this->gatewayPayInformation['country'] = '';
         $this->gatewayPayInformation['zip'] = '';
         $this->gatewayPayInformation['email'] = '';
+        // Set for test mode
+        if ($this->gatewayOption['test_mode']) {
+            $this->gatewayPayInformation['username'] = $this->gatewayOption['username'];
+            $this->gatewayPayInformation['password'] = $this->gatewayOption['password'];
+            $this->gatewayPayInformation['signature'] = $this->gatewayOption['signature'];
+        }
         /* 
         $this->gatewayPayInformation['no_note'] = 0;
         $this->gatewayPayInformation['bn'] = 'PP-BuyNowBF';
