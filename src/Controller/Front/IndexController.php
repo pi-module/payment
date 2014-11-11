@@ -218,10 +218,45 @@ class IndexController extends ActionController
         }
         // Check request
         if (!empty($request)) {
+
+            // Start test log
+            $log = array(
+                'value' => array(
+                    'level' => 1,
+                    'post'  => $request,
+                ),
+            );
+            Pi::api('log', 'payment')->setLog($log);
+            // End test log
+
             // Get processing
             $processing = Pi::api('processing', 'payment')->getProcessing($request['invoice']);
+
+            // Start test log
+            $log = array(
+                'value' => array(
+                    'level' => 3,
+                    'post'  => $request,
+                    'processing'  => $processing,
+                ),
+            );
+            Pi::api('log', 'payment')->setLog($log);
+            // End test log
+
             // Check processing
             if ($processing) {
+
+                // Start test log
+                $log = array(
+                    'value' => array(
+                        'level' => 4,
+                        'post'  => $request,
+                        'processing'  => $processing,
+                    ),
+                );
+                Pi::api('log', 'payment')->setLog($log);
+                // End test log
+
                 // Get gateway
                 $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
                 $verify = $gateway->verifyPayment($request, $processing);
@@ -240,9 +275,31 @@ class IndexController extends ActionController
                     }
                 }
             } else {
+
+                // Start test log
+                $log = array(
+                    'value' => array(
+                        'level' => 5,
+                        'post'  => $request,
+                        'processing'  => '',
+                    ),
+                );
+                Pi::api('log', 'payment')->setLog($log);
+                // End test log
+
                 return false;
             }
         } else {
+            // Start test log
+            $log = array(
+                'value' => array(
+                    'level' => 2,
+                    'post'  => '',
+                ),
+            );
+            Pi::api('log', 'payment')->setLog($log);
+            // End test log
+
             return false;
         }
     }

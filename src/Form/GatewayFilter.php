@@ -24,7 +24,7 @@ class GatewayFilter extends InputFilter
             foreach ($field as $item) {
                 $this->add(array(
                     'name' => $item['name'],
-                    'required' => true,
+                    'required' => $item['required'],
                 ));
             }
         }

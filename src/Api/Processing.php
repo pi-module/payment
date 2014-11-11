@@ -42,7 +42,7 @@ class Processing extends AbstractApi
     public function getProcessing($random_id = '')
     {
         // get
-        if (!empty($invoice)) {
+        if (!empty($random_id)) {
             $row = Pi::model('processing', $this->getModule())->find($random_id, 'random_id');
         } else {
             $uid = Pi::user()->getId();
@@ -77,7 +77,7 @@ class Processing extends AbstractApi
     public function removeProcessing($random_id = '')
     {
         // get
-        if (!empty($invoice)) {
+        if (!empty($random_id)) {
             $row = Pi::model('processing', $this->getModule())->find($random_id, 'random_id');
         } else {
             $uid = Pi::user()->getId();

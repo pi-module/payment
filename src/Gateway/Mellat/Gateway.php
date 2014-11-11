@@ -44,28 +44,32 @@ class Gateway extends AbstractGateway
         $form = array();
         // form path
         $form['path'] = array(
-                'name' => 'path',
-                'label' => __('path'),
-                'type' => 'hidden',
-            );
+            'name'      => 'path',
+            'label'     => __('path'),
+            'type'      => 'hidden',
+            'required'  => true,
+        );
         // form pin
         $form['pin'] = array(
-                'name' => 'pin',
-                'label' => __('pin'),
-                'type' => 'text',
-            );
+            'name'      => 'pin',
+            'label'     => __('pin'),
+            'type'      => 'text',
+            'required'  => true,
+        );
         // form username
         $form['username'] = array(
-                'name' => 'username',
-                'label' => __('username'),
-                'type' => 'text',
-            );
+            'name'      => 'username',
+            'label'     => __('username'),
+            'type'      => 'text',
+            'required'  => true,
+        );
         // form password
         $form['password'] = array(
-                'name' => 'password',
-                'label' => __('password'),
-                'type' => 'text',
-            );
+            'name'      => 'password',
+            'label'     => __('password'),
+            'type'      => 'text',
+            'required'  => true,
+        );
         $this->gatewaySettingForm = $form;
         return $this;
     }
