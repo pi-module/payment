@@ -59,12 +59,12 @@ class User extends AbstractApi
             $list[$row->id]['time_create_view'] = _date($list[$row->id]['time_create']);
             $list[$row->id]['time_payment_view'] = ($list[$row->id]['time_payment']) ? _date($list[$row->id]['time_payment']) : '';
             $list[$row->id]['amount_view'] = _currency($list[$row->id]['amount']);
-            $list[$row->id]['invoiceUrl'] = Pi::service('url')->assemble('payment', array(
+            $list[$row->id]['invoiceUrl'] = Pi::url(Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
                 'controller'    => 'index',
                 'action'        => 'invoice',
                 'id'            => $row->id,
-            ));
+            )));
         }
         // return
         return $list;

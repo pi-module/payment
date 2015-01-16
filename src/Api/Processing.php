@@ -41,12 +41,19 @@ class Processing extends AbstractApi
 
     public function getProcessing($random_id = '')
     {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
         // get
         if (!empty($random_id)) {
             $row = Pi::model('processing', $this->getModule())->find($random_id, 'random_id');
         } else {
-            $uid = Pi::user()->getId();
-            $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+            if ($config['payment_anonymous'] == 0) {
+                $uid = Pi::user()->getId();
+                $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+            } else {
+                $invoice = $_SESSION['payment']['invoice_id'];
+                $row = Pi::model('processing', $this->getModule())->find($invoice, 'invoice');
+            }
         }
   	    // check
     	if (is_object($row)) {
@@ -59,8 +66,17 @@ class Processing extends AbstractApi
 
     public function checkProcessing()
     {
-    	$uid = Pi::user()->getId();
-    	$row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
+        // Check config
+        if ($config['payment_anonymous'] == 0) {
+            $uid = Pi::user()->getId();
+            $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+        } else {
+            $invoice = $_SESSION['payment']['invoice_id'];
+            $row = Pi::model('processing', $this->getModule())->find($invoice, 'invoice');
+        }
+    	// check row
     	if (is_object($row)) {
     		$time = time() - 900;
     		if ($time > $row->time_create) {
@@ -76,12 +92,19 @@ class Processing extends AbstractApi
 
     public function removeProcessing($random_id = '')
     {
+        // Get config
+        $config = Pi::service('registry')->config->read($this->getModule());
         // get
         if (!empty($random_id)) {
             $row = Pi::model('processing', $this->getModule())->find($random_id, 'random_id');
         } else {
-            $uid = Pi::user()->getId();
-            $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+            if ($config['payment_anonymous'] == 0) {
+                $uid = Pi::user()->getId();
+                $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
+            } else {
+                $invoice = $_SESSION['payment']['invoice_id'];
+                $row = Pi::model('processing', $this->getModule())->find($invoice, 'invoice');
+            }
         }
         // delete
         if (!empty($row)) {

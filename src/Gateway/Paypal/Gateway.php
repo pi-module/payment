@@ -356,6 +356,9 @@ class Gateway extends AbstractGateway
             $this->gatewayRedirectUrl = 'https://www.paypal.com/cgi-bin/webscr';
         }
     }
+
+    public function processPayment()
+    {}
     
     public function verifyPayment($request, $processing)
     {

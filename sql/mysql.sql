@@ -69,5 +69,6 @@ CREATE TABLE `{processing}` (
     PRIMARY KEY  (`id`),
     UNIQUE KEY `random_id` (`random_id`),
     KEY `uid` (`uid`),
+    KEY `invoice` (`invoice`),
     KEY `ip` (`ip`)
 );
