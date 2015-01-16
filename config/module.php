@@ -15,18 +15,18 @@ return array(
     'meta'         => array(
         'title'         => _a('Payment'),
         'description'   => _a('Payment gateway'),
-        'version'       => '1.2.1',
+        'version'       => '1.2.2',
         'license'       => 'New BSD',
         'logo'          => 'image/logo.png',
         'readme'        => 'docs/readme.txt',
-        'demo'          => 'http://pialog',
+        'demo'          => 'http://pialog.org',
         'icon'          => 'fa-money',
     ),
     // Author information
     'author'        => array(
         'Name'          => 'Hossein Azizabadi',
         'email'         => 'azizabadi@faragostaresh.com',
-        'website'       => 'http://www.xoopsengine.org',
+        'website'       => 'http://pialog.org',
         'credits'       => 'Pi Engine Team'
     ),
     // Resource

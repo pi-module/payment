@@ -48,5 +48,13 @@ return array(
             'filter'       => 'number_int',
             'value'        => 1
         ),
+        'payment_anonymous' => array(
+            'category'     => 'payment',
+            'title'        => _a('Anonymous users can pay'),
+            'description'  => '',
+            'edit'         => 'checkbox',
+            'filter'       => 'number_int',
+            'value'        => 0
+        ),
     ),
 );
