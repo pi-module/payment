@@ -135,9 +135,6 @@ class Gateway extends AbstractGateway
         $this->gatewayRedirectUrl = 'https://bpm.shaparak.ir/pgwchannel/startpay.mellat';
     }
 
-    public function processPayment()
-    {}
-
     public function verifyPayment($request, $processing)
     {
         // Set result

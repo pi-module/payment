@@ -107,7 +107,6 @@ class IndexController extends ActionController
             // Set session
             $_SESSION['payment']['process_update'] = time();
         }
-
         // Check running pay processing
         $processing = Pi::api('processing', 'payment')->checkProcessing();
         if (!$processing) {
@@ -155,18 +154,6 @@ class IndexController extends ActionController
     }
 
     public function resultAction()
-    {
-        // Check user
-        $this->checkUser();
-        // Get processing
-        $processing = Pi::api('processing', 'payment')->getProcessing();
-        // Get gateway
-        $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
-        // verify payment
-        return $gateway->processPayment($request, $processing);
-    }
-
-    /* public function resultAction()
     {
         // Check user
         $this->checkUser();
@@ -329,7 +316,7 @@ class IndexController extends ActionController
 
             return false;
         }
-    } */
+    }
 
     public function removeAction()
     {
