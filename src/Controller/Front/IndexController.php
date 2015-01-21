@@ -234,21 +234,21 @@ class IndexController extends ActionController
         if (!empty($request)) {
 
             // Start test log
-            $log = array(
+            /* $log = array(
                 'value' => array(
                     'level' => 1,
                     'post'  => $request,
                 ),
             );
             $log['value'] = Json::encode($log['value']);
-            Pi::api('log', 'payment')->setLog($log);
+            Pi::api('log', 'payment')->setLog($log); */
             // End test log
 
             // Get processing
             $processing = Pi::api('processing', 'payment')->getProcessing($request['invoice']);
 
             // Start test log
-            $log = array(
+            /* $log = array(
                 'value' => array(
                     'level' => 3,
                     'post'  => $request,
@@ -256,14 +256,14 @@ class IndexController extends ActionController
                 ),
             );
             $log['value'] = Json::encode($log['value']);
-            Pi::api('log', 'payment')->setLog($log);
+            Pi::api('log', 'payment')->setLog($log); */
             // End test log
 
             // Check processing
             if ($processing) {
 
                 // Start test log
-                $log = array(
+                /* $log = array(
                     'value' => array(
                         'level' => 4,
                         'post'  => $request,
@@ -271,7 +271,7 @@ class IndexController extends ActionController
                     ),
                 );
                 $log['value'] = Json::encode($log['value']);
-                Pi::api('log', 'payment')->setLog($log);
+                Pi::api('log', 'payment')->setLog($log);  */
                 // End test log
 
                 // Get gateway
@@ -294,7 +294,7 @@ class IndexController extends ActionController
             } else {
 
                 // Start test log
-                $log = array(
+                /* $log = array(
                     'value' => array(
                         'level' => 5,
                         'post'  => $request,
@@ -302,21 +302,21 @@ class IndexController extends ActionController
                     ),
                 );
                 $log['value'] = Json::encode($log['value']);
-                Pi::api('log', 'payment')->setLog($log);
+                Pi::api('log', 'payment')->setLog($log);  */
                 // End test log
 
                 return false;
             }
         } else {
             // Start test log
-            $log = array(
+            /* $log = array(
                 'value' => array(
                     'level' => 2,
                     'post'  => '',
                 ),
             );
             $log['value'] = Json::encode($log['value']);
-            Pi::api('log', 'payment')->setLog($log);
+            Pi::api('log', 'payment')->setLog($log);  */
             // End test log
 
             return false;

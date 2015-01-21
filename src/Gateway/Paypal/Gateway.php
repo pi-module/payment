@@ -366,7 +366,7 @@ class Gateway extends AbstractGateway
         // https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNIntro/
 
         // Start test log
-        $log = array(
+        /* $log = array(
             'value' => array(
             'level' => 6,
                 'post'  => $request,
@@ -374,7 +374,7 @@ class Gateway extends AbstractGateway
             ),
         );
         $log['value'] = Json::encode($log['value']);
-        Pi::api('log', 'payment')->setLog($log);
+        Pi::api('log', 'payment')->setLog($log); */
         // End test log
 
         /**
@@ -383,9 +383,7 @@ class Gateway extends AbstractGateway
          */
 
         // STEP 1: read POST data
-        // Reading POSTed data directly from $_POST causes serialization issues with array data in the POST.
-        // Instead, read raw POST data from the input stream.
-        $myPost = array();
+        /* $myPost = array();
         foreach ($request as $keyval) {
             $keyval = explode ('=', $keyval);
             if (count($keyval) == 2) {
@@ -407,6 +405,11 @@ class Gateway extends AbstractGateway
                 $value = urlencode($value);
             }
             $req .= "&$key=$value";
+        } */
+        
+        $req = 'cmd=_notify-validate';
+        foreach ($request as $key => $value) {
+            $req .= sprintf('&%s=%s', $key, $value);
         }
  
         // Step 2: POST IPN data back to PayPal to validate
@@ -417,7 +420,7 @@ class Gateway extends AbstractGateway
         }
 
         // Start test log
-        $log = array(
+        /* $log = array(
             'value' => array(
             'level' => 7,
                 'post'  => $request,
@@ -427,7 +430,7 @@ class Gateway extends AbstractGateway
             ),
         );
         $log['value'] = Json::encode($log['value']);
-        Pi::api('log', 'payment')->setLog($log);
+        Pi::api('log', 'payment')->setLog($log); */
         // End test log
 
         $ch = curl_init($url_parsed);
