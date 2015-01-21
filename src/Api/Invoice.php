@@ -24,6 +24,7 @@ use Zend\Math\Rand;
  * Pi::api('invoice', 'payment')->getInvoiceRandomId($id);
  * Pi::api('invoice', 'payment')->updateInvoice($id);
  * Pi::api('invoice', 'payment')->updateModuleInvoice($id);
+ * Pi::api('invoice', 'payment')->setBackUrl($id, $url);
  */
 
 class Invoice extends AbstractApi
@@ -179,5 +180,12 @@ class Invoice extends AbstractApi
             $invoice['item'], 
             $invoice['amount'], 
             $invoice['adapter']);
+    }
+
+    public function setBackUrl($id, $url)
+    {
+        $row = Pi::model('invoice', $this->getModule())->find($id);
+        $row->back_url = $url;
+        $row->save();
     }
 }	

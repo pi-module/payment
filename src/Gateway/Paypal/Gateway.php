@@ -365,48 +365,12 @@ class Gateway extends AbstractGateway
         // http://www.emanueleferonato.com/2011/09/28/using-php-with-paypals-ipn-instant-paypal-notification-to-automate-your-digital-delivery/
         // https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNIntro/
 
-        // Start test log
-        /* $log = array(
-            'value' => array(
-            'level' => 6,
-                'post'  => $request,
-                'processing'  => $processing,
-            ),
-        );
-        $log['value'] = Json::encode($log['value']);
-        Pi::api('log', 'payment')->setLog($log); */
-        // End test log
-
         /**
          * Paypal verify method
          * Source : https://developer.paypal.com/docs/classic/ipn/ht_ipn/
          */
 
         // STEP 1: read POST data
-        /* $myPost = array();
-        foreach ($request as $keyval) {
-            $keyval = explode ('=', $keyval);
-            if (count($keyval) == 2) {
-                $myPost[$keyval[0]] = urldecode($keyval[1]);
-            }
-            
-        }
-        
-        // read the IPN message sent from PayPal and prepend 'cmd=_notify-validate'
-        $req = 'cmd=_notify-validate';
-        if(function_exists('get_magic_quotes_gpc')) {
-            $get_magic_quotes_exists = true;
-        }
-
-        foreach ($myPost as $key => $value) {
-            if($get_magic_quotes_exists == true && get_magic_quotes_gpc() == 1) {
-                $value = urlencode(stripslashes($value));
-            } else {
-                $value = urlencode($value);
-            }
-            $req .= "&$key=$value";
-        } */
-
         $req = 'cmd=_notify-validate';
         foreach ($request as $key => $value) {
             $req .= sprintf('&%s=%s', urldecode($key), urldecode($value));
@@ -418,21 +382,8 @@ class Gateway extends AbstractGateway
         } else {
             $url_parsed = 'https://www.paypal.com/cgi-bin/webscr';
         }
-
-        // Start test log
-        /* $log = array(
-            'value' => array(
-            'level' => 7,
-                'post'  => $request,
-                'processing'  => $processing,
-                'req' => $req,
-                'url_parsed' => $url_parsed,
-            ),
-        );
-        $log['value'] = Json::encode($log['value']);
-        Pi::api('log', 'payment')->setLog($log); */
-        // End test log
-
+        
+        // Check by curl
         $ch = curl_init($url_parsed);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -443,55 +394,15 @@ class Gateway extends AbstractGateway
         curl_setopt($ch, CURLOPT_FORBID_REUSE, 1);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Connection: Close'));
  
-        // In wamp-like environments that do not come bundled with root authority certificates,
-        // please download 'cacert.pem' from "http://curl.haxx.se/docs/caextract.html" and set
-        // the directory path of the certificate as shown below:
-        // curl_setopt($ch, CURLOPT_CAINFO, dirname(__FILE__) . '/cacert.pem');
         if (!($res = curl_exec($ch)) ) {
-            // error_log("Got " . curl_error($ch) . " when processing IPN data");
             curl_close($ch);
+            return false;
             exit;
         }
         curl_close($ch);
 
-        // Start test log
-        $log = array(
-            'value' => array(
-            'level' => 7,
-                'post'  => $request,
-                'processing'  => $processing,
-                'req' => $req,
-                'res' => $res,
-            ),
-        );
-        $log['value'] = Json::encode($log['value']);
-        Pi::api('log', 'payment')->setLog($log);
-        // End test log
-
         // STEP 3: Inspect IPN validation result and act accordingly
         if (strcmp ($res, "VERIFIED") == 0) {
-            // The IPN is verified, process it:
-            // check whether the payment_status is Completed
-            // check that txn_id has not been previously processed
-            // check that receiver_email is your Primary PayPal email
-            // check that payment_amount/payment_currency are correct
-            // process the notification
- 
-            // assign posted variables to local variables
-            //$item_name = $_POST['item_name'];
-            //$item_number = $_POST['item_number'];
-            //$payment_status = $_POST['payment_status'];
-            //$payment_amount = $_POST['mc_gross'];
-            //$payment_currency = $_POST['mc_currency'];
-            //$txn_id = $_POST['txn_id'];
-            //$receiver_email = $_POST['receiver_email'];
-            //$payer_email = $_POST['payer_email'];
- 
-            // IPN message values depend upon the type of notification sent.
-            // To loop through the &_POST array and print the NV pairs to the screen:
-            //foreach($_POST as $key => $value) {
-                //echo $key." = ". $value."<br>";
-            //}
             $invoice = Pi::api('invoice', 'payment')->updateInvoice($request['invoice']);
             $result['status'] = 1;
             // Set log
@@ -505,123 +416,15 @@ class Gateway extends AbstractGateway
             $log['message'] = __('Your payment were successfully.');
             Pi::api('log', 'payment')->setLog($log);
         } elseif (strcmp ($res, "INVALID") == 0) {
-            // IPN invalid, log for manual investigation
-            // echo "The response from IPN was: <b>" .$res ."</b>";
             $invoice = Pi::api('invoice', 'payment')->getInvoice($request['invoice']);
             $result['status'] = 0;
             $message = __('Error');
         }
+        
         // Set result
         $result['adapter'] = $this->gatewayAdapter;
         $result['invoice'] = $invoice['id'];
         return $result;
-        /* 
-        // Get user id
-        $user = $processing['uid'];
-        // Get unique transaction id.
-        if ($request['tx']) {
-            $tx = $request['tx'];
-        }
-
-        // Init
-        cURL $ch = curl_init();
-
-        // Set request options
-        curl_setopt_array($ch, array(
-            CURLOPT_URL             => 'https://www.sandbox.paypal.com/cgi-bin/webscr',
-            CURLOPT_POST            => TRUE,
-            CURLOPT_POSTFIELDS      => http_build_query(array(
-                'cmd'  => '_notify-synch',
-                'tx'   => $tx,
-                'at'   => $identity,
-            )),
-            CURLOPT_RETURNTRANSFER  => TRUE,
-            CURLOPT_HEADER          => FALSE,
-            // CURLOPT_SSL_VERIFYPEER  => TRUE,
-            // CURLOPT_CAINFO          => 'cacert.pem',
-        ));
-
-        // Execute request and get response and status code
-        $response = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        // Close connection
-        curl_close($ch);
-
-        // Check
-        if($status == 200 AND strpos($response, 'SUCCESS') === 0) {
-            $invoice = Pi::api('invoice', 'payment')->updateInvoice($processing['invoice']);
-            $result['status'] = 1;
-            $message = __('Your payment were successfully.');
-            // Set log
-            $log = array();
-            $log['gateway'] = $this->gatewayAdapter;
-            $log['authority'] = $request['RefId'];
-            $log['value'] = Json::encode($request);
-            $log['invoice'] = $invoice['id'];
-            $log['amount'] = $invoice['amount'];
-            $log['status'] = $result['status'];
-            $log['message'] = $message;
-            Pi::api('log', 'payment')->setLog($log);
-        } else {
-            $invoice = Pi::api('invoice', 'payment')->getInvoice($processing['invoice']);
-            $result['status'] = 0;
-            $message = __('Error');
-        }
-        // Set result
-        $result['adapter'] = $this->gatewayAdapter;
-        $result['invoice'] = $invoice['id'];
-        return $result; */
-
-        // generate the post string from the _POST vars aswell as load the
-        // _POST vars into an arry so we can play with them from the calling
-        // script.
-        /* $post_string = '';    
-        foreach ($request as $field => $value) { 
-            //$ipn_data[$field] = $value;
-            $post_string .= $field.'='.urlencode(stripslashes($value)).'&'; 
-        }
-        $post_string.="cmd=_notify-validate"; // append ipn command
-        
-        // open the connection to paypal
-        if (isset($request['test_ipn']) ) {
-            $fp = fsockopen ( 'ssl://www.sandbox.paypal.com', "443", $err_num, $err_str, 60 );
-        } else {
-            $fp = fsockopen ( 'ssl://www.paypal.com', "443", $err_num, $err_str, 60 );
-        }
-        if(!$fp) {
-            return false;
-        } else { 
-            // Post the data back to paypal
-            fputs($fp, "POST $url_parsed[path] HTTP/1.1\r\n"); 
-            fputs($fp, "Host: $url_parsed[host]\r\n"); 
-            fputs($fp, "Content-type: application/x-www-form-urlencoded\r\n"); 
-            fputs($fp, "Content-length: ".strlen($post_string)."\r\n"); 
-            fputs($fp, "Connection: close\r\n\r\n"); 
-            fputs($fp, $post_string . "\r\n\r\n"); 
-            $ipn_response = '';
-            while(!feof($fp)) { 
-                $ipn_response .= fgets($fp, 1024); 
-            } 
-            fclose($fp); // close connection
-        }
-        if (! eregi("VERIFIED",$ipn_response)) {
-            return false;
-        } else {
-            $invoice = Pi::api('invoice', 'payment')->updateInvoice($request['invoice']);
-            $result['status'] = 1;
-            $message = __('Your payment were successfully.');
-            // Set log
-            $log = array();
-            $log['gateway'] = $this->gatewayAdapter;
-            $log['authority'] = $request['RefId'];
-            $log['value'] = Json::encode($request);
-            $log['invoice'] = $invoice['id'];
-            $log['amount'] = $invoice['amount'];
-            $log['status'] = $result['status'];
-            $log['message'] = $message;
-            Pi::api('log', 'payment')->setLog($log);
-            return true;
-        } */
     }
 
     public function setMessage($log)

@@ -232,48 +232,10 @@ class IndexController extends ActionController
         }
         // Check request
         if (!empty($request)) {
-
-            // Start test log
-            /* $log = array(
-                'value' => array(
-                    'level' => 1,
-                    'post'  => $request,
-                ),
-            );
-            $log['value'] = Json::encode($log['value']);
-            Pi::api('log', 'payment')->setLog($log); */
-            // End test log
-
             // Get processing
             $processing = Pi::api('processing', 'payment')->getProcessing($request['invoice']);
-
-            // Start test log
-            /* $log = array(
-                'value' => array(
-                    'level' => 3,
-                    'post'  => $request,
-                    'processing'  => $processing,
-                ),
-            );
-            $log['value'] = Json::encode($log['value']);
-            Pi::api('log', 'payment')->setLog($log); */
-            // End test log
-
             // Check processing
             if ($processing) {
-
-                // Start test log
-                /* $log = array(
-                    'value' => array(
-                        'level' => 4,
-                        'post'  => $request,
-                        'processing'  => $processing,
-                    ),
-                );
-                $log['value'] = Json::encode($log['value']);
-                Pi::api('log', 'payment')->setLog($log);  */
-                // End test log
-
                 // Get gateway
                 $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
                 $verify = $gateway->verifyPayment($request, $processing);
@@ -285,40 +247,16 @@ class IndexController extends ActionController
                 } else {
                     if ($verify['status'] == 1) {
                         $url = Pi::api('invoice', 'payment')->updateModuleInvoice($verify['invoice']);
-                        Pi::api('processing', 'payment')->updateProcessing($url);
+                        Pi::api('invoice', 'payment')->setBackUrl($verify['invoice'], $url);
                         return true;
                     } else {
                         return false;
                     }
                 }
             } else {
-
-                // Start test log
-                /* $log = array(
-                    'value' => array(
-                        'level' => 5,
-                        'post'  => $request,
-                        'processing'  => '',
-                    ),
-                );
-                $log['value'] = Json::encode($log['value']);
-                Pi::api('log', 'payment')->setLog($log);  */
-                // End test log
-
                 return false;
             }
         } else {
-            // Start test log
-            /* $log = array(
-                'value' => array(
-                    'level' => 2,
-                    'post'  => '',
-                ),
-            );
-            $log['value'] = Json::encode($log['value']);
-            Pi::api('log', 'payment')->setLog($log);  */
-            // End test log
-
             return false;
         }
     }
@@ -368,23 +306,26 @@ class IndexController extends ActionController
     public function finishAction()
     {
         $processing = Pi::api('processing', 'payment')->getProcessing();
-        if (!empty($processing['url'])) {
-            $url = $processing['url'];
+        if (!empty($processing['invoice'])) {
+            $invoice = $processing['invoice'];
             // remove
             Pi::api('processing', 'payment')->removeProcessing();
+            //
+            $invoice = Pi::api('invoice', 'payment')->getInvoice($invoice);
             // jump to module
             $message = __('Your payment were successfully.');
-            $this->jump($url, $message);
+            $this->jump($invoice['back_url'], $message);
+        } else {
+            // Set return
+            $return = array(
+                'website' => Pi::url(),
+                'module' => $this->params('module'),
+                'message' => 'finish',
+            );
+            // Set view
+            $this->view()->setTemplate(false)->setLayout('layout-content');
+            return Json::encode($return);
         }
-        // Set return
-        $return = array(
-            'website' => Pi::url(),
-            'module' => $this->params('module'),
-            'message' => 'finish',
-        );
-        // Set view
-        $this->view()->setTemplate(false)->setLayout('layout-content');
-        return Json::encode($return);
     }
 
     public function errorAction()

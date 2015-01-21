@@ -38,17 +38,17 @@ class Update extends BasicUpdate
     {
         $moduleVersion    = $e->getParam('version');
         
-        // Set processing model
-        $processingModel        = Pi::model('processing', $this->module);
-        $processingTable        = $processingModel->getTable();
-        $processingAdapter      = $processingModel->getAdapter();
+        // Set invoice model
+        $invoiceModel        = Pi::model('invoice', $this->module);
+        $invoiceTable        = $invoiceModel->getTable();
+        $invoiceAdapter      = $invoiceModel->getAdapter();
 
-        // Update to version 1.2.3
-        if (version_compare($moduleVersion, '1.2.3', '<')) {
+        // Update to version 1.2.4
+        if (version_compare($moduleVersion, '1.2.4', '<')) {
             // Alter table field add difficulty
-        	$sql = sprintf("ALTER TABLE %s ADD `url` varchar(255) NOT NULL default ''", $processingTable);
+        	$sql = sprintf("ALTER TABLE %s ADD `back_url` varchar(255) NOT NULL default ''", $invoiceTable);
             try {
-                $processingAdapter->query($sql, 'execute');
+                $invoiceAdapter->query($sql, 'execute');
             } catch (\Exception $exception) {
                 $this->setResult('db', array(
                     'status'    => false,

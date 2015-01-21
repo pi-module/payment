@@ -22,7 +22,6 @@ use Zend\Json\Json;
  * Pi::api('processing', 'payment')->getProcessing($random_id);
  * Pi::api('processing', 'payment')->checkProcessing();
  * Pi::api('processing', 'payment')->removeProcessing($invoice);
- * Pi::api('processing', 'payment')->updateProcessing($url);
  */
 
 class Processing extends AbstractApi
@@ -111,22 +110,5 @@ class Processing extends AbstractApi
         if (!empty($row)) {
             $row->delete();
         }
-    }
-
-    public function updateProcessing($url)
-    {
-        // Get config
-        $config = Pi::service('registry')->config->read($this->getModule());
-        // get
-        if ($config['payment_anonymous'] == 0) {
-            $uid = Pi::user()->getId();
-            $row = Pi::model('processing', $this->getModule())->find($uid, 'uid');
-        } else {
-            $invoice = $_SESSION['payment']['invoice_id'];
-            $row = Pi::model('processing', $this->getModule())->find($invoice, 'invoice');
-        }
-        // Set
-        $row->url = $url;
-        $row->save();
     }
 }	
