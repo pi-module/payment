@@ -359,6 +359,12 @@ class Gateway extends AbstractGateway
     
     public function verifyPayment($request, $processing)
     {
+        // Some good example for verify
+        // https://developer.paypal.com/docs/classic/ipn/ht_ipn/
+        // https://stackoverflow.com/questions/4848227/validate-that-ipn-call-is-from-paypal
+        // http://www.emanueleferonato.com/2011/09/28/using-php-with-paypals-ipn-instant-paypal-notification-to-automate-your-digital-delivery/
+        // https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNIntro/
+
         // Start test log
         $log = array(
             'value' => array(
@@ -367,18 +373,16 @@ class Gateway extends AbstractGateway
                 'processing'  => $processing,
             ),
         );
+        $log['value'] = Json::encode($log['value']);
         Pi::api('log', 'payment')->setLog($log);
         // End test log
 
-        // Some good example for verify
-        // https://developer.paypal.com/docs/classic/ipn/ht_ipn/
-        // https://stackoverflow.com/questions/4848227/validate-that-ipn-call-is-from-paypal
-        // http://www.emanueleferonato.com/2011/09/28/using-php-with-paypals-ipn-instant-paypal-notification-to-automate-your-digital-delivery/
-        // https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNIntro/
-        // Source : https://developer.paypal.com/docs/classic/ipn/ht_ipn/
+        /**
+         * Paypal verify method
+         * Source : https://developer.paypal.com/docs/classic/ipn/ht_ipn/
+         */
 
         // STEP 1: read POST data
-
         // Reading POSTed data directly from $_POST causes serialization issues with array data in the POST.
         // Instead, read raw POST data from the input stream.
         $myPost = array();
@@ -422,9 +426,9 @@ class Gateway extends AbstractGateway
                 'url_parsed' => $url_parsed,
             ),
         );
+        $log['value'] = Json::encode($log['value']);
         Pi::api('log', 'payment')->setLog($log);
         // End test log
-
 
         $ch = curl_init($url_parsed);
         curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
@@ -457,9 +461,9 @@ class Gateway extends AbstractGateway
                 'res' => $res,
             ),
         );
+        $log['value'] = Json::encode($log['value']);
         Pi::api('log', 'payment')->setLog($log);
         // End test log
-
 
         // STEP 3: Inspect IPN validation result and act accordingly
         if (strcmp ($res, "VERIFIED") == 0) {
@@ -485,10 +489,8 @@ class Gateway extends AbstractGateway
             //foreach($_POST as $key => $value) {
                 //echo $key." = ". $value."<br>";
             //}
-
             $invoice = Pi::api('invoice', 'payment')->updateInvoice($processing['invoice']);
             $result['status'] = 1;
-            $message = __('Your payment were successfully.');
             // Set log
             $log = array();
             $log['gateway'] = $this->gatewayAdapter;
@@ -497,13 +499,11 @@ class Gateway extends AbstractGateway
             $log['invoice'] = $invoice['id'];
             $log['amount'] = $invoice['amount'];
             $log['status'] = $result['status'];
-            $log['message'] = $message;
+            $log['message'] = __('Your payment were successfully.');
             Pi::api('log', 'payment')->setLog($log);
-
         } elseif (strcmp ($res, "INVALID") == 0) {
             // IPN invalid, log for manual investigation
             // echo "The response from IPN was: <b>" .$res ."</b>";
-
             $invoice = Pi::api('invoice', 'payment')->getInvoice($processing['invoice']);
             $result['status'] = 0;
             $message = __('Error');
@@ -512,7 +512,6 @@ class Gateway extends AbstractGateway
         $result['adapter'] = $this->gatewayAdapter;
         $result['invoice'] = $invoice['id'];
         return $result;
-        
         /* 
         // Get user id
         $user = $processing['uid'];

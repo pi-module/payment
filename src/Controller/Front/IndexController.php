@@ -240,6 +240,7 @@ class IndexController extends ActionController
                     'post'  => $request,
                 ),
             );
+            $log['value'] = Json::encode($log['value']);
             Pi::api('log', 'payment')->setLog($log);
             // End test log
 
@@ -254,6 +255,7 @@ class IndexController extends ActionController
                     'processing'  => $processing,
                 ),
             );
+            $log['value'] = Json::encode($log['value']);
             Pi::api('log', 'payment')->setLog($log);
             // End test log
 
@@ -268,6 +270,7 @@ class IndexController extends ActionController
                         'processing'  => $processing,
                     ),
                 );
+                $log['value'] = Json::encode($log['value']);
                 Pi::api('log', 'payment')->setLog($log);
                 // End test log
 
@@ -298,6 +301,7 @@ class IndexController extends ActionController
                         'processing'  => '',
                     ),
                 );
+                $log['value'] = Json::encode($log['value']);
                 Pi::api('log', 'payment')->setLog($log);
                 // End test log
 
@@ -311,6 +315,7 @@ class IndexController extends ActionController
                     'post'  => '',
                 ),
             );
+            $log['value'] = Json::encode($log['value']);
             Pi::api('log', 'payment')->setLog($log);
             // End test log
 
