@@ -66,6 +66,7 @@ CREATE TABLE `{processing}` (
     `random_id` int(10) unsigned NOT NULL default '0',
     `adapter` varchar(64) NOT NULL default '',
     `time_create` int(10) unsigned NOT NULL default '0',
+    `url` varchar(255) NOT NULL default '',
     PRIMARY KEY  (`id`),
     UNIQUE KEY `random_id` (`random_id`),
     KEY `uid` (`uid`),

@@ -284,8 +284,8 @@ class IndexController extends ActionController
                     return false;
                 } else {
                     if ($verify['status'] == 1) {
-                        Pi::api('invoice', 'payment')->updateModuleInvoice($verify['invoice']);
-                        Pi::api('processing', 'payment')->removeProcessing($request['invoice']);
+                        $url = Pi::api('invoice', 'payment')->updateModuleInvoice($verify['invoice']);
+                        Pi::api('processing', 'payment')->updateProcessing($url);
                         return true;
                     } else {
                         return false;
@@ -367,6 +367,15 @@ class IndexController extends ActionController
 
     public function finishAction()
     {
+        $processing = Pi::api('processing', 'payment')->getProcessing();
+        if (!empty($processing['url'])) {
+            $url = $processing['url'];
+            // remove
+            Pi::api('processing', 'payment')->removeProcessing();
+            // jump to module
+            $message = __('Your payment were successfully.');
+            $this->jump($url, $message);
+        }
         // Set return
         $return = array(
             'website' => Pi::url(),
