@@ -419,6 +419,7 @@ class Gateway extends AbstractGateway
                 'post'  => $request,
                 'processing'  => $processing,
                 'req' => $req,
+                'url_parsed' => $url_parsed,
             ),
         );
         Pi::api('log', 'payment')->setLog($log);
