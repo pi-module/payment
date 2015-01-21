@@ -171,12 +171,12 @@ class IndexController extends ActionController
             // Check processing
             if (!$processing) {
                 $message = __('Your running pay processing not set');
-                $this->jump(array('', 'action' => 'index'), $message);
+                $this->jump(array('', 'action' => 'error'), $message);
             }
             // Check ip
             if ($processing['ip'] != Pi::user()->getIp()) {
                 $message = __('Your IP address changed and processing not valid');
-                $this->jump(array('', 'action' => 'index'), $message);
+                $this->jump(array('', 'action' => 'error'), $message);
             }
             // Get gateway
             $gateway = Pi::api('gateway', 'payment')->getGateway($processing['adapter']);
@@ -190,7 +190,7 @@ class IndexController extends ActionController
                 if (!empty($config['payment_gateway_error_url'])) {
                     $url = $config['payment_gateway_error_url'];
                 } else {
-                    $url = $this->url(array('', 'action' => 'index'));
+                    $url = $this->url(array('', 'action' => 'error'));
                 }
                 // jump
                 $this->jump($url, $gateway->gatewayError);
