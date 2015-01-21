@@ -489,12 +489,12 @@ class Gateway extends AbstractGateway
             //foreach($_POST as $key => $value) {
                 //echo $key." = ". $value."<br>";
             //}
-            $invoice = Pi::api('invoice', 'payment')->updateInvoice($processing['invoice']);
+            $invoice = Pi::api('invoice', 'payment')->updateInvoice($request['invoice']);
             $result['status'] = 1;
             // Set log
             $log = array();
             $log['gateway'] = $this->gatewayAdapter;
-            $log['authority'] = $request['RefId'];
+            $log['authority'] = '';
             $log['value'] = Json::encode($request);
             $log['invoice'] = $invoice['id'];
             $log['amount'] = $invoice['amount'];
@@ -504,7 +504,7 @@ class Gateway extends AbstractGateway
         } elseif (strcmp ($res, "INVALID") == 0) {
             // IPN invalid, log for manual investigation
             // echo "The response from IPN was: <b>" .$res ."</b>";
-            $invoice = Pi::api('invoice', 'payment')->getInvoice($processing['invoice']);
+            $invoice = Pi::api('invoice', 'payment')->getInvoice($request['invoice']);
             $result['status'] = 0;
             $message = __('Error');
         }
