@@ -54,7 +54,7 @@ class User extends AbstractApi
         // Make list
         foreach ($rowset as $row) {
             $list[$row->id] = $row->toArray();
-            $list[$row->id]['description'] = Json::decode($list[$row->id]['description']);
+            $list[$row->id]['description'] = Json::decode($list[$row->id]['description'], true);
             $list[$row->id]['user'] = $userInfo;
             $list[$row->id]['time_create_view'] = _date($list[$row->id]['time_create']);
             $list[$row->id]['time_payment_view'] = ($list[$row->id]['time_payment']) ? _date($list[$row->id]['time_payment']) : '';

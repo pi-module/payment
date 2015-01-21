@@ -41,7 +41,7 @@ class IndexController extends ActionController
         // Make list
         foreach ($rowset as $row) {
             $list[$row->id] = $row->toArray();
-            $list[$row->id]['description'] = Json::decode($list[$row->id]['description']);
+            $list[$row->id]['description'] = Json::decode($list[$row->id]['description'], true);
             $list[$row->id]['user'] = Pi::user()->get($list[$row->id]['uid'], array('id', 'identity', 'name', 'email'));
             $list[$row->id]['time_create_view'] = _date($list[$row->id]['time_create']);
             $list[$row->id]['time_payment_view'] = ($list[$row->id]['time_payment']) ? _date($list[$row->id]['time_payment']) : __('Not yet');

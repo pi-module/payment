@@ -35,7 +35,7 @@ class LogsController extends ActionController
         // Make list
         foreach ($rowset as $row) {
             $list[$row->id] = $row->toArray();
-            $list[$row->id]['value'] = Json::decode($list[$row->id]['value']);
+            $list[$row->id]['value'] = Json::decode($list[$row->id]['value'], true);
             $list[$row->id]['user'] = Pi::user()->get($list[$row->id]['uid'], array('id', 'identity', 'name', 'email'));
             $list[$row->id]['time_create_view'] = _date($list[$row->id]['time_create']);
         }
