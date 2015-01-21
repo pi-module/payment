@@ -406,10 +406,10 @@ class Gateway extends AbstractGateway
             }
             $req .= "&$key=$value";
         } */
-        
+
         $req = 'cmd=_notify-validate';
         foreach ($request as $key => $value) {
-            $req .= sprintf('&%s=%s', $key, $value);
+            $req .= sprintf('&%s=%s', urldecode($key), urldecode($value);
         }
  
         // Step 2: POST IPN data back to PayPal to validate
