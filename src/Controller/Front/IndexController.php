@@ -23,7 +23,7 @@ class IndexController extends ActionController
 {
     public function indexAction()
     {
-        // Check user is login or not
+        /* // Check user is login or not
         Pi::service('authentication')->requireLogin();
         // Get module 
         $module = $this->params('module');
@@ -49,35 +49,51 @@ class IndexController extends ActionController
         }
         // Set view
         $this->view()->setTemplate('list');
-        $this->view()->assign('list', $list);
+        $this->view()->assign('list', $list); */
+
+        // Set return
+        $return = array(
+            'website' => Pi::url(),
+            'module' => $this->params('module'),
+        );
+        // Set view
+        $this->view()->setTemplate(false)->setLayout('layout-content');
+        return Json::encode($return);  
     }
 
     public function invoiceAction()
     {
-        // Check user
+        /* // Check user
         $this->checkUser();
         // Get invoice
         $id = $this->params('id');
         $invoice = Pi::api('invoice', 'payment')->getInvoice($id);
         // Check invoice
         if (empty($invoice)) {
-           $this->jump(array('', 'action' => 'index'), __('The invoice not found.'));
+           $this->jump(array('', 'action' => 'error'), __('The invoice not found.'));
         }
         // Check invoice is for this user
         if (Pi::service('authentication')->hasIdentity()) {
             if ($invoice['uid'] != Pi::user()->getId()) {
-                $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
+                $this->jump(array('', 'action' => 'error'), __('This is not your invoice.'));
             }
         } else {
             if (!isset($_SESSION['payment']['invoice_id']) || $_SESSION['payment']['invoice_id'] != $invoice['id']) {
-                $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
+                $this->jump(array('', 'action' => 'error'), __('This is not your invoice.'));
             }
             // Set session
             $_SESSION['payment']['process_update'] = time();
         }
         // set view
         $this->view()->setTemplate('invoice');
-        $this->view()->assign('invoice', $invoice);
+        $this->view()->assign('invoice', $invoice); */
+
+        $id = $this->params('id');
+        return $this->redirect()->toRoute('', array(
+            'controller' => 'index',
+            'action'     => 'pay',
+            'id'         => $id,
+        ));
     }
 
     public function payAction()
@@ -89,20 +105,20 @@ class IndexController extends ActionController
         $invoice = Pi::api('invoice', 'payment')->getInvoiceRandomId($id);
         // Check invoice
         if (empty($invoice)) {
-           $this->jump(array('', 'action' => 'index'), __('The invoice not found.'));
+           $this->jump(array('', 'action' => 'error'), __('The invoice not found.'));
         }
         // Check invoice not payd
         if ($invoice['status'] != 2) {
-            $this->jump(array('', 'action' => 'index'), __('The invoice payd.'));
+            $this->jump(array('', 'action' => 'error'), __('The invoice payd.'));
         }
         // Check invoice is for this user
         if (Pi::service('authentication')->hasIdentity()) {
             if ($invoice['uid'] != Pi::user()->getId()) {
-                $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
+                $this->jump(array('', 'action' => 'error'), __('This is not your invoice.'));
             }
         } else {
             if (!isset($_SESSION['payment']['invoice_id']) || $_SESSION['payment']['invoice_id'] != $invoice['id']) {
-                $this->jump(array('', 'action' => 'index'), __('This is not your invoice.'));
+                $this->jump(array('', 'action' => 'error'), __('This is not your invoice.'));
             }
             // Set session
             $_SESSION['payment']['process_update'] = time();
@@ -113,6 +129,7 @@ class IndexController extends ActionController
             return $this->redirect()->toRoute('', array(
                 'controller' => 'index',
                 'action'     => 'remove',
+                'id'         => $invoice['id'],
             ));
         }
         // Set pay processing
@@ -263,6 +280,8 @@ class IndexController extends ActionController
 
     public function removeAction()
     {
+        // Get invoice id
+        $id = $this->params('id');
         // Get post
         if ($this->request->isPost()) {
             $data = $this->request->getPost()->toArray();
@@ -272,14 +291,14 @@ class IndexController extends ActionController
             } else {
                 $message = __('Payment is clean');
             }
-            $this->jump(array('', 'action' => 'index'), $message);
+            $this->jump(array('', 'action' => 'pay', 'id' => $id), $message);
         } else {
             $processing = Pi::api('processing', 'payment')->getProcessing();
             if (isset($processing['id']) && !empty($processing['id'])) {
                 $values['id'] = $processing['id'];
             } else {
                 $message = __('Payment is clean');
-                $this->jump(array('', 'action' => 'index'), $message);
+                $this->jump(array('', 'action' => 'pay', 'id' => $id), $message);
             }
             // Set form
             $form = new RemoveForm('Remove');
