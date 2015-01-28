@@ -179,6 +179,24 @@ class Gateway extends AbstractGateway
             'name'      => 'amount_1',
             'type'      => 'hidden',
         );
+        // Set for test mode
+        if ($this->gatewayOption['test_mode']) {
+            // username
+            $form['username'] = array(
+                'name'      => 'username',
+                'type'      => 'hidden',
+            );
+            // password
+            $form['password'] = array(
+                'name'      => 'password',
+                'type'      => 'hidden',
+            );
+            // signature
+            $form['signature'] = array(
+                'name'      => 'signature',
+                'type'      => 'hidden',
+            );
+        }
         /* 
         // first_name
         $form['first_name'] = array(
@@ -220,26 +238,6 @@ class Gateway extends AbstractGateway
             'name'      => 'email',
             'type'      => 'hidden',
         );
-        */
-        // Set for test mode
-        if ($this->gatewayOption['test_mode']) {
-            // username
-            $form['username'] = array(
-                'name'      => 'username',
-                'type'      => 'hidden',
-            );
-            // password
-            $form['password'] = array(
-                'name'      => 'password',
-                'type'      => 'hidden',
-            );
-            // signature
-            $form['signature'] = array(
-                'name'      => 'signature',
-                'type'      => 'hidden',
-            );
-        }
-        /*
         // form no_note
         $form['no_note'] = array(
             'name'      => 'no_note',
@@ -312,12 +310,19 @@ class Gateway extends AbstractGateway
         $this->gatewayPayInformation['cancel_return'] = $this->gatewayCancelUrl;
         $this->gatewayPayInformation['notify_url'] = $this->gatewayNotifyUrl;
         $this->gatewayPayInformation['invoice'] = intval($this->gatewayInvoice['random_id']);
-        $this->gatewayPayInformation['item_name_1'] = 'Test name';
-        $this->gatewayPayInformation['item_number_1'] = 1;
+        $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
+        $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
         $this->gatewayPayInformation['quantity_1'] = 1;
         $this->gatewayPayInformation['amount_1'] = intval($this->gatewayInvoice['amount']);
         $this->gatewayPayInformation['business'] = $this->gatewayOption['business'];
         $this->gatewayPayInformation['currency_code'] = $this->gatewayOption['currency'];
+        $this->gatewayPayInformation['logoimg'] = Pi::service('asset')->logo();
+        // Set for test mode
+        if ($this->gatewayOption['test_mode']) {
+            $this->gatewayPayInformation['username'] = $this->gatewayOption['username'];
+            $this->gatewayPayInformation['password'] = $this->gatewayOption['password'];
+            $this->gatewayPayInformation['signature'] = $this->gatewayOption['signature'];
+        }
         /* 
         $this->gatewayPayInformation['first_name'] = '';
         $this->gatewayPayInformation['last_name'] = '';
@@ -327,14 +332,6 @@ class Gateway extends AbstractGateway
         $this->gatewayPayInformation['country'] = '';
         $this->gatewayPayInformation['zip'] = '';
         $this->gatewayPayInformation['email'] = '';
-        */
-        // Set for test mode
-        if ($this->gatewayOption['test_mode']) {
-            $this->gatewayPayInformation['username'] = $this->gatewayOption['username'];
-            $this->gatewayPayInformation['password'] = $this->gatewayOption['password'];
-            $this->gatewayPayInformation['signature'] = $this->gatewayOption['signature'];
-        }
-        /* 
         $this->gatewayPayInformation['no_note'] = 0;
         $this->gatewayPayInformation['bn'] = 'PP-BuyNowBF';
         $this->gatewayPayInformation['tax'] = 0;
@@ -357,19 +354,20 @@ class Gateway extends AbstractGateway
         }
     }
     
+    /**
+     * Verify Payment
+     *
+     * Some good example for verify
+     * https://developer.paypal.com/docs/classic/ipn/ht_ipn/
+     * https://stackoverflow.com/questions/4848227/validate-that-ipn-call-is-from-paypal
+     * http://www.emanueleferonato.com/2011/09/28/using-php-with-paypals-ipn-instant-paypal-notification-to-automate-your-digital-delivery/
+     * https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNIntro/
+     *
+     * Paypal verify method
+     * Source : https://developer.paypal.com/docs/classic/ipn/ht_ipn/
+    */
     public function verifyPayment($request, $processing)
     {
-        // Some good example for verify
-        // https://developer.paypal.com/docs/classic/ipn/ht_ipn/
-        // https://stackoverflow.com/questions/4848227/validate-that-ipn-call-is-from-paypal
-        // http://www.emanueleferonato.com/2011/09/28/using-php-with-paypals-ipn-instant-paypal-notification-to-automate-your-digital-delivery/
-        // https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNIntro/
-
-        /**
-         * Paypal verify method
-         * Source : https://developer.paypal.com/docs/classic/ipn/ht_ipn/
-         */
-
         // STEP 1: read POST data
         $req = 'cmd=_notify-validate';
         foreach ($request as $key => $value) {

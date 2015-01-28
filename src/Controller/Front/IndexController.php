@@ -21,9 +21,9 @@ use Zend\Json\Json;
 
 class IndexController extends ActionController
 {
-    public function indexAction()
+    /* public function indexAction()
     {
-        /* // Check user is login or not
+        // Check user is login or not
         Pi::service('authentication')->requireLogin();
         // Get module 
         $module = $this->params('module');
@@ -49,21 +49,12 @@ class IndexController extends ActionController
         }
         // Set view
         $this->view()->setTemplate('list');
-        $this->view()->assign('list', $list); */
-
-        // Set return
-        $return = array(
-            'website' => Pi::url(),
-            'module' => $this->params('module'),
-        );
-        // Set view
-        $this->view()->setTemplate(false)->setLayout('layout-content');
-        return Json::encode($return);  
+        $this->view()->assign('list', $list);
     }
 
     public function invoiceAction()
     {
-        /* // Check user
+        // Check user
         $this->checkUser();
         // Get invoice
         $id = $this->params('id');
@@ -86,15 +77,8 @@ class IndexController extends ActionController
         }
         // set view
         $this->view()->setTemplate('invoice');
-        $this->view()->assign('invoice', $invoice); */
-
-        $id = $this->params('id');
-        return $this->redirect()->toRoute('', array(
-            'controller' => 'index',
-            'action'     => 'pay',
-            'id'         => $id,
-        ));
-    }
+        $this->view()->assign('invoice', $invoice);
+    } */
 
     public function payAction()
     {

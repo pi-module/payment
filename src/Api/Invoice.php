@@ -42,7 +42,7 @@ class Invoice extends AbstractApi
         // Check user
         if ($config['payment_anonymous'] == 0 && $uid == 0) {
             $result['status'] = 0;
-            $result['invoice_url'] = '';
+            $result['pay_url'] = '';
             $result['message'] = __('Please login for create invoice');
         } else {
             if (empty($module) || 
@@ -53,7 +53,7 @@ class Invoice extends AbstractApi
                 empty($description)) 
             {
                 $result['status'] = 0;
-                $result['invoice_url'] = '';
+                $result['pay_url'] = '';
                 $result['message'] = __('Please send all informations for create invoice');
             } else {
                 // create invoice
@@ -72,11 +72,11 @@ class Invoice extends AbstractApi
                 $row->save();
                 // return array
                 $result['status'] = $row->status;
-                $result['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
+                /* $result['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                     'module'        => $this->getModule(),
                     'action'        => 'invoice',
                     'id'            => $row->id,
-                )));
+                ))); */
                 $invoice['pay_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                     'module'        => $this->getModule(),
                     'action'        => 'pay',
@@ -101,7 +101,7 @@ class Invoice extends AbstractApi
         $row = Pi::model('invoice', $this->getModule())->find($id);
         if (is_object($row)) {
             $invoice = $row->toArray();
-            $invoice['description'] = (array) Json::decode($invoice['description'], true);
+            $invoice['description'] = Json::decode($invoice['description'], true);
             $invoice['time_create_view'] = _date($invoice['time_create']);
             $invoice['amount_view'] = _currency($invoice['amount']);
             $invoice['item_view'] = _number($invoice['item']);
@@ -123,7 +123,7 @@ class Invoice extends AbstractApi
             $row->random_id = sprintf('%s%s', $row->id, $rand);
             $row->save();
             $invoice = $row->toArray();
-            $invoice['description'] = (array) Json::decode($invoice['description'], true);
+            $invoice['description'] = Json::decode($invoice['description'], true);
             $invoice['create'] = _date($invoice['time_create']);
             $invoice['pay'] = Pi::url(Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
@@ -145,11 +145,11 @@ class Invoice extends AbstractApi
             $invoice = $rowset->toArray();
             $invoice['description'] = Json::decode($invoice['description'], true);
             $invoice['create'] = _date($invoice['time_create']);
-            $invoice['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
+            /* $invoice['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
                 'action'        => 'invoice',
                 'id'            => $rowset->id,
-            )));
+            ))); */
             $invoice['pay_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
                 'action'        => 'pay',
