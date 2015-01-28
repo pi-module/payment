@@ -50,7 +50,7 @@ class IndexController extends ActionController
         // Set view
         $this->view()->setTemplate('list');
         $this->view()->assign('list', $list);
-    }
+    } */
 
     public function invoiceAction()
     {
@@ -78,7 +78,7 @@ class IndexController extends ActionController
         // set view
         $this->view()->setTemplate('invoice');
         $this->view()->assign('invoice', $invoice);
-    } */
+    }
 
     public function payAction()
     {

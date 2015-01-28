@@ -19,13 +19,33 @@
 		</div>
 	</div>	
 	<div class="clearfix">
-		<?php foreach ($invoice['description'] as $description) { ?>
 		<div class="well">
-			<?php foreach ($description as $key => $value) { ?>
-			<p><strong><?php echo $key; ?></strong> : <span><?php echo $value; ?></span></p>
+            <?php if (isset($invoice['description']['title'])) { ?>
+			<p><strong><?php _e('Title'); ?></strong> : <span><?php echo $this->escape($invoice['description']['title']); ?></span></p>
+            <?php unset($invoice['description']['title']); ?>
+			<?php } ?>
+			<?php if (isset($invoice['description']['price'])) { ?>
+			<p><strong><?php _e('Amount'); ?></strong> : <span><?php echo $this->escape($invoice['description']['price']); ?></span></p>
+            <?php unset($invoice['description']['price']); ?>
+			<?php } ?>
+			<?php if (isset($invoice['description']['vat'])) { ?>
+			<p><strong><?php _e('Vat'); ?></strong> : <span><?php echo $this->escape($invoice['description']['vat']); ?></span></p>
+            <?php unset($invoice['description']['vat']); ?>
+			<?php } ?>
+			<?php if (isset($invoice['description']['total'])) { ?>
+			<p><strong><?php _e('Total'); ?></strong> : <span><?php echo $this->escape($invoice['description']['total']); ?></span></p>
+            <?php unset($invoice['description']['total']); ?>
+			<?php } ?>
+			<?php if (isset($invoice['description']['number'])) { ?>
+			<p><strong><?php _e('Number'); ?></strong> : <span><?php echo $this->escape($invoice['description']['number']); ?></span></p>
+            <?php unset($invoice['description']['number']); ?>
+			<?php } ?>
+			<?php if (!empty($invoice['description'])) { ?>
+			<?php foreach ($invoice['description'] as $key => $value) { ?>
+			<p><strong><?php echo $this->escape($key); ?></strong> : <span><?php echo $this->escape($value); ?></span></p>
+			<?php } ?>
 			<?php } ?>
     	</div>
-		<?php } ?>
 	</div>
 	<?php if ($invoice['status'] == 2) {  ?>
 	<div class="clearfix">

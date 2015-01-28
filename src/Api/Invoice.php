@@ -73,12 +73,12 @@ class Invoice extends AbstractApi
                 $row->save();
                 // return array
                 $result['status'] = $row->status;
-                /* $result['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
+                $result['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                     'module'        => $this->getModule(),
                     'action'        => 'invoice',
                     'id'            => $row->id,
-                ))); */
-                $invoice['pay_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
+                )));
+                $result['pay_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                     'module'        => $this->getModule(),
                     'action'        => 'pay',
                     'id'            => $row->id,
@@ -164,11 +164,11 @@ class Invoice extends AbstractApi
             $invoice = $rowset->toArray();
             $invoice['description'] = Json::decode($invoice['description'], true);
             $invoice['create'] = _date($invoice['time_create']);
-            /* $invoice['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
+            $invoice['invoice_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
                 'action'        => 'invoice',
                 'id'            => $rowset->id,
-            ))); */
+            )));
             $invoice['pay_url'] = Pi::url(Pi::service('url')->assemble('payment', array(
                 'module'        => $this->getModule(),
                 'action'        => 'pay',
