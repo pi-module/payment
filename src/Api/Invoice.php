@@ -19,6 +19,7 @@ use Zend\Math\Rand;
 
 /*
  * Pi::api('invoice', 'payment')->createInvoice($module, $part, $item, $amount, $adapter, $description);
+ * Pi::api('invoice', 'payment')->createPaidInvoice($uid, $module, $part, $item, $amount, $adapter, $description);
  * Pi::api('invoice', 'payment')->getInvoice($id);
  * Pi::api('invoice', 'payment')->getInvoiceFromItem($module, $part, $item);
  * Pi::api('invoice', 'payment')->getInvoiceRandomId($id);
@@ -93,7 +94,25 @@ class Invoice extends AbstractApi
             }
         }
     	return $result;
-    }	
+    }
+
+    public function createPaidInvoice($uid, $module, $part, $item, $amount, $adapter, $description)
+    {
+        // create invoice
+        $row = Pi::model('invoice', $this->getModule())->createRow();
+        $row->random_id = time();
+        $row->module = $module;
+        $row->part = $part;
+        $row->item = $item;
+        $row->amount = $amount;
+        $row->adapter = $adapter;
+        $row->description = $description;
+        $row->uid = $uid;
+        $row->ip = Pi::user()->getIp();
+        $row->status = 1;
+        $row->time_create = time();
+        $row->save();
+    }
 
     public function getInvoice($id)
     {
