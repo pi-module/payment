@@ -89,20 +89,20 @@ class IndexController extends ActionController
         $invoice = Pi::api('invoice', 'payment')->getInvoiceRandomId($id);
         // Check invoice
         if (empty($invoice)) {
-           $this->jump(array('', 'action' => 'error'), __('The invoice not found.'));
+           $this->jump(array('', 'action' => 'error', 'id' => 1), __('The invoice not found.'));
         }
         // Check invoice not payd
         if ($invoice['status'] != 2) {
-            $this->jump(array('', 'action' => 'error'), __('The invoice payd.'));
+            $this->jump(array('', 'action' => 'error', 'id' => 2), __('The invoice payd.'));
         }
         // Check invoice is for this user
         if (Pi::service('authentication')->hasIdentity()) {
             if ($invoice['uid'] != Pi::user()->getId()) {
-                $this->jump(array('', 'action' => 'error'), __('This is not your invoice.'));
+                $this->jump(array('', 'action' => 'error', 'id' => 3), __('This is not your invoice.'));
             }
         } else {
             if (!isset($_SESSION['payment']['invoice_id']) || $_SESSION['payment']['invoice_id'] != $invoice['id']) {
-                $this->jump(array('', 'action' => 'error'), __('This is not your invoice.'));
+                $this->jump(array('', 'action' => 'error', 'id' => 4), __('This is not your invoice.'));
             }
             // Set session
             $_SESSION['payment']['process_update'] = time();
@@ -338,6 +338,7 @@ class IndexController extends ActionController
             'website' => Pi::url(),
             'module' => $this->params('module'),
             'message' => 'error',
+            'id' => $this->params('id'),
         );
         // Set view
         $this->view()->setTemplate(false)->setLayout('layout-content');
