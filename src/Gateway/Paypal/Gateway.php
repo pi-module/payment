@@ -304,6 +304,20 @@ class Gateway extends AbstractGateway
 
     public function getAuthority()
     {
+        // Temporary solution for guide module
+        if ($this->gatewayInvoice['module'] == 'guide') {
+            $id = $this->gatewayInvoice['item'];
+            $order = Pi::api('order', 'guide')->getOrder($id);
+            $this->gatewayPayInformation['first_name'] = $order['customerInfo']['first_name'];
+            $this->gatewayPayInformation['last_name'] = $order['customerInfo']['last_name'];
+            $this->gatewayPayInformation['address1'] = $order['customerInfo']['address'];
+            $this->gatewayPayInformation['city'] = $order['customerInfo'][''];
+            $this->gatewayPayInformation['state'] = '';
+            $this->gatewayPayInformation['country'] = $order['customerInfo']['country'];
+            $this->gatewayPayInformation['zip'] = $order['customerInfo']['zip_code'];
+            $this->gatewayPayInformation['email'] = $order['user']['email'];
+        }
+
         $this->gatewayPayInformation['cmd'] = '_cart';
         $this->gatewayPayInformation['upload'] = 1;
         $this->gatewayPayInformation['return'] = $this->gatewayFinishUrl;
