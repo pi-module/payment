@@ -179,25 +179,11 @@ class Gateway extends AbstractGateway
             'name'      => 'amount_1',
             'type'      => 'hidden',
         );
-        // Set for test mode
-        if ($this->gatewayOption['test_mode']) {
-            // username
-            $form['username'] = array(
-                'name'      => 'username',
-                'type'      => 'hidden',
-            );
-            // password
-            $form['password'] = array(
-                'name'      => 'password',
-                'type'      => 'hidden',
-            );
-            // signature
-            $form['signature'] = array(
-                'name'      => 'signature',
-                'type'      => 'hidden',
-            );
-        }
-        /* 
+        // form amount_1
+        $form['tax_1'] = array(
+            'name'      => 'tax_1',
+            'type'      => 'hidden',
+        );
         // first_name
         $form['first_name'] = array(
             'name'      => 'first_name',
@@ -238,57 +224,29 @@ class Gateway extends AbstractGateway
             'name'      => 'email',
             'type'      => 'hidden',
         );
-        // form no_note
-        $form['no_note'] = array(
-            'name'      => 'no_note',
+        // image_url
+        $form['image_url'] = array(
+            'name'      => 'image_url',
             'type'      => 'hidden',
         );
-        // form bn
-        $form['bn'] = array(
-            'name'      => 'bn',
-            'type'      => 'hidden',
-        );
-        // form tax
-        $form['tax'] = array(
-            'name'      => 'tax',
-            'type'      => 'hidden',
-        );
-        // form rm
-        $form['rm'] = array(
-            'name'      => 'rm',
-            'type'      => 'hidden',
-        );
-        // form handling_cart
-        $form['handling_cart'] = array(
-            'name'      => 'handling_cart',
-            'type'      => 'hidden',
-        );
-        // form lc
-        $form['lc'] = array(
-            'name'      => 'lc',
-            'type'      => 'hidden',
-        );
-        // form cbt
-        $form['cbt'] = array(
-            'name'      => 'cbt',
-            'type'      => 'hidden',
-        );
-        // form custom
-        $form['custom'] = array(
-            'name'      => 'custom',
-            'type'      => 'hidden',
-        );
-        // form charset
-        $form['charset'] = array(
-            'name'      => 'charset',
-            'type'      => 'hidden',
-        );
-        // form shipping_1
-        $form['shipping_1'] = array(
-            'name'      => 'shipping_1',
-            'type'      => 'hidden',
-        );
-        */
+        // Set for test mode
+        if ($this->gatewayOption['test_mode']) {
+            // username
+            $form['username'] = array(
+                'name'      => 'username',
+                'type'      => 'hidden',
+            );
+            // password
+            $form['password'] = array(
+                'name'      => 'password',
+                'type'      => 'hidden',
+            );
+            // signature
+            $form['signature'] = array(
+                'name'      => 'signature',
+                'type'      => 'hidden',
+            );
+        }
         $this->gatewayPayForm = $form;
         return $this;
     }
@@ -316,46 +274,32 @@ class Gateway extends AbstractGateway
             $this->gatewayPayInformation['country'] = $order['customerInfo']['country'];
             $this->gatewayPayInformation['zip'] = $order['customerInfo']['zip_code'];
             $this->gatewayPayInformation['email'] = $order['user']['email'];
+            $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
+            $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
+            $this->gatewayPayInformation['quantity_1'] = 1;
+            $this->gatewayPayInformation['amount_1'] = $this->gatewayInvoice['description']['price'];
+            $this->gatewayPayInformation['tax_1'] = $this->gatewayInvoice['description']['vat'];
+        } else {
+            $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
+            $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
+            $this->gatewayPayInformation['quantity_1'] = 1;
+            $this->gatewayPayInformation['amount_1'] = $this->gatewayInvoice['amount'];
         }
-
         $this->gatewayPayInformation['cmd'] = '_cart';
         $this->gatewayPayInformation['upload'] = 1;
         $this->gatewayPayInformation['return'] = $this->gatewayFinishUrl;
         $this->gatewayPayInformation['cancel_return'] = $this->gatewayCancelUrl;
         $this->gatewayPayInformation['notify_url'] = $this->gatewayNotifyUrl;
         $this->gatewayPayInformation['invoice'] = $this->gatewayInvoice['random_id'];
-        $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
-        $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
-        $this->gatewayPayInformation['quantity_1'] = 1;
-        $this->gatewayPayInformation['amount_1'] = $this->gatewayInvoice['amount'];
         $this->gatewayPayInformation['business'] = $this->gatewayOption['business'];
         $this->gatewayPayInformation['currency_code'] = $this->gatewayOption['currency'];
-        $this->gatewayPayInformation['logoimg'] = Pi::service('asset')->logo();
+        $this->gatewayPayInformation['image_url'] = 'https://www.envie-de-queyras.com/asset/theme-izoard/image/touch-icon-iphone.png';
         // Set for test mode
         if ($this->gatewayOption['test_mode']) {
             $this->gatewayPayInformation['username'] = $this->gatewayOption['username'];
             $this->gatewayPayInformation['password'] = $this->gatewayOption['password'];
             $this->gatewayPayInformation['signature'] = $this->gatewayOption['signature'];
         }
-        /* 
-        $this->gatewayPayInformation['first_name'] = '';
-        $this->gatewayPayInformation['last_name'] = '';
-        $this->gatewayPayInformation['address1'] = '';
-        $this->gatewayPayInformation['city'] = '';
-        $this->gatewayPayInformation['state'] = '';
-        $this->gatewayPayInformation['country'] = '';
-        $this->gatewayPayInformation['zip'] = '';
-        $this->gatewayPayInformation['email'] = '';
-        $this->gatewayPayInformation['no_note'] = 0;
-        $this->gatewayPayInformation['bn'] = 'PP-BuyNowBF';
-        $this->gatewayPayInformation['tax'] = 0;
-        $this->gatewayPayInformation['rm'] = 1;
-        $this->gatewayPayInformation['handling_cart'] = 0;
-        $this->gatewayPayInformation['lc'] = $this->gatewayOption['location'];
-        $this->gatewayPayInformation['cbt'] = __('Back to website');
-        $this->gatewayPayInformation['custom'] = $this->gatewayOption['custom'];
-        $this->gatewayPayInformation['charset'] = 'utf-8';
-        */
     }
 
     public function setRedirectUrl()
