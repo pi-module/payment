@@ -309,11 +309,11 @@ class Gateway extends AbstractGateway
         $this->gatewayPayInformation['return'] = $this->gatewayFinishUrl;
         $this->gatewayPayInformation['cancel_return'] = $this->gatewayCancelUrl;
         $this->gatewayPayInformation['notify_url'] = $this->gatewayNotifyUrl;
-        $this->gatewayPayInformation['invoice'] = intval($this->gatewayInvoice['random_id']);
+        $this->gatewayPayInformation['invoice'] = $this->gatewayInvoice['random_id'];
         $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
         $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
         $this->gatewayPayInformation['quantity_1'] = 1;
-        $this->gatewayPayInformation['amount_1'] = intval($this->gatewayInvoice['amount']);
+        $this->gatewayPayInformation['amount_1'] = $this->gatewayInvoice['amount'];
         $this->gatewayPayInformation['business'] = $this->gatewayOption['business'];
         $this->gatewayPayInformation['currency_code'] = $this->gatewayOption['currency'];
         $this->gatewayPayInformation['logoimg'] = Pi::service('asset')->logo();
