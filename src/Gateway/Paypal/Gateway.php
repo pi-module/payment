@@ -264,16 +264,14 @@ class Gateway extends AbstractGateway
     {
         // Temporary solution for guide module
         if ($this->gatewayInvoice['module'] == 'guide') {
-            $id = $this->gatewayInvoice['item'];
-            $order = Pi::api('order', 'guide')->getOrder($id);
-            $this->gatewayPayInformation['first_name'] = $order['customerInfo']['first_name'];
-            $this->gatewayPayInformation['last_name'] = $order['customerInfo']['last_name'];
-            $this->gatewayPayInformation['address1'] = $order['customerInfo']['address'];
-            $this->gatewayPayInformation['city'] = $order['customerInfo'][''];
+            $this->gatewayPayInformation['first_name'] = $this->gatewayInvoice['description']['first_name'];
+            $this->gatewayPayInformation['last_name'] = $this->gatewayInvoice['description']['last_name'];
+            $this->gatewayPayInformation['address1'] = $this->gatewayInvoice['description']['address'];
+            $this->gatewayPayInformation['city'] = $this->gatewayInvoice['description']['city'];
             $this->gatewayPayInformation['state'] = '';
-            $this->gatewayPayInformation['country'] = $order['customerInfo']['country'];
-            $this->gatewayPayInformation['zip'] = $order['customerInfo']['zip_code'];
-            $this->gatewayPayInformation['email'] = $order['user']['email'];
+            $this->gatewayPayInformation['country'] = $this->gatewayInvoice['description']['country'];
+            $this->gatewayPayInformation['zip'] = $this->gatewayInvoice['description']['zip'];
+            $this->gatewayPayInformation['email'] = $this->gatewayInvoice['description']['email'];
             $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
             $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
             $this->gatewayPayInformation['quantity_1'] = 1;
