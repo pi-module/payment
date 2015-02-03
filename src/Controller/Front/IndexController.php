@@ -275,14 +275,14 @@ class IndexController extends ActionController
             } else {
                 $message = __('Payment is clean');
             }
-            $this->jump(array('', 'action' => 'pay', 'id' => $id), $message);
+            $this->jump(array('', 'action' => 'invoice', 'id' => $id), $message);
         } else {
             $processing = Pi::api('processing', 'payment')->getProcessing();
             if (isset($processing['id']) && !empty($processing['id'])) {
                 $values['id'] = $processing['id'];
             } else {
                 $message = __('Payment is clean');
-                $this->jump(array('', 'action' => 'pay', 'id' => $id), $message);
+                $this->jump(array('', 'action' => 'invoice', 'id' => $id), $message);
             }
             // Set form
             $form = new RemoveForm('Remove');
