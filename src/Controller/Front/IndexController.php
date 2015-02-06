@@ -222,6 +222,8 @@ class IndexController extends ActionController
 
     public function notifyAction()
     {
+        // Set view
+        $this->view()->setTemplate(false)->setLayout('layout-content');
         // Get module 
         $module = $this->params('module');
         // Get config
@@ -244,21 +246,13 @@ class IndexController extends ActionController
                 if ($gateway->gatewayError) {
                     // Remove processing
                     Pi::api('processing', 'payment')->removeProcessing($request['invoice']);
-                    return false;
                 } else {
                     if ($verify['status'] == 1) {
                         $url = Pi::api('invoice', 'payment')->updateModuleInvoice($verify['invoice']);
                         Pi::api('invoice', 'payment')->setBackUrl($verify['invoice'], $url);
-                        return true;
-                    } else {
-                        return false;
                     }
                 }
-            } else {
-                return false;
             }
-        } else {
-            return false;
         }
     }
 
