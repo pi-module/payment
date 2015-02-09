@@ -234,6 +234,11 @@ class Gateway extends AbstractGateway
             'name'      => 'image_url',
             'type'      => 'hidden',
         );
+        // no_shipping
+        $form['no_shipping'] = array(
+            'name'      => 'no_shipping',
+            'type'      => 'hidden',
+        );
         // Set for test mode
         if ($this->gatewayOption['test_mode']) {
             // username
@@ -283,6 +288,7 @@ class Gateway extends AbstractGateway
             $this->gatewayPayInformation['quantity_1'] = 1;
             $this->gatewayPayInformation['amount_1'] = $this->gatewayInvoice['description']['price'];
             $this->gatewayPayInformation['tax_1'] = $this->gatewayInvoice['description']['vat'];
+            $this->gatewayPayInformation['no_shipping'] = 1;
         } else {
             $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
             $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
