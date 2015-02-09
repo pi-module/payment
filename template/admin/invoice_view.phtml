@@ -22,19 +22,19 @@
             <?php unset($invoice['description']['title']); ?>
 			<?php } ?>
 			<?php if (isset($invoice['description']['price'])) { ?>
-			<p><strong><?php _e('Amount'); ?></strong> : <span><?php echo $this->escape($invoice['description']['price']); ?></span></p>
+			<p><strong><?php _e('Amount'); ?></strong> : <span><?php echo _currency($invoice['description']['price']); ?></span></p>
             <?php unset($invoice['description']['price']); ?>
 			<?php } ?>
 			<?php if (isset($invoice['description']['vat'])) { ?>
-			<p><strong><?php _e('Vat'); ?></strong> : <span><?php echo $this->escape($invoice['description']['vat']); ?></span></p>
+			<p><strong><?php _e('Vat'); ?></strong> : <span><?php echo _currency($invoice['description']['vat']); ?></span></p>
             <?php unset($invoice['description']['vat']); ?>
 			<?php } ?>
 			<?php if (isset($invoice['description']['total'])) { ?>
-			<p><strong><?php _e('Total'); ?></strong> : <span><?php echo $this->escape($invoice['description']['total']); ?></span></p>
+			<p><strong><?php _e('Total'); ?></strong> : <span><?php echo _currency($invoice['description']['total']); ?></span></p>
             <?php unset($invoice['description']['total']); ?>
 			<?php } ?>
 			<?php if (isset($invoice['description']['number'])) { ?>
-			<p><strong><?php _e('Number'); ?></strong> : <span><?php echo $this->escape($invoice['description']['number']); ?></span></p>
+			<p><strong><?php _e('Number'); ?></strong> : <span><?php echo _number($invoice['description']['number']); ?></span></p>
             <?php unset($invoice['description']['number']); ?>
 			<?php } ?>
 			<hr />
