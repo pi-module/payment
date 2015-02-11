@@ -239,6 +239,11 @@ class Gateway extends AbstractGateway
             'name'      => 'no_shipping',
             'type'      => 'hidden',
         );
+        // address_override
+        $form['address_override'] = array(
+            'name'      => 'address_override',
+            'type'      => 'hidden',
+        );
         // Set for test mode
         if ($this->gatewayOption['test_mode']) {
             // username
@@ -289,6 +294,7 @@ class Gateway extends AbstractGateway
             $this->gatewayPayInformation['amount_1'] = $this->gatewayInvoice['description']['price'];
             $this->gatewayPayInformation['tax_1'] = $this->gatewayInvoice['description']['vat'];
             $this->gatewayPayInformation['no_shipping'] = 1;
+            $this->gatewayPayInformation['address_override'] = 1;
         } else {
             $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
             $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
@@ -303,7 +309,7 @@ class Gateway extends AbstractGateway
         $this->gatewayPayInformation['invoice'] = $this->gatewayInvoice['random_id'];
         $this->gatewayPayInformation['business'] = $this->gatewayOption['business'];
         $this->gatewayPayInformation['currency_code'] = $this->gatewayOption['currency'];
-        $this->gatewayPayInformation['image_url'] = 'https://www.envie-de-queyras.com/asset/theme-izoard/image/touch-icon-iphone.png';
+        $this->gatewayPayInformation['image_url'] = 'https://www.envie-de-queyras.com/asset/theme-izoard/image/paypal.png';
         // Set for test mode
         if ($this->gatewayOption['test_mode']) {
             $this->gatewayPayInformation['username'] = $this->gatewayOption['username'];
