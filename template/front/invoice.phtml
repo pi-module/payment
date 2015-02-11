@@ -80,7 +80,9 @@
 			<?php } ?>
 			<?php if (!empty($invoice['description'])) { ?>
 			<?php foreach ($invoice['description'] as $key => $value) { ?>
+            <?php if (!empty($value)) { ?>
 			<p><strong><?php echo $this->escape($key); ?></strong> : <span><?php echo $this->escape($value); ?></span></p>
+            <?php } ?>
 			<?php } ?>
 			<?php } ?>
     	</div>
