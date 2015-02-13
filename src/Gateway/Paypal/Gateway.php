@@ -224,6 +224,11 @@ class Gateway extends AbstractGateway
             'name'      => 'email',
             'type'      => 'hidden',
         );
+        // billtophonenum
+        $form['billtophonenum'] = array(
+            'name'      => 'billtophonenum',
+            'type'      => 'hidden',
+        );
         // phone
         $form['phone'] = array(
             'name'      => 'phone',
@@ -287,6 +292,7 @@ class Gateway extends AbstractGateway
             $this->gatewayPayInformation['country'] = $this->gatewayInvoice['description']['country'];
             $this->gatewayPayInformation['zip'] = $this->gatewayInvoice['description']['zip'];
             $this->gatewayPayInformation['email'] = $this->gatewayInvoice['description']['email'];
+            $this->gatewayPayInformation['billtophonenum'] = $this->gatewayInvoice['description']['phone'];
             $this->gatewayPayInformation['phone'] = $this->gatewayInvoice['description']['phone'];
             $this->gatewayPayInformation['item_name_1'] = $this->gatewayInvoice['description']['title'];
             $this->gatewayPayInformation['item_number_1'] = $this->gatewayInvoice['description']['number'];
